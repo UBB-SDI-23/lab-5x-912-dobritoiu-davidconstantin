@@ -10,6 +10,7 @@ function AuthorList() {
     country: "",
   });
   const [filteredAuthors, setFilteredAuthors] = useState([]);
+  const [sortedAuthors, setSortedAuthors] = useState([]);
 
   useEffect(() => {
     fetchAuthors();
@@ -33,12 +34,18 @@ function AuthorList() {
       .catch((error) => console.log(error));
   };
 
+  const handleSort = () => {
+    const data = fetchAuthors();
+    console.log(data);
+  }
+
   const fetchAuthors = () => {
     axios
       .get("/api/authors")
       .then((response) => setAuthors(response.data))
       .catch((error) => console.log(error));
   };
+
 
   const handleCreate = (e) => {
     e.preventDefault();
@@ -201,6 +208,28 @@ function AuthorList() {
             </thead>
             <tbody>
               {filteredAuthors.map((author) => (
+                <tr key={author.id}>
+                  <td>{author.name}</td>
+                  <td>{author.booksCount}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+      <button onClick={handleSort}>Sort</button>
+      {sortedAuthors && (
+        <div>
+          <h1>Sorted Author Book Counts</h1>
+          <table>
+            <thead>
+              <tr>
+                <th>Author Name</th>
+                <th>Book Count</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedAuthors.map((author) => (
                 <tr key={author.id}>
                   <td>{author.name}</td>
                   <td>{author.booksCount}</td>
