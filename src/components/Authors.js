@@ -17,7 +17,7 @@ function AuthorList() {
 
   const handleFilter = () => {
     axios
-      .get("http://ec2-3-71-201-11.eu-central-1.compute.amazonaws.com/authors/filterAuthorsByNumberOfBooks")
+      .get("/api/authors/filterAuthorsByNumberOfBooks")
       .then((response) => {
         const filteredData = response.data
           .filter((author) => author.booksCount > 0)
@@ -35,7 +35,7 @@ function AuthorList() {
 
   const fetchAuthors = () => {
     axios
-      .get("http://ec2-3-71-201-11.eu-central-1.compute.amazonaws.com/authors")
+      .get("/api/authors")
       .then((response) => setAuthors(response.data))
       .catch((error) => console.log(error));
   };
@@ -43,7 +43,7 @@ function AuthorList() {
   const handleCreate = (e) => {
     e.preventDefault();
     axios
-      .post("http://ec2-3-71-201-11.eu-central-1.compute.amazonaws.com/authors", formData)
+      .post("/api/authors", formData)
       .then((response) => {
         console.log(response);
         setFormData({ name: "", email: "", bio: "", country: "" });
@@ -60,7 +60,7 @@ function AuthorList() {
   const handleUpdate = (e) => {
     e.preventDefault();
     axios
-      .put(`http://ec2-3-71-201-11.eu-central-1.compute.amazonaws.com/authors/${formData.id}`, formData)
+      .put(`/api/authors/${formData.id}`, formData)
       .then((response) => {
         console.log(response);
         setFormData({ name: "", email: "", bio: "", country: "" });
@@ -71,7 +71,7 @@ function AuthorList() {
 
   const handleDelete = (authorId) => {
     axios
-      .delete(`http://ec2-3-71-201-11.eu-central-1.compute.amazonaws.com/authors/${authorId}`)
+      .delete(`/api/authors/${authorId}`)
       .then((response) => {
         console.log(response);
         fetchAuthors();
