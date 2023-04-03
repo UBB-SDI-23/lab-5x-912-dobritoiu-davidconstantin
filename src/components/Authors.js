@@ -54,11 +54,12 @@ function AuthorList() {
   function handleSort(field) {
     const authors = axios
       .get("/api/authors")
-      .then((response) => setSortedAuthors(response.data))
+      .then((response) => {
+        const isAscending = field === "name";
+        const sorted = sortAuthors(authors, field, isAscending);
+        setSortedAuthors(sorted);
+      })
       .catch((error) => console.log(error));
-    const isAscending = field === "name";
-    const sorted = sortAuthors(authors, field, isAscending);
-    setSortedAuthors(sorted);
   }
 
   const fetchAuthors = () => {
