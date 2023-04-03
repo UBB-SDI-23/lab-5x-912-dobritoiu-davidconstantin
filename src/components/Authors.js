@@ -34,9 +34,31 @@ function AuthorList() {
       .catch((error) => console.log(error));
   };
 
-  const handleSort = () => {
-    const data = fetchAuthors();
-    console.log(data);
+  function sortAuthors(authors, field, isAscending) {
+    const compareFunction = (a, b) => {
+      const valueA = a[field];
+      const valueB = b[field];
+
+      if (typeof valueA === "string" && typeof valueB === "string") {
+        return isAscending
+          ? valueA.localeCompare(valueB)
+          : valueB.localeCompare(valueA);
+      }
+
+      return isAscending ? valueA - valueB : valueB - valueA;
+    };
+
+    return [...authors].sort(compareFunction);
+  }
+
+  function handleSort(field) {
+    const authors = axios
+      .get("/api/authors")
+      .then((response) => setSortedAuthors(response.data))
+      .catch((error) => console.log(error));
+    const isAscending = field === "name";
+    const sorted = sortAuthors(authors, field, isAscending);
+    setSortedAuthors(sorted);
   }
 
   const fetchAuthors = () => {
@@ -45,7 +67,6 @@ function AuthorList() {
       .then((response) => setAuthors(response.data))
       .catch((error) => console.log(error));
   };
-
 
   const handleCreate = (e) => {
     e.preventDefault();
@@ -224,15 +245,19 @@ function AuthorList() {
           <table>
             <thead>
               <tr>
-                <th>Author Name</th>
-                <th>Book Count</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Bio</th>
+                <th>Country</th>
               </tr>
             </thead>
             <tbody>
               {sortedAuthors.map((author) => (
                 <tr key={author.id}>
                   <td>{author.name}</td>
-                  <td>{author.booksCount}</td>
+                  <td>{author.email}</td>
+                  <td>{author.bio}</td>
+                  <td>{author.country}</td>
                 </tr>
               ))}
             </tbody>
