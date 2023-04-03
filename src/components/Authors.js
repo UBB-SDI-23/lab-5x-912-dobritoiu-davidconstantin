@@ -243,10 +243,10 @@ function AuthorList() {
           </table>
         </div>
       )}
-      <button onClick={handleSort}>Sort</button>
+      <button onClick={() => handleSort('name')}>Sort by Name</button>
       {sortedAuthors.length > 0 && (
         <div>
-          <h1>Sorted Author Book Counts</h1>
+          <h1>Sorted Authors</h1>
           <table>
             <thead>
               <tr>
