@@ -52,11 +52,15 @@ function AuthorList() {
   }
 
   function handleSort(field) {
-    const authors = axios
+    axios
       .get("/api/authors")
       .then((response) => {
+        if (!Array.isArray(response.data)) {
+          console.log("Author data is not an array.");
+          return;
+        }
         const isAscending = field === "name";
-        const sorted = sortAuthors(authors, field, isAscending);
+        const sorted = sortAuthors([...response.data], field, isAscending);
         setSortedAuthors(sorted);
       })
       .catch((error) => console.log(error));
