@@ -188,7 +188,7 @@ function AuthorList() {
         <button type="submit">Update</button>
       </form>
 
-
+      <button onClick={handleFilter}>Filter</button>
       {filteredAuthors.length > 0 && (
         <div>
           <h1>Filtered Author Book Counts</h1>
