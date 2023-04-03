@@ -17,7 +17,7 @@ function AuthorList() {
 
   const handleFilter = () => {
     axios
-      .get("http://18.156.129.65/authors/filterAuthorsByNumberOfBooks")
+      .get("https://18.156.129.65/authors/filterAuthorsByNumberOfBooks")
       .then((response) => {
         const filteredData = response.data
           .filter((author) => author.booksCount > 0)
@@ -35,7 +35,7 @@ function AuthorList() {
 
   const fetchAuthors = () => {
     axios
-      .get("http://18.156.129.65/authors")
+      .get("https://18.156.129.65/authors")
       .then((response) => setAuthors(response.data))
       .catch((error) => console.log(error));
   };
@@ -43,7 +43,7 @@ function AuthorList() {
   const handleCreate = (e) => {
     e.preventDefault();
     axios
-      .post("http://18.156.129.65/authors", formData)
+      .post("https://18.156.129.65/authors", formData)
       .then((response) => {
         console.log(response);
         setFormData({ name: "", email: "", bio: "", country: "" });
@@ -60,7 +60,7 @@ function AuthorList() {
   const handleUpdate = (e) => {
     e.preventDefault();
     axios
-      .put(`http://18.156.129.65/authors/${formData.id}`, formData)
+      .put(`https://18.156.129.65/authors/${formData.id}`, formData)
       .then((response) => {
         console.log(response);
         setFormData({ name: "", email: "", bio: "", country: "" });
@@ -71,7 +71,7 @@ function AuthorList() {
 
   const handleDelete = (authorId) => {
     axios
-      .delete(`http://18.156.129.65/authors/${authorId}`)
+      .delete(`https://18.156.129.65/authors/${authorId}`)
       .then((response) => {
         console.log(response);
         fetchAuthors();
