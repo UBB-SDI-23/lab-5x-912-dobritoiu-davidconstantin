@@ -106,6 +106,7 @@ function AuthorList() {
     axios
       .delete(`/api/authors/${authorId}`)
       .then((response) => {
+        console.log(authorId);
         console.log(response);
         fetchAuthors();
       })
