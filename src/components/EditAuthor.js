@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { BrowserRouter as Router } from "react-router-dom";
 
 function EditAuthor() {
   const navigate = useNavigate();
@@ -32,7 +31,7 @@ function EditAuthor() {
   };
 
   return (
-        <div>
+    <div>
       <h1>Edit Author</h1>
       <form onSubmit={handleSubmit}>
         <div>
