@@ -5,16 +5,15 @@ import DeleteAuthor from "./DeleteAuthor";
 
 function AuthorList() {
   const [authors, setAuthors] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(100);
   const navigate = useNavigate();
 
   const fetchAuthors = useCallback(() => {
-    const startIndex = currentPage * itemsPerPage;
+    const startIndex = (currentPage - 1) * itemsPerPage;
     axios
       .get(`/api/authors?page=${startIndex}&size=${itemsPerPage}`)
-      .then((response) =>{ setAuthors(response.data);
-      console.log(typeof response.data)})
+      .then((response) => setAuthors(response.data))
       .catch((error) => console.log(error));
   }, [currentPage, itemsPerPage]);
 
@@ -46,20 +45,22 @@ function AuthorList() {
       .get("/api/authors/count")
       .then((response) => {
         setTotalAuthors(response.data);
-        setCurrentPage(0);
       })
       .catch((error) => console.log(error));
   }, []);
 
   const totalPages = Math.max(1, Math.ceil(totalAuthors / itemsPerPage));
   const pageButtons = [];
-  for (let i = 0; i < totalPages; i++) {
+  for (let i = 1; i <= totalPages; i++) {
     pageButtons.push(
       <button key={i} onClick={() => setCurrentPage(i)}>
-        {i + 1}
+        {i}
       </button>
     );
   }
+
+  const startIdx = (currentPage - 1) * itemsPerPage;
+  const endIdx = Math.min(startIdx + itemsPerPage, totalAuthors);
 
   return (
     <div>
@@ -90,7 +91,12 @@ function AuthorList() {
           ))}
         </tbody>
       </table>
-      <div>{pageButtons}</div>
+      <div>
+        <p>
+          Showing {startIdx + 1}-{endIdx} of {totalAuthors} authors
+        </p>
+        <div>{pageButtons}</div>
+      </div>
     </div>
   );
 }
