@@ -52,15 +52,13 @@ function AuthorList() {
   }, []);
 
   const totalPages = Math.max(1, Math.ceil(totalAuthors / itemsPerPage));
-  const pageButtons = [];
-  const numButtons = [1, 10, 100];
 
   const handleNextPage = () => {
-    setCurrentPage(Math.min(currentPage + itemsPerPage, totalPages - 1));
+    setCurrentPage(Math.min(currentPage + 1, totalPages - 1));
   };
 
   const handlePrevPage = () => {
-    setCurrentPage(Math.max(currentPage - itemsPerPage, 0));
+    setCurrentPage(Math.max(currentPage - 1, 0));
   };
 
   const handleJump = (jump) => {
