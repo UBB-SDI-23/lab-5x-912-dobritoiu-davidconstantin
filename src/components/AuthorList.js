@@ -39,7 +39,15 @@ function AuthorList() {
     navigate(`/authors/create`);
   };
 
-  const totalPages = Math.ceil(1000000 / itemsPerPage);
+  const [totalAuthors, setTotalAuthors] = useState(0);
+  useEffect(() => {
+    axios
+      .get('/api/authors/count')
+      .then((response) => setTotalAuthors(response.data))
+      .catch((error) => console.log(error));
+  }, []);
+
+  const totalPages = Math.ceil(totalAuthors / itemsPerPage);
   const pageButtons = [];
   for (let i = 1; i <= totalPages; i++) {
     pageButtons.push(
