@@ -20,7 +20,7 @@ function AuthorList() {
   useEffect(() => {
     fetchAuthors();
     console.log(authors);
-  }, [fetchAuthors]);
+  }, [fetchAuthors, authors]);
 
   const handleEdit = (authorId) => {
     navigate(`/authors/${authorId}/edit`);
