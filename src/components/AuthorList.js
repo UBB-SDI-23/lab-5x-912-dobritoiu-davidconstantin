@@ -19,6 +19,7 @@ function AuthorList() {
 
   useEffect(() => {
     fetchAuthors();
+    console.log(authors);
   }, [fetchAuthors]);
 
   const handleEdit = (authorId) => {
