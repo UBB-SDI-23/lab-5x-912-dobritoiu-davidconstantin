@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DeleteAuthor from './DeleteAuthor';
@@ -9,17 +9,17 @@ function AuthorList() {
   const [itemsPerPage, setItemsPerPage] = useState(100);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchAuthors();
-  }, [currentPage]);
-
-  const fetchAuthors = () => {
+  const fetchAuthors = useCallback(() => {
     const startIndex = currentPage * itemsPerPage;
     axios
       .get(`/api/authors?_start=${startIndex}&_limit=${itemsPerPage}`)
       .then((response) => setAuthors(response.data))
       .catch((error) => console.log(error));
-  };
+  }, [currentPage, itemsPerPage]);
+
+  useEffect(() => {
+    fetchAuthors();
+  }, [fetchAuthors]);
 
   const handleEdit = (authorId) => {
     navigate(`/authors/${authorId}/edit`);
