@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import DeleteAuthor from './DeleteAuthor';
+import DeleteAuthor from "./DeleteAuthor";
 
 function AuthorList() {
   const [authors, setAuthors] = useState([]);
@@ -11,13 +11,17 @@ function AuthorList() {
 
   const fetchAuthors = useCallback(() => {
     const startIndex = currentPage * itemsPerPage;
-    console.log("API call with start index:", startIndex, "and limit:", itemsPerPage);
+    console.log(
+      "API call with start index:",
+      startIndex,
+      "and limit:",
+      itemsPerPage
+    );
     axios
-      .get(`/api/authors?_start=${startIndex}&_limit=${itemsPerPage}`)
+      .get(`/api/authors?page=${startIndex}&size=${itemsPerPage}`)
       .then((response) => setAuthors(response.data))
       .catch((error) => console.log(error));
   }, [currentPage, itemsPerPage]);
-  
 
   useEffect(() => {
     fetchAuthors();
@@ -44,58 +48,57 @@ function AuthorList() {
   const [totalAuthors, setTotalAuthors] = useState(0);
   useEffect(() => {
     axios
-      .get('/api/authors/count')
+      .get("/api/authors/count")
       .then((response) => {
         setTotalAuthors(response.data);
         setCurrentPage(0);
-        console.log('Total authors:', response.data);
-        console.log('Total pages:', totalPages);
+        console.log("Total authors:", response.data);
+        console.log("Total pages:", totalPages);
       })
       .catch((error) => console.log(error));
   }, []);
-  
 
-  const totalPages = Math.ceil(totalAuthors / itemsPerPage);
+  const totalPages = Math.max(1, Math.ceil(totalAuthors / itemsPerPage));
   const pageButtons = [];
   for (let i = 0; i < totalPages; i++) {
     pageButtons.push(
-      <button key={i} onClick={() => setCurrentPage(i)}>{i + 1}</button>
+      <button key={i} onClick={() => setCurrentPage(i)}>
+        {i + 1}
+      </button>
     );
   }
 
   return (
-      <div>
-        <h1>Author List</h1>
-        <button onClick={handleCreate}>Create Author</button>
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Bio</th>
-              <th>Country</th>
-              <th>Actions</th>
+    <div>
+      <h1>Author List</h1>
+      <button onClick={handleCreate}>Create Author</button>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Bio</th>
+            <th>Country</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {authors.map((author) => (
+            <tr key={author.id}>
+              <td>{author.name}</td>
+              <td>{author.email}</td>
+              <td>{author.bio}</td>
+              <td>{author.country}</td>
+              <td>
+                <button onClick={() => handleEdit(author.id)}>Edit</button>
+                <DeleteAuthor author={author} handleDelete={handleDelete} />
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {authors.map((author) => (
-              <tr key={author.id}>
-                <td>{author.name}</td>
-                <td>{author.email}</td>
-                <td>{author.bio}</td>
-                <td>{author.country}</td>
-                <td>
-                  <button onClick={() => handleEdit(author.id)}>Edit</button>
-                  <DeleteAuthor author={author} handleDelete={handleDelete} />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <div>
-          {pageButtons}
-        </div>
-      </div>
+          ))}
+        </tbody>
+      </table>
+      <div>{pageButtons}</div>
+    </div>
   );
 }
 
