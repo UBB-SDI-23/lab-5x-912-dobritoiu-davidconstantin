@@ -48,9 +48,12 @@ function AuthorList() {
       .then((response) => {
         setTotalAuthors(response.data);
         setCurrentPage(0);
+        console.log('Total authors:', response.data);
+        console.log('Total pages:', totalPages);
       })
       .catch((error) => console.log(error));
   }, []);
+  
 
   const totalPages = Math.ceil(totalAuthors / itemsPerPage);
   const pageButtons = [];
