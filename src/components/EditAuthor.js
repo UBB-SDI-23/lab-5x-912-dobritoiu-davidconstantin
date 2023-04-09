@@ -3,20 +3,25 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 function EditAuthor() {
+  const [author, setAuthor] = useState({
+    name: "",
+    email: "",
+    bio: "",
+    country: "",
+  });
+
   const navigate = useNavigate();
   const { id } = useParams();
-  const [author, setAuthor] = useState({});
 
   useEffect(() => {
+    fetchAuthor();
+  }, []);
+
+  const fetchAuthor = () => {
     axios
       .get(`/api/authors/${id}`)
       .then((response) => setAuthor(response.data))
       .catch((error) => console.log(error));
-  }, [id]);
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setAuthor({ ...author, [name]: value });
   };
 
   const handleSubmit = (event) => {
@@ -30,48 +35,60 @@ function EditAuthor() {
       .catch((error) => console.log(error));
   };
 
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setAuthor((prevAuthor) => ({
+      ...prevAuthor,
+      [name]: value,
+    }));
+  };
+
   return (
-    <div>
-      <h1>Edit Author</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name:</label>
-          <input
-            type="text"
-            name="name"
-            value={author.name}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={author.email}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>Bio:</label>
-          <textarea
-            name="bio"
-            value={author.bio}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>Country:</label>
-          <input
-            type="text"
-            name="country"
-            value={author.country}
-            onChange={handleInputChange}
-          />
-        </div>
-        <button type="submit">Save</button>
-      </form>
-    </div>
+      <div>
+        <h1>Edit Author</h1>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={author.name}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={author.email}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="bio">Bio:</label>
+            <textarea
+              id="bio"
+              name="bio"
+              value={author.bio}
+              onChange={handleInputChange}
+            ></textarea>
+          </div>
+          <div>
+            <label htmlFor="country">Country:</label>
+            <input
+              type="text"
+              id="country"
+              name="country"
+              value={author.country}
+              onChange={handleInputChange}
+            />
+          </div>
+          <button type="submit">Update</button>
+        </form>
+      </div>
   );
 }
 
