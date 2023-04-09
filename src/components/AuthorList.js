@@ -13,7 +13,8 @@ function AuthorList() {
     const startIndex = currentPage * itemsPerPage;
     axios
       .get(`/api/authors?page=${startIndex}&size=${itemsPerPage}`)
-      .then((response) => setAuthors(response.data))
+      .then((response) =>{ setAuthors(response.data);
+      console.log(typeof response.data)})
       .catch((error) => console.log(error));
   }, [currentPage, itemsPerPage]);
 
@@ -52,7 +53,6 @@ function AuthorList() {
 
   const totalPages = Math.max(1, Math.ceil(totalAuthors / itemsPerPage));
   const pageButtons = [];
-  console.log(totalPages)
   for (let i = 0; i < totalPages; i++) {
     pageButtons.push(
       <button key={i} onClick={() => setCurrentPage(i)}>
