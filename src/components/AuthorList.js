@@ -11,16 +11,17 @@ function AuthorList() {
 
   const fetchAuthors = useCallback(() => {
     const startIndex = currentPage * itemsPerPage;
+    console.log("API call with start index:", startIndex, "and limit:", itemsPerPage);
     axios
       .get(`/api/authors?_start=${startIndex}&_limit=${itemsPerPage}`)
       .then((response) => setAuthors(response.data))
       .catch((error) => console.log(error));
   }, [currentPage, itemsPerPage]);
+  
 
   useEffect(() => {
     fetchAuthors();
-    console.log(authors);
-  }, [fetchAuthors, authors]);
+  }, [fetchAuthors]);
 
   const handleEdit = (authorId) => {
     navigate(`/authors/${authorId}/edit`);
