@@ -5,7 +5,7 @@ import DeleteAuthor from './DeleteAuthor';
 
 function AuthorList() {
   const [authors, setAuthors] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(100);
   const navigate = useNavigate();
 
@@ -14,7 +14,7 @@ function AuthorList() {
   }, [currentPage]);
 
   const fetchAuthors = () => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
+    const startIndex = currentPage * itemsPerPage;
     axios
       .get(`/api/authors?_start=${startIndex}&_limit=${itemsPerPage}`)
       .then((response) => setAuthors(response.data))
@@ -43,15 +43,18 @@ function AuthorList() {
   useEffect(() => {
     axios
       .get('/api/authors/count')
-      .then((response) => setTotalAuthors(response.data))
+      .then((response) => {
+        setTotalAuthors(response.data);
+        setCurrentPage(0);
+      })
       .catch((error) => console.log(error));
   }, []);
 
   const totalPages = Math.ceil(totalAuthors / itemsPerPage);
   const pageButtons = [];
-  for (let i = 1; i <= totalPages; i++) {
+  for (let i = 0; i < totalPages; i++) {
     pageButtons.push(
-      <button key={i} onClick={() => setCurrentPage(i)}>{i}</button>
+      <button key={i} onClick={() => setCurrentPage(i)}>{i + 1}</button>
     );
   }
 
