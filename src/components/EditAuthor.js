@@ -32,7 +32,6 @@ function EditAuthor() {
   };
 
   return (
-    <Router>
         <div>
       <h1>Edit Author</h1>
       <form onSubmit={handleSubmit}>
@@ -74,7 +73,6 @@ function EditAuthor() {
         <button type="submit">Save</button>
       </form>
     </div>
-    </Router>
   );
 }
 
