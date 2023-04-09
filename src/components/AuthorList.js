@@ -53,13 +53,19 @@ function AuthorList() {
 
   const totalPages = Math.max(1, Math.ceil(totalAuthors / itemsPerPage));
   const pageButtons = [];
-  for (let i = 0; i < totalPages; i++) {
-    pageButtons.push(
-      <button key={i} onClick={() => setCurrentPage(i)}>
-        {i + 1}
-      </button>
-    );
-  }
+  const numButtons = [1, 10, 100];
+
+  const handleNextPage = () => {
+    setCurrentPage(Math.min(currentPage + itemsPerPage, totalPages - 1));
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage(Math.max(currentPage - itemsPerPage, 0));
+  };
+
+  const handleJump = (jump) => {
+    setCurrentPage(Math.max(Math.min(currentPage + jump, totalPages - 1), 0));
+  };
 
   const startIdx = currentPage * itemsPerPage;
   const endIdx = Math.min(startIdx + itemsPerPage, totalAuthors);
@@ -97,7 +103,34 @@ function AuthorList() {
         <p>
           Showing {startIdx + 1}-{endIdx} of {totalAuthors} authors
         </p>
-        <div>{pageButtons}</div>
+        <div>
+          <button onClick={handlePrevPage}>Prev</button>
+          {numButtons.map((num) => (
+            <button
+              key={num}
+              onClick={() => setItemsPerPage(num)}
+              className={itemsPerPage === num ? "active" : ""}
+            >
+              {num}
+            </button>
+          ))}
+          {Array.from({ length: totalPages }).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentPage(i)}
+              className={currentPage === i ? "active" : ""}
+            >
+              {i + 1}
+            </button>
+          ))}
+          <button onClick={handleNextPage}>Next</button>
+        </div>
+        <div>
+          <button onClick={() => handleJump(-100)}>Back 100</button>
+          <button onClick={() => handleJump(-10)}>Back 10</button>
+          <button onClick={() => handleJump(10)}>Forward 10</button>
+          <button onClick={() => handleJump(100)}>Forward 100</button>
+        </div>
       </div>
     </div>
   );
