@@ -105,24 +105,6 @@ function AuthorList() {
         </p>
         <div>
           <button onClick={handlePrevPage}>Prev</button>
-          {numButtons.map((num) => (
-            <button
-              key={num}
-              onClick={() => setItemsPerPage(num)}
-              className={itemsPerPage === num ? "active" : ""}
-            >
-              {num}
-            </button>
-          ))}
-          {Array.from({ length: totalPages }).map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentPage(i)}
-              className={currentPage === i ? "active" : ""}
-            >
-              {i + 1}
-            </button>
-          ))}
           <button onClick={handleNextPage}>Next</button>
         </div>
         <div>
