@@ -13,7 +13,7 @@ function AuthorList() {
     axios
       .get(`/api/authors?page=${currentPage}&size=${itemsPerPage}`)
       .then((response) => {
-        setAuthors(response.data.content);
+        setAuthors(response.data.content.sort(() => Math.random() - 0.5));
         setCurrentPage(response.data.number);
       })
       .catch((error) => console.log(error));
