@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-function DeleteAuthor(props) {
-  const { author, handleDelete } = props;
+function DeleteLibraryBook(props) {
+  const { librarybook, handleDelete } = props;
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
   const handleConfirm = () => {
-    handleDelete(author.id);
+    handleDelete(librarybook.id);
     setShowConfirmDialog(false);
   };
 
@@ -21,7 +21,7 @@ function DeleteAuthor(props) {
     <>
       {showConfirmDialog && (
         <div className="alert alert-danger">
-          <p>Are you sure you want to delete {author.name}?</p>
+          <p>Are you sure you want to delete LibraryBook {librarybook.id}?</p>
           <button className="btn btn-danger mr-2" onClick={handleConfirm}>
             Yes
           </button>
@@ -37,4 +37,4 @@ function DeleteAuthor(props) {
   );
 }
 
-export default DeleteAuthor;
+export default DeleteLibraryBook;

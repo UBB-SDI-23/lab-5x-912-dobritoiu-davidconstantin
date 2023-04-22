@@ -2,50 +2,51 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-function EditAuthor() {
-  const [author, setAuthor] = useState({
+function EditLibrary() {
+  const [library, setLibrary] = useState({
     name: "",
-    email: "",
-    bio: "",
-    country: "",
+    description: "",
+    location: "",
+    rating: "",
+    owner: "",
   });
 
   const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
-    fetchAuthor();
+    fetchLibrary();
   }, []);
 
-  const fetchAuthor = () => {
+  const fetchLibrary = () => {
     axios
-      .get(`/api/authors/${id}`)
-      .then((response) => setAuthor(response.data))
+      .get(`/api/libraries/${id}`)
+      .then((response) => setLibrary(response.data))
       .catch((error) => console.log(error));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .put(`/api/authors/${id}`, author)
+      .put(`/api/libraries/${id}`, library)
       .then((response) => {
         console.log(response);
-        navigate("/authors");
+        navigate("/libraries");
       })
       .catch((error) => console.log(error));
   };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setAuthor((prevAuthor) => ({
-      ...prevAuthor,
+    setLibrary((prevLibrary) => ({
+      ...prevLibrary,
       [name]: value,
     }));
   };
 
   return (
     <div class="container">
-      <h1>Edit Author</h1>
+      <h1>Edit Library</h1>
       <form onSubmit={handleSubmit}>
         <div class="form-group">
           <label htmlFor="name">Name:</label>
@@ -54,39 +55,50 @@ function EditAuthor() {
             class="form-control"
             id="name"
             name="name"
-            value={author.name}
+            value={library.name}
             onChange={handleInputChange}
           />
         </div>
         <div class="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            class="form-control"
-            id="email"
-            name="email"
-            value={author.email}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div class="form-group">
-          <label htmlFor="bio">Bio:</label>
+          <label htmlFor="description">Description:</label>
           <textarea
             class="form-control"
-            id="bio"
-            name="bio"
-            value={author.bio}
+            id="description"
+            name="description"
+            value={library.description}
             onChange={handleInputChange}
           ></textarea>
         </div>
         <div class="form-group">
-          <label htmlFor="country">Country:</label>
+          <label htmlFor="location">Location:</label>
+          <input
+            type="location"
+            class="form-control"
+            id="location"
+            name="location"
+            value={library.location}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div class="form-group">
+          <label htmlFor="rating">Rating:</label>
+          <input
+            type="number"
+            class="form-control"
+            id="rating"
+            name="rating"
+            value={library.rating}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div class="form-group">
+          <label htmlFor="rating">Owner:</label>
           <input
             type="text"
             class="form-control"
-            id="country"
-            name="country"
-            value={author.country}
+            id="owner"
+            name="owner"
+            value={library.owner}
             onChange={handleInputChange}
           />
         </div>
@@ -98,4 +110,4 @@ function EditAuthor() {
   );
 }
 
-export default EditAuthor;
+export default EditLibrary;

@@ -2,30 +2,31 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function CreateAuthor() {
-  const [author, setAuthor] = useState({
+function CreateLibrary() {
+  const [library, setLibrary] = useState({
     name: "",
-    email: "",
-    bio: "",
-    country: "",
+    description: "",
+    location: "",
+    rating: "",
+    owner: "",
   });
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post("/api/authors", author)
+      .post("/api/libraries", library)
       .then((response) => {
         console.log(response);
-        navigate("/authors");
+        navigate("/libraries");
       })
       .catch((error) => console.log(error));
   };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setAuthor((prevAuthor) => ({
-      ...prevAuthor,
+    setLibrary((prevLibrary) => ({
+      ...prevLibrary,
       [name]: value,
     }));
   };
@@ -34,7 +35,7 @@ function CreateAuthor() {
     <div class="container mt-5">
       <div class="row justify-content-center">
         <div class="col-md-6">
-          <h1 class="text-center mb-4">Create Author</h1>
+          <h1 class="text-center mb-4">Create Library</h1>
           <form onSubmit={handleSubmit}>
             <div class="mb-3">
               <label class="form-label" htmlFor="name">
@@ -45,45 +46,58 @@ function CreateAuthor() {
                 class="form-control"
                 id="name"
                 name="name"
-                value={author.name}
+                value={library.name}
                 onChange={handleInputChange}
               />
             </div>
             <div class="mb-3">
-              <label class="form-label" htmlFor="email">
-                Email:
-              </label>
-              <input
-                type="email"
-                class="form-control"
-                id="email"
-                name="email"
-                value={author.email}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div class="mb-3">
-              <label class="form-label" htmlFor="bio">
-                Bio:
+              <label class="form-label" htmlFor="description">
+                Description:
               </label>
               <textarea
                 class="form-control"
-                id="bio"
-                name="bio"
-                value={author.bio}
+                id="description"
+                name="description"
+                value={library.description}
                 onChange={handleInputChange}
               ></textarea>
             </div>
             <div class="mb-3">
-              <label class="form-label" htmlFor="country">
-                Country:
+              <label class="form-label" htmlFor="location">
+                Location:
               </label>
               <input
                 type="text"
                 class="form-control"
-                id="country"
-                name="country"
-                value={author.country}
+                id="location"
+                name="location"
+                value={library.location}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" htmlFor="rating">
+                Rating:
+              </label>
+              <input
+                type="number"
+                class="form-control"
+                id="rating"
+                name="rating"
+                value={library.rating}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" htmlFor="owner">
+                Owner:
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="owner"
+                name="owner"
+                value={library.owner}
                 onChange={handleInputChange}
               />
             </div>
@@ -97,4 +111,4 @@ function CreateAuthor() {
   );
 }
 
-export default CreateAuthor;
+export default CreateLibrary;

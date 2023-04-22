@@ -1,61 +1,57 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import DeleteAuthor from "./DeleteAuthor";
-import FilteredAuthorList from "./FilteredAuthorList";
+import DeleteLibrary from "./DeleteLibrary";
 
-function AuthorList() {
-  const [authors, setAuthors] = useState([]);
+function LibraryList() {
+  const [libraries, setLibraries] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(100);
-  const [booksCountFilter, setBooksCountFilter] = useState("");
   const navigate = useNavigate();
 
-  const fetchAuthors = useCallback(() => {
+  const fetchLibraries = useCallback(() => {
     axios
-      .get(
-        `/api/authors?page=${currentPage}&size=${itemsPerPage}&booksCount=${booksCountFilter}`
-      )
+      .get(`/api/libraries?page=${currentPage}&size=${itemsPerPage}`)
       .then((response) => {
-        setAuthors(response.data.content);
+        setLibraries(response.data.content);
         setCurrentPage(response.data.number);
       })
       .catch((error) => console.log(error));
-  }, [currentPage, itemsPerPage, booksCountFilter]);
+  }, [currentPage, itemsPerPage]);
 
   useEffect(() => {
-    fetchAuthors();
-  }, [fetchAuthors]);
+    fetchLibraries();
+  }, [fetchLibraries]);
 
-  const handleEdit = (authorId) => {
-    navigate(`/authors/${authorId}/edit`);
+  const handleEdit = (libraryId) => {
+    navigate(`/libraries/${libraryId}/edit`);
   };
 
-  const handleDelete = (authorId) => {
+  const handleDelete = (libraryId) => {
     axios
-      .delete(`/api/authors/${authorId}`)
+      .delete(`/api/libraries/${libraryId}`)
       .then((response) => {
         console.log(response);
-        fetchAuthors();
+        fetchLibraries();
       })
       .catch((error) => console.log(error));
   };
 
   const handleCreate = () => {
-    navigate(`/authors/create`);
+    navigate(`/libraries/create`);
   };
 
-  const [totalAuthors, setTotalAuthors] = useState(0);
+  const [totalLibraries, setTotalLibraries] = useState(0);
   useEffect(() => {
     axios
-      .get("/api/authors/count")
+      .get("/api/libraries/count")
       .then((response) => {
-        setTotalAuthors(response.data);
+        setTotalLibraries(response.data);
       })
       .catch((error) => console.log(error));
   }, []);
 
-  const totalPages = Math.max(1, Math.ceil(totalAuthors / itemsPerPage));
+  const totalPages = Math.max(1, Math.ceil(totalLibraries / itemsPerPage));
 
   const handleNextPage = () => {
     setCurrentPage(Math.min(currentPage + 1, totalPages - 1));
@@ -70,61 +66,41 @@ function AuthorList() {
   };
 
   const startIdx = currentPage * itemsPerPage;
-  const endIdx = Math.min(startIdx + itemsPerPage, totalAuthors);
-
-  const handleFilter = () => {
-    fetchAuthors();
-  };
+  const endIdx = Math.min(startIdx + itemsPerPage, totalLibraries);
 
   return (
     <div className="container">
-      <h1 className="mt-5 mb-3">Author List</h1>
-      <div className="mb-3 d-flex justify-content-between align-items-center">
-        <button className="btn btn-primary" onClick={handleCreate}>
-          Create Author
-        </button>
-        <div className="d-flex align-items-center">
-          <label htmlFor="booksCount" className="me-3">
-            Filter by books count:
-          </label>
-          <input
-            type="number"
-            id="booksCount"
-            min="0"
-            className="form-control me-3"
-          />
-          <button className="btn btn-secondary" onClick={handleFilter}>
-            Filter
-          </button>
-        </div>
-      </div>
+      <h1 className="mt-5 mb-3">Library List</h1>
+      <button className="btn btn-primary mb-3" onClick={handleCreate}>
+        Create Library
+      </button>
       <table className="table">
         <thead>
           <tr>
             <th>Name</th>
-            <th>Email</th>
-            <th>Bio</th>
-            <th>Country</th>
-            <th>Books Count</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Rating</th>
+            <th>Owner</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {authors.map((author) => (
-            <tr key={author.id}>
-              <td>{author.name}</td>
-              <td>{author.email}</td>
-              <td>{author.bio}</td>
-              <td>{author.country}</td>
-              <td>{author.booksCount}</td>
+          {libraries.map((library) => (
+            <tr key={library.id}>
+              <td>{library.name}</td>
+              <td>{library.description}</td>
+              <td>{library.location}</td>
+              <td>{library.rating}</td>
+              <td>{library.owner}</td>
               <td>
                 <button
                   className="btn btn-primary me-2"
-                  onClick={() => handleEdit(author.id)}
+                  onClick={() => handleEdit(library.id)}
                 >
                   Edit
                 </button>
-                <DeleteAuthor author={author} handleDelete={handleDelete} />
+                <DeleteLibrary library={library} handleDelete={handleDelete} />
               </td>
             </tr>
           ))}
@@ -132,7 +108,7 @@ function AuthorList() {
       </table>
       <div className="d-flex justify-content-between align-items-center">
         <p>
-          Showing {startIdx + 1}-{endIdx} of {totalAuthors} authors
+          Showing {startIdx + 1}-{endIdx} of {totalLibraries} libraries
         </p>
         <div>
           <button className="btn btn-secondary me-2" onClick={handlePrevPage}>
@@ -173,4 +149,4 @@ function AuthorList() {
   );
 }
 
-export default AuthorList;
+export default LibraryList;
