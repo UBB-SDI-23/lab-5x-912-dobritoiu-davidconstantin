@@ -6,7 +6,7 @@ import DeleteAuthor from "./DeleteAuthor";
 function AuthorList() {
   const [authors, setAuthors] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(100);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const [booksCountFilter, setBooksCountFilter] = useState(0);
   const navigate = useNavigate();
 

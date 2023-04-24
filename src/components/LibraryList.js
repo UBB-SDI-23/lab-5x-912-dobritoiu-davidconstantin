@@ -6,7 +6,7 @@ import DeleteLibrary from "./DeleteLibrary";
 function LibraryList() {
   const [libraries, setLibraries] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(100);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
   const navigate = useNavigate();
 
   const fetchLibraries = useCallback(() => {
@@ -88,6 +88,7 @@ function LibraryList() {
             <th>Location</th>
             <th>Rating</th>
             <th>Owner</th>
+            <th>Books</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -99,6 +100,7 @@ function LibraryList() {
               <td>{library.location}</td>
               <td>{library.rating}</td>
               <td>{library.owner}</td>
+              <td>{library.booksCount}</td>
               <td>
                 <button
                   className="btn btn-primary me-2"

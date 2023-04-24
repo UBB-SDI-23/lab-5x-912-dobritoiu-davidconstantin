@@ -9,7 +9,7 @@ const TopLibraryList = () => {
   useEffect(() => {
     const fetchLibraries = async () => {
       const response = await axios.get(
-        `/api/libraries/getLibrariesTop&page=${page}&size=${size}`
+        `/api/libraries/getLibrariesTop?page=${page}&size=${size}`
       );
       setLibraries(response.data.content);
     };
