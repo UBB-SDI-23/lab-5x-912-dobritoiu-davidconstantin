@@ -13,14 +13,14 @@ function AuthorList() {
   const fetchAuthors = useCallback(() => {
     axios
       .get(
-        `/api/authors?page=${currentPage}&size=${itemsPerPage}&booksCount=${booksCountFilter}`
+        `/api/authors?page=${currentPage}&size=${itemsPerPage}`
       )
       .then((response) => {
         setAuthors(response.data.content);
         setCurrentPage(response.data.number);
       })
       .catch((error) => console.log(error));
-  }, [currentPage, itemsPerPage, booksCountFilter]);
+  }, [currentPage, itemsPerPage]);
 
   useEffect(() => {
     fetchAuthors();
