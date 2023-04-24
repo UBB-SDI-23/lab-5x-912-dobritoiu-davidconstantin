@@ -9,7 +9,7 @@ const TopAuthorList = () => {
   useEffect(() => {
     const fetchAuthors = async () => {
       const response = await axios.get(
-        `/api/authors/getAuthorsTop?page=${page}&size=${size}`
+        `api/authors/getAuthorsTop?page=${page}&size=${size}`
       );
       setAuthors(response.data.content);
     };

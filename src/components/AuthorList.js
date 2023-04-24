@@ -108,7 +108,7 @@ function AuthorList() {
           </button>
           <button
             className="btn btn-secondary me-3"
-            onClick={() => navigate("/authors/getAuthorsTop")}
+            onClick={() => navigate("/authors/getAuthorsTop?page=0&size=10")}
           >
             Top Authors By Books
           </button>
