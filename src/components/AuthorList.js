@@ -215,7 +215,11 @@ function AuthorList() {
                   }`}
                   onClick={() => setCurrentPage(page)}
                 >
-                  {page + 1}
+                  {page === 0
+                    ? "1"
+                    : page >= totalPages - pageRange
+                    ? totalPages - pageRange + index + 1
+                    : page + 1}
                 </button>
               )}
             </React.Fragment>
