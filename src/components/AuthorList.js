@@ -59,54 +59,38 @@ function AuthorList() {
   const pageRange = 6;
   const displayPages = [];
 
-  if (currentPage < pageRange) {
-    for (let i = 0; i <= currentPage + pageRange; i++) {
-      if (i < totalPages) {
-        displayPages.push(i);
+  for (let i = currentPage - pageRange; i <= currentPage; i++) {
+    if (i >= 0 && i < totalPages) {
+      displayPages.push(i);
+    }
+  }
+
+  for (let i = currentPage + 1; i <= currentPage + pageRange; i++) {
+    if (i >= 0 && i < totalPages && !displayPages.includes(i)) {
+      displayPages.push(i);
+    }
+  }
+
+  if (displayPages[displayPages.length - 1] < totalPages - 1) {
+    displayPages.push(-1);
+  }
+
+  if (currentPage > pageRange) {
+    for (let i = 0; i < 5; i++) {
+      if (!displayPages.includes(i)) {
+        displayPages.unshift(i);
       }
     }
+  }
 
-    if (totalPages > currentPage + pageRange + 1) {
-      displayPages.push(-1);
+  for (let i = totalPages - pageRange; i < totalPages; i++) {
+    if (i >= 0 && i < totalPages && !displayPages.includes(i)) {
+      displayPages.push(i);
     }
+  }
 
-    for (let i = totalPages - pageRange; i < totalPages; i++) {
-      if (i >= currentPage + pageRange + 1) {
-        displayPages.push(i);
-      }
-    }
-  } else if (currentPage >= totalPages - pageRange) {
-    for (let i = 0; i < pageRange; i++) {
-      if (i < currentPage - totalPages + pageRange + totalPages) {
-        displayPages.push(i);
-      }
-    }
-
-    if (currentPage - pageRange > 0) {
-      displayPages.push(-1);
-    }
-
-    for (let i = currentPage - pageRange; i < totalPages; i++) {
-      if (i >= currentPage - pageRange && i < totalPages) {
-        displayPages.push(i);
-      }
-    }
-  } else {
-    for (let i = currentPage - pageRange; i <= currentPage + pageRange; i++) {
-      if (i >= 0 && i < totalPages) {
-        displayPages.push(i);
-      }
-    }
-
-    if (totalPages > currentPage + pageRange + 1) {
-      displayPages.push(-1);
-    }
-
-    for (let i = totalPages - pageRange; i < totalPages; i++) {
-      if (i >= currentPage + pageRange + 1) {
-        displayPages.push(i);
-      }
-    }
+  if (displayPages[0] > 0) {
+    displayPages.unshift(-1);
   }
 
   const handleNextPage = () => {
@@ -237,6 +221,11 @@ function AuthorList() {
               )}
             </React.Fragment>
           ))}
+          {displayPages[displayPages.length - 1] < totalPages - 1 && (
+            <button className="btn btn-secondary me-2" disabled>
+              ...
+            </button>
+          )}
           <button
             className="btn btn-secondary me-2"
             disabled={currentPage >= totalPages - 1}
