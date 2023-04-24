@@ -11,7 +11,14 @@ function EditBook() {
     authorId: "",
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({
+    title: "",
+    year: "",
+    rating: "",
+    price: "",
+    authorId: "",
+  });
+
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -29,13 +36,18 @@ function EditBook() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios
-      .put(`/api/books/${id}`, book)
-      .then((response) => {
-        console.log(response);
-        navigate("/books");
-      })
-      .catch((error) => console.log(error));
+    const validationErrors = validateBook(book);
+    if (Object.keys(validationErrors).length === 0) {
+      axios
+        .put(`/api/books/${id}`, book)
+        .then((response) => {
+          console.log(response);
+          navigate("/books");
+        })
+        .catch((error) => console.log(error));
+    } else {
+      setErrors(validationErrors);
+    }
   };
 
   const handleInputChange = (event) => {
