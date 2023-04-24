@@ -6,7 +6,7 @@ import DeleteBook from "./DeleteBook";
 function BookList() {
   const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(100);
+  const [itemsPerPage, setItemsPerPage] = useState(50);
   const navigate = useNavigate();
 
   const fetchBooks = useCallback(() => {
@@ -70,7 +70,7 @@ function BookList() {
 
   return (
     <div className="container">
-      <h1 className="mt-5 mb-3">Author List</h1>
+      <h1 className="mt-5 mb-3">Books List</h1>
       <div className="mb-3 d-flex justify-content-between align-items-center">
         <button className="btn btn-primary" onClick={handleCreate}>
           Create Book
