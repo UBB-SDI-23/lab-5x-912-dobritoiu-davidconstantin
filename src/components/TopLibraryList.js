@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const FilteredAuthorList = () => {
-  const [authors, setAuthors] = useState([]);
+const TopLibraryList = () => {
+  const [libraries, setLibraries] = useState([]);
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(100);
 
   useEffect(() => {
-    const fetchAuthors = async () => {
+    const fetchLibraries = async () => {
       const response = await axios.get(
-        `/api/authors/filterAuthorsByNumberOfBooks?count=1&page=${page}&size=${size}`
+        `/api/libraries/getLibrariesTop&page=${page}&size=${size}`
       );
-      setAuthors(response.data.content);
+      setLibraries(response.data.content);
     };
-    fetchAuthors();
+    fetchLibraries();
   }, [page, size]);
 
   const handlePrevious = () => {
@@ -28,7 +28,7 @@ const FilteredAuthorList = () => {
 
   return (
     <div>
-      <h2>Authors</h2>
+      <h2>Libraries</h2>
       <table>
         <thead>
           <tr>
@@ -38,11 +38,11 @@ const FilteredAuthorList = () => {
           </tr>
         </thead>
         <tbody>
-          {authors.map((author) => (
-            <tr key={author.authorId}>
-              <td>{author.authorId}</td>
-              <td>{author.authorName}</td>
-              <td>{author.booksCount}</td>
+          {libraries.map((library) => (
+            <tr key={library.libraryId}>
+              <td>{library.libraryId}</td>
+              <td>{library.libraryName}</td>
+              <td>{library.booksCount}</td>
             </tr>
           ))}
         </tbody>
@@ -51,7 +51,7 @@ const FilteredAuthorList = () => {
         <button onClick={handlePrevious} disabled={page === 0}>
           Previous
         </button>
-        <button onClick={handleNext} disabled={authors.length < size}>
+        <button onClick={handleNext} disabled={libraries.length < size}>
           Next
         </button>
       </div>
@@ -59,4 +59,4 @@ const FilteredAuthorList = () => {
   );
 };
 
-export default FilteredAuthorList;
+export default TopLibraryList;

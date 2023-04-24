@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const FilteredAuthorList = () => {
+const TopAuthorList = () => {
   const [authors, setAuthors] = useState([]);
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(100);
@@ -9,7 +9,7 @@ const FilteredAuthorList = () => {
   useEffect(() => {
     const fetchAuthors = async () => {
       const response = await axios.get(
-        `/api/authors/filterAuthorsByNumberOfBooks?count=1&page=${page}&size=${size}`
+        `/api/authors/getAuthorsTop&page=${page}&size=${size}`
       );
       setAuthors(response.data.content);
     };
@@ -59,4 +59,4 @@ const FilteredAuthorList = () => {
   );
 };
 
-export default FilteredAuthorList;
+export default TopAuthorList;

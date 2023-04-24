@@ -9,10 +9,20 @@ function CreateAuthor() {
     bio: "",
     country: "",
   });
+  const [errors, setErrors] = useState({});
+
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    // Validate form data
+    const errors = validate(author);
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+      return;
+    }
+
     axios
       .post("/api/authors", author)
       .then((response) => {
@@ -28,6 +38,22 @@ function CreateAuthor() {
       ...prevAuthor,
       [name]: value,
     }));
+  };
+
+  const validate = (data) => {
+    const errors = {};
+
+    if (!data.name.trim()) {
+      errors.name = "Name is mandatory";
+    }
+
+    if (!data.email.trim()) {
+      errors.email = "Email is mandatory";
+    } else if (!/\S+@\S+\.\S+/.test(data.email)) {
+      errors.email = "Email should be valid";
+    }
+
+    return errors;
   };
 
   return (
@@ -48,6 +74,9 @@ function CreateAuthor() {
                 value={author.name}
                 onChange={handleInputChange}
               />
+              {errors.name && (
+                <div className="text-danger">{errors.name}</div>
+              )}
             </div>
             <div class="mb-3">
               <label class="form-label" htmlFor="email">
@@ -61,6 +90,9 @@ function CreateAuthor() {
                 value={author.email}
                 onChange={handleInputChange}
               />
+              {errors.email && (
+                <div className="text-danger">{errors.email}</div>
+              )}
             </div>
             <div class="mb-3">
               <label class="form-label" htmlFor="bio">

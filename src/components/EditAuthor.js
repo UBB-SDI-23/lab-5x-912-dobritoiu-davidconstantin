@@ -10,6 +10,13 @@ function EditAuthor() {
     country: "",
   });
 
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    bio: "",
+    country: "",
+  });
+
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -26,13 +33,18 @@ function EditAuthor() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios
-      .put(`/api/authors/${id}`, author)
-      .then((response) => {
-        console.log(response);
-        navigate("/authors");
-      })
-      .catch((error) => console.log(error));
+    const validationErrors = validateForm(author);
+    if (Object.keys(validationErrors).length === 0) {
+      axios
+        .put(`/api/authors/${id}`, author)
+        .then((response) => {
+          console.log(response);
+          navigate("/authors");
+        })
+        .catch((error) => console.log(error));
+    } else {
+      setErrors(validationErrors);
+    }
   };
 
   const handleInputChange = (event) => {
@@ -43,55 +55,88 @@ function EditAuthor() {
     }));
   };
 
+  const validateForm = (author) => {
+    const errors = {};
+    if (!author.name.trim()) {
+      errors.name = "Name is required";
+    }
+    if (!author.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(author.email)) {
+      errors.email = "Invalid email format";
+    }
+    if (!author.bio.trim()) {
+      errors.bio = "Bio is required";
+    }
+    if (!author.country.trim()) {
+      errors.country = "Country is required";
+    }
+    return errors;
+  };
+
   return (
-    <div class="container">
+    <div className="container">
       <h1>Edit Author</h1>
       <form onSubmit={handleSubmit}>
-        <div class="form-group">
+        <div className="form-group">
           <label htmlFor="name">Name:</label>
           <input
             type="text"
-            class="form-control"
+            className="form-control"
             id="name"
             name="name"
             value={author.name}
             onChange={handleInputChange}
           />
+          {errors.name && (
+            <div className="alert alert-danger">{errors.name}</div>
+          )}
         </div>
-        <div class="form-group">
+        <div className="form-group">
           <label htmlFor="email">Email:</label>
           <input
             type="email"
-            class="form-control"
+            className="form-control"
             id="email"
             name="email"
             value={author.email}
             onChange={handleInputChange}
           />
+          {errors.email && (
+            <div className="alert alert-danger">{errors.email}</div>
+          )}
         </div>
-        <div class="form-group">
-          <label htmlFor="bio">Bio:</label>
+        <div className="mb-3">
+          <label className="form-label" htmlFor="bio">
+            Bio:
+          </label>
           <textarea
-            class="form-control"
+            className="form-control"
             id="bio"
             name="bio"
             value={author.bio}
             onChange={handleInputChange}
-          ></textarea>
+          />
+          {errors.bio && <div className="alert alert-danger">{errors.bio}</div>}
         </div>
-        <div class="form-group">
-          <label htmlFor="country">Country:</label>
+        <div className="mb-3">
+          <label className="form-label" htmlFor="country">
+            Country:
+          </label>
           <input
             type="text"
-            class="form-control"
+            className="form-control"
             id="country"
             name="country"
             value={author.country}
             onChange={handleInputChange}
           />
+          {errors.country && (
+            <div className="alert alert-danger">{errors.country}</div>
+          )}
         </div>
-        <button type="submit" class="btn btn-primary">
-          Update
+        <button type="submit" className="btn btn-primary">
+          Create
         </button>
       </form>
     </div>

@@ -21,6 +21,9 @@ import CreateLibraryBook from './components/CreateLibraryBook';
 import LibraryBookPage from './components/LibraryBookPage';
 import EditLibraryBook from './components/EditLibraryBook';
 import DeleteLibraryBook from './components/DeleteLibraryBook';
+import FilteredAuthorList from './components/FilteredAuthorList';
+import TopAuthorList from './components/TopAuthorList';
+import TopLibraryList from './components/TopLibraryList';
 
 function App() {
   return (
@@ -32,7 +35,8 @@ function App() {
           <Route exact path="/authors/:id" element={<AuthorPage />} />
           <Route exact path="/authors/:id/edit" element={<EditAuthor />} />
           <Route exact path="/authors/:id/delete" element={<DeleteAuthor />} />
-          <Route exact path="/authors/filterAuthorsByNumberOfBooks" element={<AuthorList />} />
+          <Route exact path="/authors/filterAuthorsByNumberOfBooks" element={<FilteredAuthorList />} />
+          <Route exact path="/authors/getAuthorsTop" element={<TopAuthorList />} />
           <Route exact path="/books" element={<BookList />} />
           <Route exact path="/books/create" element={<CreateBook />} />
           <Route exact path="/books/:id" element={<BookPage />} />
@@ -43,6 +47,7 @@ function App() {
           <Route exact path="/libraries/:id" element={<LibraryPage />} />
           <Route exact path="/libraries/:id/edit" element={<EditLibrary />} />
           <Route exact path="/libraries/:id/delete" element={<DeleteLibrary />} />
+          <Route exact path="/libraries/getLibrariesTop" element={<TopLibraryList />} />
           <Route exact path="/librarybook" element={<LibraryBookList />} />
           <Route exact path="/librarybook/create" element={<CreateLibraryBook />} />
           <Route exact path="/librarybook/:id" element={<LibraryBookPage />} />

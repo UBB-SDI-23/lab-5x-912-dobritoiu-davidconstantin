@@ -4,11 +4,14 @@ import axios from "axios";
 
 function EditBook() {
   const [book, setBook] = useState({
-    name: "",
-    email: "",
-    bio: "",
-    country: "",
+    title: "",
+    year: "",
+    rating: "",
+    price: "",
+    authorId: "",
   });
+
+  const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -43,6 +46,41 @@ function EditBook() {
     }));
   };
 
+  const validateBook = () => {
+    let errors = {};
+
+    if (!book.title) {
+      errors.title = "Title is required";
+    }
+
+    if (!book.year) {
+      errors.year = "Year is required";
+    } else if (book.year < 1900 || book.year > 2023) {
+      errors.year = "Year must be between 1900 and 2023";
+    }
+
+    if (!book.rating) {
+      errors.rating = "Rating is required";
+    } else if (book.rating < 1 || book.rating > 5) {
+      errors.rating = "Rating must be between 1 and 5";
+    }
+
+    if (!book.price) {
+      errors.price = "Price is required";
+    } else if (book.price < 0) {
+      errors.price = "Price must be a positive number";
+    }
+
+    if (!book.authorId) {
+      errors.authorId = "Author ID is required";
+    } else if (book.authorId < 1) {
+      errors.authorId = "Author ID must be a positive number";
+    }
+
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   return (
     <div className="container">
       <h1>Edit Book</h1>
@@ -50,60 +88,75 @@ function EditBook() {
         <div className="form-group">
           <label htmlFor="title">Title:</label>
           <input
-            className="form-control"
             type="text"
+            className="form-control"
             id="title"
             name="title"
             value={book.title}
             onChange={handleInputChange}
           />
+          {errors.title && (
+            <div className="alert alert-danger">{errors.title}</div>
+          )}
         </div>
         <div className="form-group">
           <label htmlFor="year">Year:</label>
           <input
-            className="form-control"
             type="number"
+            className="form-control"
             id="year"
             name="year"
             value={book.year}
             onChange={handleInputChange}
           />
-        </div>
-        <div className="form-group">
-          <label htmlFor="rating">Rating:</label>
-          <input
-            className="form-control"
-            type="number"
-            id="rating"
-            name="rating"
-            value={book.rating}
-            onChange={handleInputChange}
-          />
+          {errors.year && (
+            <div className="alert alert-danger">{errors.year}</div>
+          )}
         </div>
         <div className="form-group">
           <label htmlFor="price">Price:</label>
           <input
-            className="form-control"
             type="number"
+            className="form-control"
             id="price"
             name="price"
             value={book.price}
             onChange={handleInputChange}
           />
+          {errors.price && (
+            <div className="alert alert-danger">{errors.price}</div>
+          )}
         </div>
         <div className="form-group">
-          <label htmlFor="author">Author ID:</label>
+          <label htmlFor="rating">Rating:</label>
           <input
-            className="form-control"
             type="number"
-            id="author"
-            name="author"
+            className="form-control"
+            id="rating"
+            name="rating"
+            value={book.rating}
+            onChange={handleInputChange}
+          />
+          {errors.rating && (
+            <div className="alert alert-danger">{errors.rating}</div>
+          )}
+        </div>
+        <div className="form-group">
+          <label htmlFor="authorId">Author ID:</label>
+          <input
+            type="number"
+            className="form-control"
+            id="authorId"
+            name="authorId"
             value={book.authorId}
             onChange={handleInputChange}
           />
+          {errors.authorId && (
+            <div className="alert alert-danger">{errors.authorId}</div>
+          )}
         </div>
-        <button className="btn btn-primary" type="submit">
-          Update
+        <button type="submit" className="btn btn-primary">
+          Save
         </button>
       </form>
     </div>

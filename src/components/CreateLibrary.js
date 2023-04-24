@@ -7,13 +7,23 @@ function CreateLibrary() {
     name: "",
     description: "",
     location: "",
-    rating: "",
+    rating: 0,
     owner: "",
   });
+  const [errors, setErrors] = useState({});
+
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    // Validate form data
+    const errors = validate(library);
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+      return;
+    }
+
     axios
       .post("/api/libraries", library)
       .then((response) => {
@@ -29,6 +39,28 @@ function CreateLibrary() {
       ...prevLibrary,
       [name]: value,
     }));
+  };
+
+  const validate = (data) => {
+    const errors = {};
+
+    if (!data.name.trim()) {
+      errors.name = "Name is mandatory";
+    }
+
+    if (!data.description.trim()) {
+      errors.description = "Description is mandatory";
+    }
+
+    if (!data.location.trim()) {
+      errors.location = "Location is mandatory";
+    }
+
+    if (!data.owner.trim()) {
+      errors.owner = "Owner is mandatory";
+    }
+
+    return errors;
   };
 
   return (
@@ -49,6 +81,7 @@ function CreateLibrary() {
                 value={library.name}
                 onChange={handleInputChange}
               />
+              {errors.name && <div className="text-danger">{errors.name}</div>}
             </div>
             <div class="mb-3">
               <label class="form-label" htmlFor="description">
@@ -61,6 +94,9 @@ function CreateLibrary() {
                 value={library.description}
                 onChange={handleInputChange}
               ></textarea>
+              {errors.description && (
+                <div className="text-danger">{errors.description}</div>
+              )}
             </div>
             <div class="mb-3">
               <label class="form-label" htmlFor="location">
@@ -74,6 +110,9 @@ function CreateLibrary() {
                 value={library.location}
                 onChange={handleInputChange}
               />
+              {errors.location && (
+                <div className="text-danger">{errors.location}</div>
+              )}
             </div>
             <div class="mb-3">
               <label class="form-label" htmlFor="rating">
@@ -100,6 +139,9 @@ function CreateLibrary() {
                 value={library.owner}
                 onChange={handleInputChange}
               />
+              {errors.owner && (
+                <div className="text-danger">{errors.owner}</div>
+              )}
             </div>
             <button type="submit" class="btn btn-primary">
               Create

@@ -2,13 +2,12 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DeleteAuthor from "./DeleteAuthor";
-import FilteredAuthorList from "./FilteredAuthorList";
 
 function AuthorList() {
   const [authors, setAuthors] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(100);
-  const [booksCountFilter, setBooksCountFilter] = useState("");
+  const [booksCountFilter, setBooksCountFilter] = useState(0);
   const navigate = useNavigate();
 
   const fetchAuthors = useCallback(() => {
@@ -73,7 +72,9 @@ function AuthorList() {
   const endIdx = Math.min(startIdx + itemsPerPage, totalAuthors);
 
   const handleFilter = () => {
-    fetchAuthors();
+    navigate(
+      `/filterAuthorsByNumberOfBooks?count=${booksCountFilter}&page=${currentPage}&size=${itemsPerPage}`
+    );
   };
 
   return (
@@ -92,9 +93,17 @@ function AuthorList() {
             id="booksCount"
             min="0"
             className="form-control me-3"
+            value={booksCountFilter}
+            onChange={(e) => setBooksCountFilter(e.target.value)}
           />
           <button className="btn btn-secondary" onClick={handleFilter}>
             Filter
+          </button>
+          <button
+            className="btn btn-secondary me-3"
+            onClick={() => navigate("/getAuthorsTop?page=0&size=100")}
+          >
+            Top Authors By Books
           </button>
         </div>
       </div>
@@ -131,46 +140,51 @@ function AuthorList() {
         </tbody>
       </table>
       <div className="d-flex justify-content-between align-items-center">
-        <p>
-          Showing {startIdx + 1}-{endIdx} of {totalAuthors} authors
-        </p>
         <div>
-          <button className="btn btn-secondary me-2" onClick={handlePrevPage}>
-            Prev
-          </button>
-          <button className="btn btn-secondary me-2" onClick={handleNextPage}>
-            Next
-          </button>
+          Showing {startIdx + 1}-{endIdx} of {totalAuthors} authors
         </div>
         <div>
           <button
             className="btn btn-secondary me-2"
+            disabled={currentPage === 0}
+            onClick={handlePrevPage}
+          >
+            Previous
+          </button>
+          <button
+            className="btn btn-secondary me-2"
+            disabled={currentPage >= totalPages - 1}
+            onClick={handleNextPage}
+          >
+            Next
+          </button>
+          <button
+            className="btn btn-secondary me-2"
+            onClick={() => handleJump(-1000)}
+          >
+            -1000
+          </button>
+          <button
+            className="btn btn-secondary me-2"
             onClick={() => handleJump(-100)}
           >
-            Back 100
-          </button>
-          <button
-            className="btn btn-secondary me-2"
-            onClick={() => handleJump(-10)}
-          >
-            Back 10
-          </button>
-          <button
-            className="btn btn-secondary me-2"
-            onClick={() => handleJump(10)}
-          >
-            Forward 10
+            -100
           </button>
           <button
             className="btn btn-secondary me-2"
             onClick={() => handleJump(100)}
           >
-            Forward 100
+            +100
+          </button>
+          <button
+            className="btn btn-secondary me-2"
+            onClick={() => handleJump(1000)}
+          >
+            +1000
           </button>
         </div>
       </div>
     </div>
   );
 }
-
 export default AuthorList;

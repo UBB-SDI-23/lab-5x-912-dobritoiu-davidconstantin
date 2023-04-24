@@ -74,6 +74,12 @@ function LibraryList() {
       <button className="btn btn-primary mb-3" onClick={handleCreate}>
         Create Library
       </button>
+      <button
+        className="btn btn-secondary me-3"
+        onClick={() => navigate("/getLibrariesTop?page=0&size=100")}
+      >
+        Top Libraries By Books
+      </button>
       <table className="table">
         <thead>
           <tr>
