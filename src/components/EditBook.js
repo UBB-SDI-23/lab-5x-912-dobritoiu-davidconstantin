@@ -8,7 +8,9 @@ function EditBook() {
     year: "",
     rating: "",
     price: "",
-    authorId: "",
+    author: {
+      id: ""
+    }
   });
 
   const [errors, setErrors] = useState({
@@ -16,7 +18,9 @@ function EditBook() {
     year: "",
     rating: "",
     price: "",
-    authorId: "",
+    author: {
+      id: ""
+    }
   });
 
 
@@ -83,10 +87,10 @@ function EditBook() {
       errors.price = "Price must be a positive number";
     }
 
-    if (!book.authorId) {
-      errors.authorId = "Author ID is required";
-    } else if (book.authorId < 1) {
-      errors.authorId = "Author ID must be a positive number";
+    if (!book.author.id) {
+      errors.author.id = "Author ID is required";
+    } else if (book.author.id < 1) {
+      errors.author.id = "Author ID must be a positive number";
     }
 
     setErrors(errors);
@@ -160,11 +164,11 @@ function EditBook() {
             className="form-control"
             id="authorId"
             name="authorId"
-            value={book.authorId}
+            value={book.author.id}
             onChange={handleInputChange}
           />
-          {errors.authorId && (
-            <div className="alert alert-danger">{errors.authorId}</div>
+          {errors.author.id && (
+            <div className="alert alert-danger">{errors.author.id}</div>
           )}
         </div>
         <button type="submit" className="btn btn-primary">
