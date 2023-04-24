@@ -12,11 +12,10 @@ function AuthorList() {
 
   const fetchAuthors = useCallback(() => {
     axios
-      .get(
-        `/api/authors?page=${currentPage}&size=${itemsPerPage}`
-      )
+      .get(`/api/authors?page=${currentPage}&size=${itemsPerPage}`)
       .then((response) => {
-        setAuthors(response.data.content);
+        const sortedAuthors = response.data.content.sort((a, b) => a.id - b.id);
+        setAuthors(sortedAuthors);
         setCurrentPage(response.data.number);
       })
       .catch((error) => console.log(error));

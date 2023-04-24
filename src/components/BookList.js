@@ -13,7 +13,8 @@ function BookList() {
     axios
       .get(`/api/books?page=${currentPage}&size=${itemsPerPage}`)
       .then((response) => {
-        setBooks(response.data.content);
+        const sortedBooks = response.data.content.sort((a, b) => a.id - b.id);
+        setBooks(sortedBooks);
         setCurrentPage(response.data.number);
       })
       .catch((error) => console.log(error));

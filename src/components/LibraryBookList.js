@@ -13,7 +13,8 @@ function LibraryBookList() {
     axios
       .get(`/api/librarybook?page=${currentPage}&size=${itemsPerPage}`)
       .then((response) => {
-        setLibraryBooks(response.data.content);
+        const sortedLibraryBooks = response.data.content.sort((a, b) => a.id - b.id);
+        setLibraryBooks(sortedLibraryBooks);
         setCurrentPage(response.data.number);
       })
       .catch((error) => console.log(error));
