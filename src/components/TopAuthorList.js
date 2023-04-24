@@ -11,6 +11,7 @@ const TopAuthorList = () => {
       const response = await axios.get(
         `api/authors/getAuthorsTop?page=${page}&size=${size}`
       );
+      console.log(response.data.content);
       setAuthors(response.data.content);
     };
     fetchAuthors();
