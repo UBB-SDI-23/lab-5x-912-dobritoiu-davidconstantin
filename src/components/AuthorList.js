@@ -56,13 +56,33 @@ function AuthorList() {
   const totalPages = Math.max(1, Math.ceil(totalAuthors / itemsPerPage));
 
   //live-session
-  const pageRange = 6; // number of pages to show on each side of current page
+  const pageRange = 6;
   const displayPages = [];
 
-  for (let i = currentPage - pageRange; i <= currentPage + pageRange; i++) {
+  for (let i = currentPage - pageRange; i <= currentPage; i++) {
     if (i >= 0 && i < totalPages) {
       displayPages.push(i);
     }
+  }
+
+  for (let i = currentPage + 1; i <= currentPage + pageRange; i++) {
+    if (i >= 0 && i < totalPages && !displayPages.includes(i)) {
+      displayPages.push(i);
+    }
+  }
+
+  if (displayPages[displayPages.length - 1] < totalPages - 1) {
+    displayPages.push(-1);
+  }
+
+  for (let i = totalPages - pageRange; i < totalPages; i++) {
+    if (i >= 0 && i < totalPages && !displayPages.includes(i)) {
+      displayPages.push(i);
+    }
+  }
+
+  if (displayPages[0] > 0) {
+    displayPages.unshift(-1);
   }
 
   const handleNextPage = () => {
@@ -175,22 +195,24 @@ function AuthorList() {
           >
             Previous
           </button>
-          {displayPages.map((page) => (
-            <button
-              key={page}
-              className={`btn btn-secondary me-2 ${
-                currentPage === page ? "active" : ""
-              }`}
-              onClick={() => setCurrentPage(page)}
-            >
-              {page + 1}
-            </button>
+          {displayPages.map((page, index) => (
+            <React.Fragment key={index}>
+              {page === -1 ? (
+                <button className="btn btn-secondary me-2" disabled>
+                  ...
+                </button>
+              ) : (
+                <button
+                  className={`btn btn-secondary me-2 ${
+                    currentPage === page ? "active" : ""
+                  }`}
+                  onClick={() => setCurrentPage(page)}
+                >
+                  {page + 1}
+                </button>
+              )}
+            </React.Fragment>
           ))}
-          {displayPages[displayPages.length - 1] < totalPages - 1 && (
-            <button className="btn btn-secondary me-2" disabled>
-              ...
-            </button>
-          )}
           <button
             className="btn btn-secondary me-2"
             disabled={currentPage >= totalPages - 1}
