@@ -55,47 +55,6 @@ function AuthorList() {
 
   const totalPages = Math.max(1, Math.ceil(totalAuthors / itemsPerPage));
 
-  //live-session
-  const pageRange = 6;
-  const displayPages = [];
-
-  if (currentPage < pageRange + 1) {
-    for (let i = 0; i <= currentPage; i++) {
-      displayPages.push(i);
-    }
-  } else {
-    displayPages.push(0, -1);
-    for (let i = currentPage - pageRange; i <= currentPage; i++) {
-      if (i >= 1) {
-        displayPages.push(i);
-      }
-    }
-  }
-
-  for (let i = currentPage + 1; i <= currentPage + pageRange; i++) {
-    if (i >= 0 && i < totalPages && !displayPages.includes(i)) {
-      displayPages.push(i);
-    }
-
-    if (i >= totalPages) {
-      break;
-    }
-  }
-
-  if (displayPages[displayPages.length - 1] < totalPages - 1) {
-    displayPages.push(-1, totalPages - 1);
-  }
-
-  for (let i = totalPages - pageRange; i < totalPages; i++) {
-    if (i >= currentPage && !displayPages.includes(i)) {
-      displayPages.push(i);
-    }
-  }
-
-  if (displayPages[0] > 0) {
-    displayPages.unshift(-1);
-  }
-
   const handleNextPage = () => {
     setCurrentPage(Math.min(currentPage + 1, totalPages - 1));
   };
@@ -124,6 +83,31 @@ function AuthorList() {
       `/authors/filterAuthorsByNumberOfBooks?count=${booksCountFilter}&page=${currentPage}&size=${itemsPerPage}`
     );
   };
+
+  const getPageNumbers = () => {
+    const pageNumbers = [];
+    let i;
+    for (i = 0; i < totalPages; i++) {
+      if (
+        i === 0 ||
+        i === totalPages - 1 ||
+        (i >= currentPage - 2 && i <= currentPage + 2)
+      ) {
+        pageNumbers.push(i);
+      } else if (
+        pageNumbers[pageNumbers.length - 1] !== "..." &&
+        i < currentPage - 2
+      ) {
+        pageNumbers.push("...");
+      }
+    }
+    return pageNumbers;
+  };
+
+  const handlePageClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+  
 
   return (
     <div className="container">
@@ -206,33 +190,18 @@ function AuthorList() {
           >
             Previous
           </button>
-          {displayPages.map((page, index) => (
-            <React.Fragment key={index}>
-              {page === -1 ? (
-                <button className="btn btn-secondary me-2" disabled>
-                  ...
-                </button>
-              ) : (
-                <button
-                  className={`btn btn-secondary me-2 ${
-                    currentPage === page ? "active" : ""
-                  }`}
-                  onClick={() => setCurrentPage(page)}
-                >
-                  {page === 0
-                    ? "1"
-                    : page >= totalPages - pageRange
-                    ? totalPages - pageRange + index + 1
-                    : page + 1}
-                </button>
-              )}
-            </React.Fragment>
-          ))}
-          {displayPages[displayPages.length - 1] < totalPages - 1 && (
-            <button className="btn btn-secondary me-2" disabled>
-              ...
+          {getPageNumbers().map((pageNumber, index) => (
+            <button
+              key={index}
+              className={`btn me-2 ${
+                pageNumber === currentPage ? "btn-primary" : "btn-secondary"
+              }`}
+              onClick={() => handlePageClick(pageNumber)}
+              disabled={pageNumber === "..." || pageNumber === currentPage}
+            >
+              {pageNumber === "..." ? "..." : pageNumber + 1}
             </button>
-          )}
+          ))}
           <button
             className="btn btn-secondary me-2"
             disabled={currentPage >= totalPages - 1}
