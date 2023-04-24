@@ -71,17 +71,19 @@ function BookList() {
 
   return (
     <div className="container">
-      <h1 className="my-4">Book List</h1>
-      <button className="btn btn-primary mb-4" onClick={handleCreate}>
-        Create Book
-      </button>
+      <h1 className="mt-5 mb-3">Author List</h1>
+      <div className="mb-3 d-flex justify-content-between align-items-center">
+        <button className="btn btn-primary" onClick={handleCreate}>
+          Create Book
+        </button>
+      </div>
       <table className="table">
         <thead>
           <tr>
             <th>Title</th>
             <th>Year</th>
-            <th>Rating</th>
             <th>Price</th>
+            <th>Rating</th>
             <th>Author</th>
             <th>Actions</th>
           </tr>
@@ -91,12 +93,12 @@ function BookList() {
             <tr key={book.id}>
               <td>{book.title}</td>
               <td>{book.year}</td>
-              <td>{book.rating}</td>
               <td>{book.price}</td>
+              <td>{book.rating}</td>
               <td>{book.authorId}</td>
               <td>
                 <button
-                  className="btn btn-sm btn-info mr-2"
+                  className="btn btn-primary me-2"
                   onClick={() => handleEdit(book.id)}
                 >
                   Edit
@@ -108,47 +110,47 @@ function BookList() {
         </tbody>
       </table>
       <div className="d-flex justify-content-between align-items-center">
-        <p>
+        <div>
           Showing {startIdx + 1}-{endIdx} of {totalBooks} books
-        </p>
+        </div>
         <div>
           <button
-            className="btn btn-outline-primary mr-2"
+            className="btn btn-secondary me-2"
+            disabled={currentPage === 0}
             onClick={handlePrevPage}
           >
-            Prev
+            Previous
           </button>
           <button
-            className="btn btn-outline-primary mr-4"
+            className="btn btn-secondary me-2"
+            disabled={currentPage >= totalPages - 1}
             onClick={handleNextPage}
           >
             Next
           </button>
-        </div>
-        <div>
           <button
-            className="btn btn-outline-secondary mr-2"
+            className="btn btn-secondary me-2"
+            onClick={() => handleJump(-1000)}
+          >
+            -1000
+          </button>
+          <button
+            className="btn btn-secondary me-2"
             onClick={() => handleJump(-100)}
           >
-            Back 100
+            -100
           </button>
           <button
-            className="btn btn-outline-secondary mr-2"
-            onClick={() => handleJump(-10)}
-          >
-            Back 10
-          </button>
-          <button
-            className="btn btn-outline-secondary mr-2"
-            onClick={() => handleJump(10)}
-          >
-            Forward 10
-          </button>
-          <button
-            className="btn btn-outline-secondary"
+            className="btn btn-secondary me-2"
             onClick={() => handleJump(100)}
           >
-            Forward 100
+            +100
+          </button>
+          <button
+            className="btn btn-secondary me-2"
+            onClick={() => handleJump(1000)}
+          >
+            +1000
           </button>
         </div>
       </div>
