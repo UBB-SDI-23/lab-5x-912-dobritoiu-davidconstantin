@@ -66,6 +66,14 @@ function LibraryBookList() {
     setCurrentPage(Math.max(Math.min(currentPage + jump, totalPages - 1), 0));
   };
 
+  const handleLast = () => {
+    setCurrentPage(totalPages - 1);
+  };
+
+  const handleFirst = () => {
+    setCurrentPage(0);
+  };
+
   const startIdx = currentPage * itemsPerPage;
   const endIdx = Math.min(startIdx + itemsPerPage, totalLibraryBooks);
 
@@ -120,27 +128,55 @@ function LibraryBookList() {
         <div>
           <button
             className="btn btn-secondary me-2"
+            disabled={currentPage === 0}
+            onClick={handleFirst}
+          >
+            First
+          </button>
+          <button
+            className="btn btn-secondary me-2"
+            disabled={currentPage === 0}
+            onClick={handlePrevPage}
+          >
+            Previous
+          </button>
+          <button
+            className="btn btn-secondary me-2"
+            disabled={currentPage >= totalPages - 1}
+            onClick={handleNextPage}
+          >
+            Next
+          </button>
+          <button
+            className="btn btn-secondary me-2"
+            onClick={() => handleJump(-1000)}
+          >
+            -1000
+          </button>
+          <button
+            className="btn btn-secondary me-2"
             onClick={() => handleJump(-100)}
           >
-            Back 100
-          </button>
-          <button
-            className="btn btn-secondary me-2"
-            onClick={() => handleJump(-10)}
-          >
-            Back 10
-          </button>
-          <button
-            className="btn btn-secondary me-2"
-            onClick={() => handleJump(10)}
-          >
-            Forward 10
+            -100
           </button>
           <button
             className="btn btn-secondary me-2"
             onClick={() => handleJump(100)}
           >
-            Forward 100
+            +100
+          </button>
+          <button
+            className="btn btn-secondary me-2"
+            onClick={() => handleJump(1000)}
+          >
+            +1000
+          </button>
+          <button
+            className="btn btn-secondary me-2"
+            disabled={currentPage === 0}
+            onClick={handleLast}
+          >
+            Last
           </button>
         </div>
       </div>

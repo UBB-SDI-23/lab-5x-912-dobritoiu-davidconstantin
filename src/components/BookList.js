@@ -6,7 +6,7 @@ import DeleteBook from "./DeleteBook";
 function BookList() {
   const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(50);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const navigate = useNavigate();
 
   const fetchBooks = useCallback(() => {
@@ -65,6 +65,14 @@ function BookList() {
     setCurrentPage(Math.max(Math.min(currentPage + jump, totalPages - 1), 0));
   };
 
+  const handleLast = () => {
+    setCurrentPage(totalPages - 1);
+  };
+
+  const handleFirst = () => {
+    setCurrentPage(0);
+  };
+
   const startIdx = currentPage * itemsPerPage;
   const endIdx = Math.min(startIdx + itemsPerPage, totalBooks);
 
@@ -116,6 +124,13 @@ function BookList() {
           <button
             className="btn btn-secondary me-2"
             disabled={currentPage === 0}
+            onClick={handleFirst}
+          >
+            First
+          </button>
+          <button
+            className="btn btn-secondary me-2"
+            disabled={currentPage === 0}
             onClick={handlePrevPage}
           >
             Previous
@@ -150,6 +165,13 @@ function BookList() {
             onClick={() => handleJump(1000)}
           >
             +1000
+          </button>
+          <button
+            className="btn btn-secondary me-2"
+            disabled={currentPage === 0}
+            onClick={handleLast}
+          >
+            Last
           </button>
         </div>
       </div>

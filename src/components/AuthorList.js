@@ -67,6 +67,14 @@ function AuthorList() {
     setCurrentPage(Math.max(Math.min(currentPage + jump, totalPages - 1), 0));
   };
 
+  const handleLast = () => {
+    setCurrentPage(totalPages - 1);
+  };
+
+  const handleFirst = () => {
+    setCurrentPage(0);
+  };
+
   const startIdx = currentPage * itemsPerPage;
   const endIdx = Math.min(startIdx + itemsPerPage, totalAuthors);
 
