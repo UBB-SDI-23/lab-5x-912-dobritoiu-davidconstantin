@@ -91,12 +91,14 @@ function AuthorList() {
       if (
         i === 0 ||
         i === totalPages - 1 ||
-        (i >= currentPage - 2 && i <= currentPage + 2)
+        (i >= currentPage - 2 && i <= currentPage + 2) ||
+        i < 5 ||
+        i > totalPages - 6
       ) {
         pageNumbers.push(i);
       } else if (
         pageNumbers[pageNumbers.length - 1] !== "..." &&
-        i < currentPage - 2
+        (i < currentPage - 2 || i > currentPage + 2)
       ) {
         pageNumbers.push("...");
       }
@@ -107,7 +109,6 @@ function AuthorList() {
   const handlePageClick = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-  
 
   return (
     <div className="container">
