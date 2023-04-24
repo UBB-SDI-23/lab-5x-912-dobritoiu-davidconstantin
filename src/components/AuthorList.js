@@ -59,9 +59,16 @@ function AuthorList() {
   const pageRange = 6;
   const displayPages = [];
 
-  for (let i = currentPage - pageRange; i <= currentPage; i++) {
-    if (i >= 0 && i < totalPages) {
+  if (currentPage < pageRange + 1) {
+    for (let i = 0; i <= currentPage; i++) {
       displayPages.push(i);
+    }
+  } else {
+    displayPages.push(0, -1);
+    for (let i = currentPage - pageRange; i <= currentPage; i++) {
+      if (i >= 1) {
+        displayPages.push(i);
+      }
     }
   }
 
@@ -72,19 +79,11 @@ function AuthorList() {
   }
 
   if (displayPages[displayPages.length - 1] < totalPages - 1) {
-    displayPages.push(-1);
-  }
-
-  if (currentPage > pageRange) {
-    for (let i = 0; i < 5; i++) {
-      if (!displayPages.includes(i)) {
-        displayPages.unshift(i);
-      }
-    }
+    displayPages.push(-1, totalPages - 1);
   }
 
   for (let i = totalPages - pageRange; i < totalPages; i++) {
-    if (i >= 0 && i < totalPages && !displayPages.includes(i)) {
+    if (i >= currentPage && !displayPages.includes(i)) {
       displayPages.push(i);
     }
   }
