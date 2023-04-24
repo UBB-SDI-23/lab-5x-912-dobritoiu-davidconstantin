@@ -10,7 +10,7 @@ function EditBook() {
     price: "",
     author: {
       id: ""
-    }
+    },
   });
 
   const [errors, setErrors] = useState({
@@ -20,7 +20,7 @@ function EditBook() {
     price: "",
     author: {
       id: ""
-    }
+    },
   });
 
 
@@ -158,12 +158,12 @@ function EditBook() {
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="authorId">Author ID:</label>
+          <label htmlFor="author.id">Author ID:</label>
           <input
             type="number"
             className="form-control"
-            id="authorId"
-            name="authorId"
+            id="author.id"
+            name="author.id"
             value={book.author.id}
             onChange={handleInputChange}
           />
