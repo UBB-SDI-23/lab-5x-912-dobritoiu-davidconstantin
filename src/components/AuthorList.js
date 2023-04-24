@@ -72,7 +72,7 @@ function AuthorList() {
 
   const handleFilter = () => {
     navigate(
-      `/filterAuthorsByNumberOfBooks?count=${booksCountFilter}&page=${currentPage}&size=${itemsPerPage}`
+      `/authors/filterAuthorsByNumberOfBooks?count=${booksCountFilter}&page=${currentPage}&size=${itemsPerPage}`
     );
   };
 
@@ -100,7 +100,7 @@ function AuthorList() {
           </button>
           <button
             className="btn btn-secondary me-3"
-            onClick={() => navigate("/getAuthorsTop?page=0&size=100")}
+            onClick={() => navigate("/authors/getAuthorsTop?page=0&size=100")}
           >
             Top Authors By Books
           </button>

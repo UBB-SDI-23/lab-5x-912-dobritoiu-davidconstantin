@@ -6,7 +6,7 @@ import DeleteLibraryBook from "./DeleteLibraryBook";
 function LibraryBookList() {
   const [librarybook, setLibraryBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(100);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const navigate = useNavigate();
 
   const fetchLibraryBooks = useCallback(() => {
@@ -78,11 +78,11 @@ function LibraryBookList() {
       <table className="table">
         <thead>
           <tr>
-            <th>ID</th>
             <th>Book Title</th>
             <th>Library Name</th>
             <th>Borrow Date</th>
             <th>Return Date</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>

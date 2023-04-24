@@ -77,7 +77,7 @@ function LibraryList() {
       </button>
       <button
         className="btn btn-secondary me-3"
-        onClick={() => navigate("/getLibrariesTop?page=0&size=100")}
+        onClick={() => navigate("/libraries/getLibrariesTop?page=0&size=100")}
       >
         Top Libraries By Books
       </button>
