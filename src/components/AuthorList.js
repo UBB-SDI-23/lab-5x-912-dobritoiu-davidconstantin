@@ -76,6 +76,10 @@ function AuthorList() {
     if (i >= 0 && i < totalPages && !displayPages.includes(i)) {
       displayPages.push(i);
     }
+
+    if (i >= totalPages) {
+      break;
+    }
   }
 
   if (displayPages[displayPages.length - 1] < totalPages - 1) {
