@@ -55,6 +55,16 @@ function AuthorList() {
 
   const totalPages = Math.max(1, Math.ceil(totalAuthors / itemsPerPage));
 
+  //live-session
+  const pageRange = 6; // number of pages to show on each side of current page
+  const displayPages = [];
+
+  for (let i = currentPage - pageRange; i <= currentPage + pageRange; i++) {
+    if (i >= 0 && i < totalPages) {
+      displayPages.push(i);
+    }
+  }
+
   const handleNextPage = () => {
     setCurrentPage(Math.min(currentPage + 1, totalPages - 1));
   };
@@ -165,6 +175,22 @@ function AuthorList() {
           >
             Previous
           </button>
+          {displayPages.map((page) => (
+            <button
+              key={page}
+              className={`btn btn-secondary me-2 ${
+                currentPage === page ? "active" : ""
+              }`}
+              onClick={() => setCurrentPage(page)}
+            >
+              {page + 1}
+            </button>
+          ))}
+          {displayPages[displayPages.length - 1] < totalPages - 1 && (
+            <button className="btn btn-secondary me-2" disabled>
+              ...
+            </button>
+          )}
           <button
             className="btn btn-secondary me-2"
             disabled={currentPage >= totalPages - 1}
