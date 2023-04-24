@@ -108,7 +108,7 @@ function AuthorList() {
           </button>
           <button
             className="btn btn-secondary me-3"
-            onClick={() => navigate("/authors/getAuthorsTop?page=0&size=100")}
+            onClick={() => navigate("/authors/getAuthorsTop")}
           >
             Top Authors By Books
           </button>
@@ -154,6 +154,13 @@ function AuthorList() {
           <button
             className="btn btn-secondary me-2"
             disabled={currentPage === 0}
+            onClick={handleFirst}
+          >
+            First
+          </button>
+          <button
+            className="btn btn-secondary me-2"
+            disabled={currentPage === 0}
             onClick={handlePrevPage}
           >
             Previous
@@ -188,6 +195,13 @@ function AuthorList() {
             onClick={() => handleJump(1000)}
           >
             +1000
+          </button>
+          <button
+            className="btn btn-secondary me-2"
+            disabled={currentPage === totalPages - 1}
+            onClick={handleLast}
+          >
+            Last
           </button>
         </div>
       </div>

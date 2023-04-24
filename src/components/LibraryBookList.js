@@ -173,7 +173,7 @@ function LibraryBookList() {
           </button>
           <button
             className="btn btn-secondary me-2"
-            disabled={currentPage === 0}
+            disabled={currentPage === totalPages - 1}
             onClick={handleLast}
           >
             Last

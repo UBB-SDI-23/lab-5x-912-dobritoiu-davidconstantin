@@ -4,7 +4,7 @@ import axios from "axios";
 const TopLibraryList = () => {
   const [libraries, setLibraries] = useState([]);
   const [page, setPage] = useState(0);
-  const [size, setSize] = useState(100);
+  const [size, setSize] = useState(10);
 
   useEffect(() => {
     const fetchLibraries = async () => {

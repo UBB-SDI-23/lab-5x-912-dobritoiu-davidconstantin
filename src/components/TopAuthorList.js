@@ -4,7 +4,7 @@ import axios from "axios";
 const TopAuthorList = () => {
   const [authors, setAuthors] = useState([]);
   const [page, setPage] = useState(0);
-  const [size, setSize] = useState(100);
+  const [size, setSize] = useState(10);
 
   useEffect(() => {
     const fetchAuthors = async () => {
