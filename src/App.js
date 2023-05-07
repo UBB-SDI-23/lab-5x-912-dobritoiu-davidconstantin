@@ -34,8 +34,8 @@ import UserProfile from "./components/UserProfile";
 function App() {
   return (
     <div className="App">
-      {/* <Header /> */}
-      <div className="button-group">
+      <Header />
+{/*       <div className="button-group">
         <div className="button">
           <Link to="/authors">
             <button>Authors</button>
@@ -56,7 +56,7 @@ function App() {
             <button>LibraryBooks</button>
           </Link>
         </div>
-      </div>
+      </div> */}
       <Router>
         <Routes>
           <Route exact path="/authors" element={<AuthorList />} />
