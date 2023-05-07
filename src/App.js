@@ -34,7 +34,7 @@ import UserProfile from "./components/UserProfile";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   useEffect(() => {
-    const token = localStorage.getItem("jwtToken");
+    const token = localStorage.getItem('user').jwtToken;
     if (token) {
       setIsAuthenticated(true);
     }
