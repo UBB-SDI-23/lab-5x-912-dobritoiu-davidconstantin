@@ -7,6 +7,7 @@ function BookList() {
   const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [currentUserRole, setCurrentUserRole] = useState("");
   const navigate = useNavigate();
 
   const fetchBooks = useCallback(() => {
@@ -19,9 +20,34 @@ function BookList() {
       .catch((error) => console.log(error));
   }, [currentPage, itemsPerPage]);
 
+  const fetchUserRole = useCallback(() => {
+    const token = localStorage.getItem("jwt_token");
+    if (!token) {
+      // user is not authenticated
+      setCurrentUserRole("");
+      return;
+    }
+  
+    axios
+      .get("/api/user/Davis856", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setCurrentUserRole(response.data.role);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+  
+
+  const canAddOrEditAll = currentUserRole === "ROLE_ADMIN" || currentUserRole === "ROLE_MODERATOR";
+  const canAddOrEditOwn = currentUserRole === "ROLE_USER" || canAddOrEditAll;
+
   useEffect(() => {
     fetchBooks();
-  }, [fetchBooks]);
+    fetchUserRole();
+  }, [fetchBooks, fetchUserRole]);
 
   const handleEdit = (bookId) => {
     navigate(`/books/${bookId}/edit`);
@@ -31,7 +57,6 @@ function BookList() {
     axios
       .delete(`/api/books/${bookId}`)
       .then((response) => {
-        console.log(response);
         fetchBooks();
       })
       .catch((error) => console.log(error));
@@ -92,6 +117,7 @@ function BookList() {
             <th>Price</th>
             <th>Rating</th>
             <th>Author</th>
+            <th>User</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -103,14 +129,19 @@ function BookList() {
               <td>{book.price}</td>
               <td>{book.rating}</td>
               <td>{book.authorId}</td>
+              <td>{book.username}</td>
               <td>
-                <button
-                  className="btn btn-primary me-2"
-                  onClick={() => handleEdit(book.id)}
-                >
-                  Edit
-                </button>
-                <DeleteBook book={book} handleDelete={handleDelete} />
+                {(canAddOrEditAll || (canAddOrEditOwn && book.addedByCurrentUser)) && (
+                  <button
+                    className="btn btn-primary me-2"
+                    onClick={() => handleEdit(book.id)}
+                  >
+                    Edit
+                  </button>
+                )}
+                {(canAddOrEditAll || (canAddOrEditOwn && book.addedByCurrentUser)) && (
+                  <DeleteBook book={book} handleDelete={handleDelete} />
+                )}
               </td>
             </tr>
           ))}

@@ -148,6 +148,7 @@ function AuthorList() {
             <th>Bio</th>
             <th>Country</th>
             <th>Books Count</th>
+            <th>Username</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -158,6 +159,7 @@ function AuthorList() {
               <td>{author.email}</td>
               <td>{author.bio}</td>
               <td>{author.country}</td>
+              <td>{author.username}</td>
               <td>{author.booksCount}</td>
               <td>
                 <button
