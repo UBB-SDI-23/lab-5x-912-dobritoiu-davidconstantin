@@ -6,6 +6,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -30,7 +31,7 @@ const Login = () => {
           error.toString();
 
         setLoading(false);
-        setMessage(resMessage);
+        setErrorMessage(resMessage);
       }
     );
   };
@@ -38,6 +39,9 @@ const Login = () => {
   return (
     <div>
       <form onSubmit={handleLogin}>
+        {errorMessage && (
+          <div className="alert alert-danger">{errorMessage}</div>
+        )}
         <h3>Login</h3>
 
         <div className="form-group">
