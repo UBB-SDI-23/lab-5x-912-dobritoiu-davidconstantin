@@ -49,7 +49,10 @@ function App() {
         axios
           .get(`/api/user/${user.username}`)
           .then((response) => {
-            setId(response.data.id);
+            const id = response.data.id;
+            setId(id);
+            console.log(id);
+            console.log(response.data.id);
             const roles = response.data.roles;
             if (roles.length > 0) {
               setRoles(roles[0].name);
