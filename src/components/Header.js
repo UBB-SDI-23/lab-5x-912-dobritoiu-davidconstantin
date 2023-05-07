@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Header(props) {
-  console.log(props); // add this line to log the props
+  console.log(props);
 
-  const isLoggedIn = props.isLoggedIn;
+  const isAuthenticated = props.isAuthenticated;
 
   return (
     <ul class="navbar-nav mr-auto">
@@ -14,7 +14,7 @@ function Header(props) {
         </Link>
       </li>
       <li className="nav-item">
-        {!isLoggedIn && (
+        {!isAuthenticated && (
           <>
             <Link reloadDocument className="nav-link" to="/login">
               Login
@@ -26,7 +26,7 @@ function Header(props) {
         )}
       </li>
       <li className="nav-item">
-        {isLoggedIn && (
+        {isAuthenticated && (
           <>
             <Link reloadDocument className="nav-link" to="/dashboard">
               Dashboard

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import AuthorList from "./components/AuthorList";
@@ -32,6 +32,13 @@ import ConfirmPage from "./components/auth/Confirm";
 import UserProfile from "./components/UserProfile";
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  useEffect(() => {
+    const token = localStorage.getItem("jwt"); // or sessionStorage.getItem('jwt');
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, []);
   return (
     <div className="App">
       <Router forceRefresh={true}>
@@ -59,7 +66,8 @@ function App() {
                 </Link>
               </li>
             </ul>
-            <Header />
+            <Header isAuthenticated={isAuthenticated} />
+            <Routes isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
           </div>
         </nav>
       </Router>
