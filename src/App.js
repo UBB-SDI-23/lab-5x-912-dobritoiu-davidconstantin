@@ -34,7 +34,7 @@ import UserProfile from "./components/UserProfile";
 import { AuthContext } from "./components/context/AuthContext";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useContext(AuthContext);
+  const {isAuthenticated, setIsAuthenticated} = useContext(AuthContext);
   const [roles, setRoles] = useState(null);
 
   useEffect(() => {
