@@ -1,27 +1,32 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AuthService from "../../services/AuthService";
 
-const ConfirmPage = () => {
+const ConfirmPage = ({ token }) => {
   const navigate = useNavigate();
-  const { jwtToken } = useParams();
   const [errorMessage, setErrorMessage] = useState("");
 
-  useEffect(() => {
-    AuthService.confirm(jwtToken)
+  const handleConfirm = () => {
+    AuthService.confirm(token)
       .then(() => {
-        navigate("/login");
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
+        setErrorMessage("Confirmation successful. Redirecting to login page...");
       })
       .catch((error) => {
         setErrorMessage(error.response.data.message);
       });
-  }, [navigate, jwtToken]);
+  };
 
   return (
     <div>
       <h2>Confirm Page</h2>
       {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-      <p>Please wait while we confirm your registration...</p>
+      <p>Token: {token}</p>
+      <button className="btn btn-primary" onClick={handleConfirm}>
+        Confirm
+      </button>
     </div>
   );
 };
