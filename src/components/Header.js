@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 function Header(props) {
   const isAuthenticated = props.isAuthenticated;
+  const role = props.roles;
 
   return (
     <ul class="navbar-nav mr-auto">
@@ -17,6 +18,12 @@ function Header(props) {
             <Link reloadDocument className="nav-link" to="/login">
               Login
             </Link>
+          </>
+        )}
+      </li>
+      <li className="nav-item">
+        {!isAuthenticated && (
+          <>
             <Link reloadDocument className="nav-link" to="/register">
               Register
             </Link>
@@ -24,11 +31,26 @@ function Header(props) {
         )}
       </li>
       <li className="nav-item">
-        {isAuthenticated && (
+        {isAuthenticated && role === "ROLE_ADMIN" && (
           <>
             <Link reloadDocument className="nav-link" to="/dashboard">
               Dashboard
             </Link>
+          </>
+        )}
+      </li>
+      <li className="nav-item">
+        {isAuthenticated && (
+          <>
+            <Link reloadDocument className="nav-link" to="/profile/:id">
+              Profile
+            </Link>
+          </>
+        )}
+      </li>
+      <li className="nav-item">
+        {isAuthenticated && (
+          <>
             <Link reloadDocument className="nav-link" to="/logout">
               Logout
             </Link>
