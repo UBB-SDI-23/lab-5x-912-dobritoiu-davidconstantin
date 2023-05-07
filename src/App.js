@@ -37,7 +37,7 @@ import UserSearchPage from "./components/UserSearchPage";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [roles, setRoles] = useState(null);
-  const [id, setId] = useState(null);
+  const [id, setId] = useState(0);
 
   useEffect(() => {
     const userString = localStorage.getItem("user");
@@ -202,7 +202,7 @@ function App() {
             element={<UserProfile roles={roles} id={id} />}
           ></Route>
           <Route exact path="/dashboard" element={<AdminPage />}></Route>
-          <Route exact path="/dashboard/users" element={<UserSearchPage />}></Route>
+          <Route exact path="/dashboard/users" element={<UserSearchPage id={id} />}></Route>
         </Routes>
       </Router>
     </div>
