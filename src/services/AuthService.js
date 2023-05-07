@@ -14,11 +14,10 @@ class AuthService {
   login(loginRequest) {
     return axios.post("/api/signin", loginRequest)
       .then(response => {
-        console.log(response.data);
-        if (response.data.accessToken) {
+        if (response.data.jwtToken) {
           const user = {
             username: loginRequest.username,
-            jwtToken: response.data.accessToken
+            jwtToken: response.data.jwtToken
           }
           localStorage.setItem(TOKEN_KEY, JSON.stringify(user));
         }
