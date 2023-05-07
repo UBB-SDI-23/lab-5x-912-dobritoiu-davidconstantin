@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DeleteBook from "./DeleteBook";
 
-function BookList() {
+function BookList(props) {
   const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [currentUserRole, setCurrentUserRole] = useState("");
   const navigate = useNavigate();
+  const role = props.roles;
 
   const fetchBooks = useCallback(() => {
     axios
@@ -40,10 +41,6 @@ function BookList() {
       })
       .catch((error) => console.log(error));
   }, []);
-
-  const canAddOrEditAll =
-    currentUserRole === "ROLE_ADMIN" || currentUserRole === "ROLE_MODERATOR";
-  const canAddOrEditOwn = currentUserRole === "ROLE_USER" || canAddOrEditAll;
 
   useEffect(() => {
     fetchBooks();
@@ -106,9 +103,9 @@ function BookList() {
     <div className="container">
       <h1 className="mt-5 mb-3">Books List</h1>
       <div className="mb-3 d-flex justify-content-between align-items-center">
-        <button className="btn btn-primary" onClick={handleCreate}>
+      {role !== "ROLE_ANONYMOUS" && <button className="btn btn-primary" onClick={handleCreate}>
           Create Book
-        </button>
+        </button>}
       </div>
       <table className="table">
         <thead>
@@ -121,7 +118,7 @@ function BookList() {
             <th>User</th>
             {books.some(
               (book) =>
-                (book.addedByCurrentUser && canAddOrEditOwn) || canAddOrEditAll
+                (book.addedByCurrentUser && role === "ROLE_USER") || role === "ROLE_ADMIN" || role === "ROLE_MODERATOR"
             ) && <th>Actions</th>}
           </tr>
         </thead>
@@ -135,8 +132,8 @@ function BookList() {
               <td>{book.authorId}</td>
               <td>{book.username}</td>
               <td>
-                {(canAddOrEditAll ||
-                  (canAddOrEditOwn && book.addedByCurrentUser)) && (
+                {(role === "ROLE_ADMIN" ||
+                  (role === "ROLE_USER" && book.addedByCurrentUser) || role === "ROLE_MODERATOR") && (
                   <button
                     className="btn btn-primary me-2"
                     onClick={() => handleEdit(book.id)}
@@ -144,8 +141,8 @@ function BookList() {
                     Edit
                   </button>
                 )}
-                {(canAddOrEditAll ||
-                  (canAddOrEditOwn && book.addedByCurrentUser)) && (
+                {(role === "ROLE_ADMIN" ||
+                  (role === "ROLE_USER" && book.addedByCurrentUser) || role === "ROLE_MODERATOR") && (
                   <DeleteBook book={book} handleDelete={handleDelete} />
                 )}
               </td>

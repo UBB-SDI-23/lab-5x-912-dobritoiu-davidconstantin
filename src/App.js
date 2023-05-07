@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import axios from "axios";
@@ -31,10 +31,9 @@ import Login from "./components/auth/Login";
 import Logout from "./components/auth/Logout";
 import ConfirmPage from "./components/auth/Confirm";
 import UserProfile from "./components/UserProfile";
-import { AuthContext } from "./components/context/AuthContext";
 
 function App() {
-  const {isAuthenticated, setIsAuthenticated} = useContext(AuthContext);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [roles, setRoles] = useState(null);
 
   useEffect(() => {
@@ -102,7 +101,7 @@ function App() {
           isAuthenticated={isAuthenticated}
           setIsAuthenticated={setIsAuthenticated}
         >
-          <Route exact path="/authors" element={<AuthorList roles={roles}/>} />
+          <Route exact path="/authors" element={<AuthorList roles={roles} />} />
           <Route exact path="/authors/create" element={<CreateAuthor />} />
           <Route exact path="/authors/:id" element={<AuthorPage />} />
           <Route exact path="/authors/:id/edit" element={<EditAuthor />} />
@@ -117,12 +116,16 @@ function App() {
             path="/authors/getAuthorsTop"
             element={<TopAuthorList />}
           />
-          <Route exact path="/books" element={<BookList />} />
+          <Route exact path="/books" element={<BookList roles={roles} />} />
           <Route exact path="/books/create" element={<CreateBook />} />
           <Route exact path="/books/:id" element={<BookPage />} />
           <Route exact path="/books/:id/edit" element={<EditBook />} />
           <Route exact path="/books/:id/delete" element={<DeleteBook />} />
-          <Route exact path="/libraries" element={<LibraryList />} />
+          <Route
+            exact
+            path="/libraries"
+            element={<LibraryList roles={roles} />}
+          />
           <Route exact path="/libraries/create" element={<CreateLibrary />} />
           <Route exact path="/libraries/:id" element={<LibraryPage />} />
           <Route exact path="/libraries/:id/edit" element={<EditLibrary />} />
@@ -136,7 +139,11 @@ function App() {
             path="/libraries/getLibrariesTop"
             element={<TopLibraryList />}
           />
-          <Route exact path="/librarybook" element={<LibraryBookList />} />
+          <Route
+            exact
+            path="/librarybook"
+            element={<LibraryBookList roles={roles} />}
+          />
           <Route
             exact
             path="/librarybook/create"
@@ -154,8 +161,16 @@ function App() {
             element={<DeleteLibraryBook />}
           />
           <Route exact path="/register" element={<RegisterPage />}></Route>
-          <Route exact path="/login" element={<Login />}></Route>
-          <Route exact path="/logout" element={<Logout />}></Route>
+          <Route
+            exact
+            path="/login"
+            element={<Login isAuthenticated={isAuthenticated} />}
+          ></Route>
+          <Route
+            exact
+            path="/logout"
+            element={<Logout isAuthenticated={isAuthenticated} />}
+          ></Route>
           <Route exact path="/confirm" element={<ConfirmPage />}></Route>
           <Route exact path="/profile/:id" element={<UserProfile />}></Route>
         </Routes>

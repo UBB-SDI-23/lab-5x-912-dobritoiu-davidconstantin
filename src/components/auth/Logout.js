@@ -1,22 +1,18 @@
-import React, { useContext, useEffect } from "react";
-import { AuthContext } from "../context/AuthContext";
+import React, { useEffect } from "react";
 import AuthService from "../../services/AuthService";
 
-const Logout = () => {
-  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
-
-  console.log(isAuthenticated);
+function Logout(props) {
+  const isAuthenticated = props.isAuthenticated;
 
   useEffect(() => {
-    const logout = async () => {
+    async function logout() {
       if (isAuthenticated) {
         await AuthService.logout();
-        setIsAuthenticated(false);
       }
-    };
+    }
 
     logout();
-  }, [isAuthenticated, setIsAuthenticated]);
+  });
 
   if (!isAuthenticated) {
     window.location.href = "/";
@@ -28,6 +24,6 @@ const Logout = () => {
       <h3>You have been logged out.</h3>
     </div>
   );
-};
+}
 
 export default Logout;

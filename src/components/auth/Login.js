@@ -1,11 +1,9 @@
 import React, { useState, useContext } from "react";
 import AuthService from "../../services/AuthService";
-import { AuthContext } from "../context/AuthContext";
 
-const Login = () => {
-  const { isAuthenticated, login } = useContext(AuthContext);
+function Login(props) {
 
-  console.log(isAuthenticated);
+  const isAuthenticated = props.isAuthenticated;
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -13,39 +11,37 @@ const Login = () => {
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleLogin = (e) => {
+  
+  if (isAuthenticated) {
+    window.location.href = "/";
+    return null;
+  }
+
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     setMessage("");
     setLoading(true);
 
-    AuthService.login({ username, password }).then(
-      () => {
-        setLoading(false);
-        setMessage("Login successful. Redirecting...");
-        login(username, password);
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 3000);
-      },
-      (error) => {
-        const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
+    try {
+      await AuthService.login({ username, password });
+      setLoading(false);
+      setMessage("Login successful. Redirecting...");
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 3000);
+    } catch (error) {
+      const resMessage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
 
-        setLoading(false);
-        setErrorMessage(resMessage);
-      }
-    );
+      setLoading(false);
+      setErrorMessage(resMessage);
+    }
   };
-
-  if (isAuthenticated) {
-    window.location.href = "/";
-    return null;
-  }
 
   return (
     <div>
@@ -100,6 +96,6 @@ const Login = () => {
       </form>
     </div>
   );
-};
+}
 
 export default Login;
