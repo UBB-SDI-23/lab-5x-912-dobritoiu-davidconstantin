@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function CreateBook() {
+function CreateBook(props) {
   const [book, setBook] = useState({
     title: "",
     year: "",
@@ -10,6 +10,8 @@ function CreateBook() {
     price: "",
     authorId: "",
   });
+
+  const role = props.roles;
 
   const [errors, setErrors] = useState({});
 
@@ -61,6 +63,11 @@ function CreateBook() {
       [name]: value,
     }));
   };
+
+  if (role === "ROLE_ANONYMOUS") {
+    window.location.href = "/";
+    return null;
+  }
 
   return (
     <div className="container">

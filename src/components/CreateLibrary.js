@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function CreateLibrary() {
+function CreateLibrary(props) {
   const [library, setLibrary] = useState({
     name: "",
     description: "",
@@ -11,6 +11,8 @@ function CreateLibrary() {
     owner: "",
   });
   const [errors, setErrors] = useState({});
+
+  const role = props.roles;
 
   const navigate = useNavigate();
 
@@ -62,6 +64,11 @@ function CreateLibrary() {
 
     return errors;
   };
+
+  if (role === "ROLE_ANONYMOUS") {
+    window.location.href = "/";
+    return null;
+  }
 
   return (
     <div class="container mt-5">

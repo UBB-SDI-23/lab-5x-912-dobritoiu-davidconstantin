@@ -117,22 +117,42 @@ function App() {
             element={<TopAuthorList />}
           />
           <Route exact path="/books" element={<BookList roles={roles} />} />
-          <Route exact path="/books/create" element={<CreateBook />} />
+          <Route
+            exact
+            path="/books/create"
+            element={<CreateBook roles={roles} />}
+          />
           <Route exact path="/books/:id" element={<BookPage />} />
-          <Route exact path="/books/:id/edit" element={<EditBook />} />
-          <Route exact path="/books/:id/delete" element={<DeleteBook />} />
+          <Route
+            exact
+            path="/books/:id/edit"
+            element={<EditBook roles={roles} />}
+          />
+          <Route
+            exact
+            path="/books/:id/delete"
+            element={<DeleteBook roles={roles} />}
+          />
           <Route
             exact
             path="/libraries"
             element={<LibraryList roles={roles} />}
           />
-          <Route exact path="/libraries/create" element={<CreateLibrary />} />
+          <Route
+            exact
+            path="/libraries/create"
+            element={<CreateLibrary roles={roles} />}
+          />
           <Route exact path="/libraries/:id" element={<LibraryPage />} />
-          <Route exact path="/libraries/:id/edit" element={<EditLibrary />} />
+          <Route
+            exact
+            path="/libraries/:id/edit"
+            element={<EditLibrary roles={roles} />}
+          />
           <Route
             exact
             path="/libraries/:id/delete"
-            element={<DeleteLibrary />}
+            element={<DeleteLibrary roles={roles} />}
           />
           <Route
             exact
@@ -147,18 +167,18 @@ function App() {
           <Route
             exact
             path="/librarybook/create"
-            element={<CreateLibraryBook />}
+            element={<CreateLibraryBook roles={roles} />}
           />
           <Route exact path="/librarybook/:id" element={<LibraryBookPage />} />
           <Route
             exact
             path="/librarybook/:id/edit"
-            element={<EditLibraryBook />}
+            element={<EditLibraryBook roles={roles} />}
           />
           <Route
             exact
             path="/librarybook/:id/delete"
-            element={<DeleteLibraryBook />}
+            element={<DeleteLibraryBook roles={roles} />}
           />
           <Route exact path="/register" element={<RegisterPage />}></Route>
           <Route
@@ -172,7 +192,11 @@ function App() {
             element={<Logout isAuthenticated={isAuthenticated} />}
           ></Route>
           <Route exact path="/confirm" element={<ConfirmPage />}></Route>
-          <Route exact path="/profile/:id" element={<UserProfile />}></Route>
+          <Route
+            exact
+            path="/profile/:id"
+            element={<UserProfile roles={roles} />}
+          ></Route>
         </Routes>
       </Router>
     </div>

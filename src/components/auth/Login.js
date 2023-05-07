@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import AuthService from "../../services/AuthService";
 
 function Login(props) {
-
   const isAuthenticated = props.isAuthenticated;
 
   const [username, setUsername] = useState("");
@@ -11,7 +10,6 @@ function Login(props) {
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  
   if (isAuthenticated) {
     window.location.href = "/";
     return null;

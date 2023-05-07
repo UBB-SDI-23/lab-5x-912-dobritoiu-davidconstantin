@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function CreateAuthor() {
+function CreateAuthor(props) {
   const [author, setAuthor] = useState({
     name: "",
     email: "",
@@ -10,6 +10,8 @@ function CreateAuthor() {
     country: "",
   });
   const [errors, setErrors] = useState({});
+
+  const role = props.roles;
 
   const navigate = useNavigate();
 
@@ -39,6 +41,11 @@ function CreateAuthor() {
       [name]: value,
     }));
   };
+
+  if (role === "ROLE_ANONYMOUS") {
+    window.location.href = "/";
+    return null;
+  }
 
   const validate = (data) => {
     const errors = {};
@@ -74,9 +81,7 @@ function CreateAuthor() {
                 value={author.name}
                 onChange={handleInputChange}
               />
-              {errors.name && (
-                <div className="text-danger">{errors.name}</div>
-              )}
+              {errors.name && <div className="text-danger">{errors.name}</div>}
             </div>
             <div class="mb-3">
               <label class="form-label" htmlFor="email">

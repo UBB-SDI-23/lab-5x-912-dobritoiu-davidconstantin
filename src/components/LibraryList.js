@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DeleteLibrary from "./DeleteLibrary";
 
-function LibraryList() {
+function LibraryList(props) {
   const [libraries, setLibraries] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const navigate = useNavigate();
+
+  const role = props.roles;
 
   const fetchLibraries = useCallback(() => {
     axios
@@ -80,9 +82,11 @@ function LibraryList() {
   return (
     <div className="container">
       <h1 className="mt-5 mb-3">Library List</h1>
-      <button className="btn btn-primary mb-3" onClick={handleCreate}>
-        Create Library
-      </button>
+      {role !== "ROLE_ANONYMOUS" && (
+        <button className="btn btn-primary" onClick={handleCreate}>
+          Create Library
+        </button>
+      )}
       <button
         className="btn btn-secondary me-3"
         onClick={() => navigate("/libraries/getLibrariesTop?page=0&size=100")}
@@ -111,13 +115,19 @@ function LibraryList() {
               <td>{library.owner}</td>
               <td>{library.booksCount}</td>
               <td>
-                <button
-                  className="btn btn-primary me-2"
-                  onClick={() => handleEdit(library.id)}
-                >
-                  Edit
-                </button>
-                <DeleteLibrary library={library} handleDelete={handleDelete} />
+                {(role === "ROLE_ADMIN" ||
+                  (role === "ROLE_USER" && library.addedByCurrentUser) || role === "ROLE_MODERATOR") && (
+                  <button
+                    className="btn btn-primary me-2"
+                    onClick={() => handleEdit(library.id)}
+                  >
+                    Edit
+                  </button>
+                )}
+                {(role === "ROLE_ADMIN" ||
+                  (role === "ROLE_USER" && library.addedByCurrentUser) || role === "ROLE_MODERATOR") && (
+                  <DeleteLibrary library={library} handleDelete={handleDelete} />
+                )}
               </td>
             </tr>
           ))}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-function EditAuthor() {
+function EditAuthor(props) {
   const [author, setAuthor] = useState({
     name: "",
     email: "",
@@ -23,6 +23,13 @@ function EditAuthor() {
   useEffect(() => {
     fetchAuthor();
   });
+
+  const role = props.roles;
+
+  if (role === "ROLE_ANONYMOUS") {
+    window.location.href = "/";
+    return null;
+  }
 
   const fetchAuthor = () => {
     axios

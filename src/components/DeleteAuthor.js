@@ -4,6 +4,13 @@ function DeleteAuthor(props) {
   const { author, handleDelete } = props;
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
+  const role = props.roles;
+
+  if (role === "ROLE_ANONYMOUS") {
+    window.location.href = "/";
+    return null;
+  }
+
   const handleConfirm = () => {
     handleDelete(author.id);
     setShowConfirmDialog(false);

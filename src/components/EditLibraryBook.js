@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-function EditLibraryBook() {
+function EditLibraryBook(props) {
   const [librarybook, setLibraryBook] = useState({
     bookID: "",
     libraryID: "",
@@ -40,6 +40,13 @@ function EditLibraryBook() {
       [name]: value,
     }));
   };
+
+  const role = props.roles;
+
+  if (role === "ROLE_ANONYMOUS") {
+    window.location.href = "/";
+    return null;
+  }
 
   return (
     <div class="container">

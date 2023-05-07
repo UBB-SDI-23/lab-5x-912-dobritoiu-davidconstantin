@@ -7,7 +7,6 @@ function BookList(props) {
   const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  const [currentUserRole, setCurrentUserRole] = useState("");
   const navigate = useNavigate();
   const role = props.roles;
 
@@ -21,31 +20,9 @@ function BookList(props) {
       .catch((error) => console.log(error));
   }, [currentPage, itemsPerPage]);
 
-  const fetchUserRole = useCallback(() => {
-    const token = localStorage.getItem("jwt_token");
-    if (!token) {
-      // user is not authenticated
-      setCurrentUserRole("");
-      return;
-    }
-
-    axios
-      .get("/api/user/Davis856", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        setCurrentUserRole(response.data.role);
-      })
-      .catch((error) => console.log(error));
-  }, []);
-
   useEffect(() => {
     fetchBooks();
-    fetchUserRole();
-  }, [fetchBooks, fetchUserRole]);
+  }, [fetchBooks]);
 
   const handleEdit = (bookId) => {
     navigate(`/books/${bookId}/edit`);
@@ -103,9 +80,11 @@ function BookList(props) {
     <div className="container">
       <h1 className="mt-5 mb-3">Books List</h1>
       <div className="mb-3 d-flex justify-content-between align-items-center">
-      {role !== "ROLE_ANONYMOUS" && <button className="btn btn-primary" onClick={handleCreate}>
-          Create Book
-        </button>}
+        {role !== "ROLE_ANONYMOUS" && (
+          <button className="btn btn-primary" onClick={handleCreate}>
+            Create Book
+          </button>
+        )}
       </div>
       <table className="table">
         <thead>
@@ -118,7 +97,9 @@ function BookList(props) {
             <th>User</th>
             {books.some(
               (book) =>
-                (book.addedByCurrentUser && role === "ROLE_USER") || role === "ROLE_ADMIN" || role === "ROLE_MODERATOR"
+                (book.addedByCurrentUser && role === "ROLE_USER") ||
+                role === "ROLE_ADMIN" ||
+                role === "ROLE_MODERATOR"
             ) && <th>Actions</th>}
           </tr>
         </thead>
@@ -133,7 +114,8 @@ function BookList(props) {
               <td>{book.username}</td>
               <td>
                 {(role === "ROLE_ADMIN" ||
-                  (role === "ROLE_USER" && book.addedByCurrentUser) || role === "ROLE_MODERATOR") && (
+                  (role === "ROLE_USER" && book.addedByCurrentUser) ||
+                  role === "ROLE_MODERATOR") && (
                   <button
                     className="btn btn-primary me-2"
                     onClick={() => handleEdit(book.id)}
@@ -142,7 +124,8 @@ function BookList(props) {
                   </button>
                 )}
                 {(role === "ROLE_ADMIN" ||
-                  (role === "ROLE_USER" && book.addedByCurrentUser) || role === "ROLE_MODERATOR") && (
+                  (role === "ROLE_USER" && book.addedByCurrentUser) ||
+                  role === "ROLE_MODERATOR") && (
                   <DeleteBook book={book} handleDelete={handleDelete} />
                 )}
               </td>

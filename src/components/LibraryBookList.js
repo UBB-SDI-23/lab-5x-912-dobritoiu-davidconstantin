@@ -3,17 +3,21 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DeleteLibraryBook from "./DeleteLibraryBook";
 
-function LibraryBookList() {
+function LibraryBookList(props) {
   const [librarybook, setLibraryBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const navigate = useNavigate();
 
+  const role = props.roles;
+
   const fetchLibraryBooks = useCallback(() => {
     axios
       .get(`/api/librarybook?page=${currentPage}&size=${itemsPerPage}`)
       .then((response) => {
-        const sortedLibraryBooks = response.data.content.sort((a, b) => a.id - b.id);
+        const sortedLibraryBooks = response.data.content.sort(
+          (a, b) => a.id - b.id
+        );
         setLibraryBooks(sortedLibraryBooks);
         setCurrentPage(response.data.number);
       })
@@ -80,9 +84,11 @@ function LibraryBookList() {
   return (
     <div className="container">
       <h1 className="mt-5 mb-3">LibraryBook List</h1>
-      <button className="btn btn-primary mb-3" onClick={handleCreate}>
-        Create LibraryBook
-      </button>
+      {role !== "ROLE_ANONYMOUS" && (
+        <button className="btn btn-primary" onClick={handleCreate}>
+          Create LibraryBook
+        </button>
+      )}
       <table className="table">
         <thead>
           <tr>
@@ -101,13 +107,21 @@ function LibraryBookList() {
               <td>{librarybook.borrowDate}</td>
               <td>{librarybook.returnDate}</td>
               <td>
-                <button
-                  className="btn btn-primary me-2"
-                  onClick={() => handleEdit(librarybook.id)}
-                >
-                  Edit
-                </button>
-                <DeleteLibraryBook librarybook={librarybook} handleDelete={handleDelete} />
+                {(role === "ROLE_ADMIN" ||
+                  (role === "ROLE_USER" && librarybook.addedByCurrentUser) ||
+                  role === "ROLE_MODERATOR") && (
+                  <button
+                    className="btn btn-primary me-2"
+                    onClick={() => handleEdit(librarybook.id)}
+                  >
+                    Edit
+                  </button>
+                )}
+                {(role === "ROLE_ADMIN" ||
+                  (role === "ROLE_USER" && librarybook.addedByCurrentUser) ||
+                  role === "ROLE_MODERATOR") && (
+                  <DeleteLibraryBook librarybook={librarybook} handleDelete={handleDelete} />
+                )}
               </td>
             </tr>
           ))}

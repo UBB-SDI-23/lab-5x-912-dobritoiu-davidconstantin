@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function CreateLibraryBook() {
+function CreateLibraryBook(props) {
   const [librarybook, setLibraryBook] = useState({
     bookID: "",
     libraryID: "",
   });
   const navigate = useNavigate();
+
+  const role = props.roles;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -27,6 +29,11 @@ function CreateLibraryBook() {
       [name]: value,
     }));
   };
+
+  if (role === "ROLE_ANONYMOUS") {
+    window.location.href = "/";
+    return null;
+  }
 
   return (
     <div class="container mt-5">

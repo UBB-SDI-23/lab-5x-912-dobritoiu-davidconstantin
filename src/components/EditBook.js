@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-function EditBook() {
+function EditBook(props) {
   const [book, setBook] = useState({
     title: "",
     year: "",
@@ -30,6 +30,13 @@ function EditBook() {
   useEffect(() => {
     fetchBook();
   });
+
+  const role = props.roles;
+
+  if (role === "ROLE_ANONYMOUS") {
+    window.location.href = "/";
+    return null;
+  }
 
   const fetchBook = () => {
     axios

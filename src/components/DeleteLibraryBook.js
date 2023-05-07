@@ -4,6 +4,13 @@ function DeleteLibraryBook(props) {
   const { librarybook, handleDelete } = props;
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
+  const role = props.roles;
+
+  if (role === "ROLE_ANONYMOUS") {
+    window.location.href = "/";
+    return null;
+  }
+
   const handleConfirm = () => {
     handleDelete(librarybook.id);
     setShowConfirmDialog(false);
