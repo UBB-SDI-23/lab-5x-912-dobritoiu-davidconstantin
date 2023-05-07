@@ -50,7 +50,7 @@ function App() {
             if (roles.length > 0) {
               setRoles(roles[0].name);
             } else {
-              setRoles("USER_ANONYMOUS");
+              setRoles("ROLE_ANONYMOUS");
             }
           })
           .catch((error) => {
@@ -58,7 +58,7 @@ function App() {
           });
       }
     } else {
-      setRoles("USER_ANONYMOUS");
+      setRoles("ROLE_ANONYMOUS");
     }
   }, []);
 
