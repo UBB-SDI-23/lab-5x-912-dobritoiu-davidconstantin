@@ -34,29 +34,33 @@ import UserProfile from "./components/UserProfile";
 function App() {
   return (
     <div className="App">
-      <Header />
-{/*       <div className="button-group">
-        <div className="button">
-          <Link to="/authors">
-            <button>Authors</button>
-          </Link>
+      <Router>
+        <Header />
+      </Router>
+      <Router>
+        <div className="button-group">
+          <div className="button">
+            <Link to="/authors">
+              <button>Authors</button>
+            </Link>
+          </div>
+          <div className="button">
+            <Link to="/books">
+              <button>Books</button>
+            </Link>
+          </div>
+          <div className="button">
+            <Link to="/libraries">
+              <button>Libraries</button>
+            </Link>
+          </div>
+          <div className="button">
+            <Link to="/librarybook">
+              <button>LibraryBooks</button>
+            </Link>
+          </div>
         </div>
-        <div className="button">
-          <Link to="/books">
-            <button>Books</button>
-          </Link>
-        </div>
-        <div className="button">
-          <Link to="/libraries">
-            <button>Libraries</button>
-          </Link>
-        </div>
-        <div className="button">
-          <Link to="/librarybook">
-            <button>LibraryBooks</button>
-          </Link>
-        </div>
-      </div> */}
+      </Router>
       <Router>
         <Routes>
           <Route exact path="/authors" element={<AuthorList />} />

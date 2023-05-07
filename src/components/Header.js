@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 function Header(props) {
   const isLoggedIn = props.isLoggedIn;
   
+
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <Link to="/" className="navbar-brand">MySite</Link>
+      <Link to="/" className="navbar-brand">Library</Link>
       <button 
         className="navbar-toggler" 
         type="button" 
