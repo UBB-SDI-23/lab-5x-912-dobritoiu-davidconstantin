@@ -5,14 +5,13 @@ const roles = ["ROLE_ADMIN", "ROLE_USER", "ROLE_MODERATOR", "ROLE_ANONYMOUS"];
 
 const UserSearchPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
   const [searchResult, setSearchResult] = useState(null);
   const [selectedRole, setSelectedRole] = useState("");
 
   const handleSearch = async () => {
     try {
       const response = await axios.get(`/user-search?username=${searchQuery}`);
-      setSearchResults(response.data);
+      setSearchResult(response.data[0]);
     } catch (error) {
       console.error(error);
     }
@@ -47,24 +46,25 @@ const UserSearchPage = () => {
           />
         </label>
         <button onClick={handleSearch}>Search</button>
-        {searchResults.length > 0 && (
-          <ul>
-            {searchResults.map((user) => (
-              <li key={user.id}>
-                {user.username} - {user.role}
-                <select value={selectedRole} onChange={handleRoleChange}>
-                  {roles.map((role) => (
-                    <option key={role} value={role}>
-                      {role}
-                    </option>
-                  ))}
-                </select>
-                <button onClick={() => handleRoleUpdate(user.id)}>
-                  Update Role
-                </button>
-              </li>
-            ))}
-          </ul>
+        {searchResult && (
+          <div>
+            <p>
+              {searchResult.username} - {searchResult.role}
+            </p>
+            <label>
+              Select a role:
+              <select value={selectedRole} onChange={handleRoleChange}>
+                {roles.map((role) => (
+                  <option key={role} value={role}>
+                    {role}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <button onClick={() => handleRoleUpdate(searchResult.id)}>
+              Update Role
+            </button>
+          </div>
         )}
       </div>
     </div>
