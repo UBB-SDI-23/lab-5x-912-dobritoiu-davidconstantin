@@ -33,8 +33,15 @@ import UserProfile from "./components/UserProfile";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const userString = localStorage.getItem("user");
+  const user = JSON.parse(userString);
+
+  const jwtToken = user.jwtToken;
+  console.log(jwtToken);
+
   useEffect(() => {
-    const token = localStorage.getItem('user').jwtToken;
+    const token = localStorage.getItem("user").jwtToken;
     if (token) {
       setIsAuthenticated(true);
     }
@@ -67,7 +74,10 @@ function App() {
               </li>
             </ul>
             <Header isAuthenticated={isAuthenticated} />
-            <Routes isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
+            <Routes
+              isAuthenticated={isAuthenticated}
+              setIsAuthenticated={setIsAuthenticated}
+            />
           </div>
         </nav>
       </Router>
