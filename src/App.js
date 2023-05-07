@@ -39,22 +39,38 @@ function App() {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
-                <Link className="nav-link" to="/authors">
+                <Link
+                  className="nav-link"
+                  to="/authors"
+                  onClick={() => window.location.reload()}
+                >
                   Authors
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/books">
+                <Link
+                  className="nav-link"
+                  to="/books"
+                  onClick={() => window.location.reload()}
+                >
                   Books
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/libraries">
+                <Link
+                  className="nav-link"
+                  to="/libraries"
+                  onClick={() => window.location.reload()}
+                >
                   Libraries
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/librarybook">
+                <Link
+                  className="nav-link"
+                  to="/librarybook"
+                  onClick={() => window.location.reload()}
+                >
                   LibraryBooks
                 </Link>
               </li>
