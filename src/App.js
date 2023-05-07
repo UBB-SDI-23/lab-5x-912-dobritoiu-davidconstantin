@@ -47,14 +47,19 @@ function App() {
           .get(`/api/user/${user.username}`)
           .then((response) => {
             console.log(response.data);
-            setRoles(response.data.roles.map((role) => role.name));
+            const roles = response.data.roles;
+            if (roles.length > 0) {
+              setRoles(roles[0].name);
+            } else {
+              setRoles(null);
+            }
           })
           .catch((error) => {
             console.log(error);
           });
       }
     } else {
-      setRoles([]);
+      setRoles(null);
     }
   }, []);
 
