@@ -5,6 +5,7 @@ import AuthService from "../../services/AuthService";
 const ConfirmPage = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMessage] = useState("");
   const [token, setToken] = useState("");
 
   useEffect(() => {
@@ -15,12 +16,14 @@ const ConfirmPage = () => {
   }, []);
 
   const handleConfirm = () => {
+    setMessage("");
+
     AuthService.confirm(token)
       .then(() => {
         setTimeout(() => {
           navigate("/login");
         }, 3000);
-        setErrorMessage("Confirmation successful. Redirecting to login page...");
+        setMessage("Confirmation successful. Redirecting to login page...");
       })
       .catch((error) => {
         setErrorMessage(error.response.data.message);
@@ -31,6 +34,13 @@ const ConfirmPage = () => {
     <div>
       <h2>Confirm Page</h2>
       {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+      {message && (
+        <div className="form-group">
+          <div className="alert alert-success" role="alert">
+            {message}
+          </div>
+        </div>
+      )}
       <p>Token: {token}</p>
       <button className="btn btn-primary" onClick={handleConfirm}>
         Confirm

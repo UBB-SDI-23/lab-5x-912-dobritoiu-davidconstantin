@@ -15,7 +15,11 @@ const Login = () => {
 
     AuthService.login({ username, password }).then(
       () => {
-        window.location.href = "/";
+        setLoading(false);
+        setMessage("Login successful. Redirecting...");
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 3000);
       },
       (error) => {
         const resMessage =
@@ -73,7 +77,7 @@ const Login = () => {
 
         {message && (
           <div className="form-group">
-            <div className="alert alert-danger" role="alert">
+            <div className="alert alert-success" role="alert">
               {message}
             </div>
           </div>
