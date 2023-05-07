@@ -17,7 +17,7 @@ function EditLibrary() {
 
   useEffect(() => {
     fetchLibrary();
-  }, []);
+  });
 
   const fetchLibrary = () => {
     axios

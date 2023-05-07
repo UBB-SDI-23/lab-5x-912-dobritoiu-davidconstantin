@@ -29,7 +29,7 @@ function EditBook() {
 
   useEffect(() => {
     fetchBook();
-  }, []);
+  });
 
   const fetchBook = () => {
     axios

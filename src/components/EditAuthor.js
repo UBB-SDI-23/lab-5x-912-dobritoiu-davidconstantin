@@ -22,7 +22,7 @@ function EditAuthor() {
 
   useEffect(() => {
     fetchAuthor();
-  }, []);
+  });
 
   const fetchAuthor = () => {
     axios
