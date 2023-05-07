@@ -49,6 +49,8 @@ function App() {
           .get(`/api/user/${user.username}`)
           .then((response) => {
             setId(response.data.id);
+            console.log(response.data.id);
+            console.log(id);
             const roles = response.data.roles;
             if (roles.length > 0) {
               setRoles(roles[0].name);
@@ -64,8 +66,6 @@ function App() {
       setRoles("ROLE_ANONYMOUS");
     }
   }, []);
-
-  console.log(roles);
 
   return (
     <div className="App">
@@ -94,7 +94,7 @@ function App() {
                 </Link>
               </li>
             </ul>
-            <Header isAuthenticated={isAuthenticated} />
+            <Header isAuthenticated={isAuthenticated} roles={roles} />
           </div>
         </nav>
       </Router>
