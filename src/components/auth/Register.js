@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import AuthService from "../services/AuthService";
+import { useNavigate } from "react-router-dom";
+import AuthService from "../../services/AuthService";
 
 const RegisterPage = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -24,7 +24,7 @@ const RegisterPage = () => {
       .then((response) => {
         const { username, jwtToken } = response.data;
         localStorage.setItem("user", JSON.stringify({ username, jwtToken }));
-        history.push("/confirm");
+        navigate("/confirm");
       })
       .catch((error) => {
         setErrorMessage(error.response.data.message);

@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AuthService from "../../services/AuthService";
 
 const ConfirmPage = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { jwtToken } = useParams();
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     AuthService.confirm(jwtToken)
       .then(() => {
-        history.push("/login");
+        navigate("/login");
       })
       .catch((error) => {
         setErrorMessage(error.response.data.message);
       });
-  }, [history, jwtToken]);
+  }, [navigate, jwtToken]);
 
   return (
     <div>
