@@ -1,10 +1,11 @@
 import React, { useContext, useEffect } from "react";
-import { Redirect } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import AuthService from "../../services/AuthService";
 
 const Logout = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+
+  console.log(isAuthenticated);
 
   useEffect(() => {
     const logout = async () => {
