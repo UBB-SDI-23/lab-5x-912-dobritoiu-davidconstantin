@@ -58,8 +58,8 @@ function App() {
                   LibraryBooks
                 </Link>
               </li>
-              <Header />
             </ul>
+            <Header />
           </div>
         </nav>
       </Router>

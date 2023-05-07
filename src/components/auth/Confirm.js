@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../../services/AuthService";
 
-const ConfirmPage = ({ token }) => {
+const ConfirmPage = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      setToken(user.jwtToken);
+    }
+  }, []);
 
   const handleConfirm = () => {
     AuthService.confirm(token)
