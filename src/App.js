@@ -39,6 +39,7 @@ function App() {
 
   useEffect(() => {
     const userString = localStorage.getItem("user");
+    console.log(userString);
     const user = JSON.parse(userString);
   
     const jwtToken = user.jwtToken;
@@ -46,6 +47,7 @@ function App() {
       setIsAuthenticated(true);
       axios.get(`/api/user/${user.username}`)
         .then(response => {
+          console.log(response.data);
           setRoles(response.data.roles.map(role => role.name));
           console.log(roles);
         })

@@ -40,6 +40,14 @@ class AuthService {
     return jwtToken;
   }
 
+  setJwtToken(token) {
+    const userString = localStorage.getItem(TOKEN_KEY);
+    const user = JSON.parse(userString);
+    user.jwtToken = token;
+
+    localStorage.setItem(TOKEN_KEY, JSON.stringify(user));
+  }
+
   getCurrentUser() {
     const userString = localStorage.getItem(TOKEN_KEY);
     const user = JSON.parse(userString);
