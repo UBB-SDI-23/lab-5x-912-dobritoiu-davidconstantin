@@ -5,65 +5,45 @@ function Header(props) {
   const isLoggedIn = props.isLoggedIn;
 
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link
-            className="nav-link"
-            to="/"
-            onClick={() => window.location.reload()}
-          >
-            Home
-          </Link>
-        </li>
-      </ul>
-      <ul>
+    <li className="nav-item">
+      <li>
+        <Link reloadDocument className="nav-link" to="/">
+          Home
+        </Link>
+      </li>
+      <li>
         {!isLoggedIn && (
           <>
             <li>
-              <Link
-                className="nav-link"
-                to="/login"
-                onClick={() => window.location.reload()}
-              >
+              <Link reloadDocument className="nav-link" to="/login">
                 Login
               </Link>
             </li>
             <li>
-              <Link
-                className="nav-link"
-                to="/register"
-                onClick={() => window.location.reload()}
-              >
+              <Link reloadDocument className="nav-link" to="/register">
                 Register
               </Link>
             </li>
           </>
         )}
+      </li>
+      <li>
         {isLoggedIn && (
           <>
             <li>
-              <Link
-                className="nav-link"
-                to="/dashboard"
-                onClick={() => window.location.reload()}
-              >
+              <Link reloadDocument className="nav-link" to="/dashboard">
                 Dashboard
               </Link>
             </li>
             <li>
-              <Link
-                className="nav-link"
-                to="/logout"
-                onClick={() => window.location.reload()}
-              >
+              <Link reloadDocument className="nav-link" to="/logout">
                 Logout
               </Link>
             </li>
           </>
         )}
-      </ul>
-    </nav>
+      </li>
+    </li>
   );
 }
 
