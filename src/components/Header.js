@@ -11,30 +11,22 @@ function Header(props) {
       </Link>
       {!isLoggedIn && (
         <>
-          <li>
-            <Link reloadDocument className="nav-link" to="/login">
-              Login
-            </Link>
-          </li>
-          <li>
-            <Link reloadDocument className="nav-link" to="/register">
-              Register
-            </Link>
-          </li>
+          <Link reloadDocument className="nav-link" to="/login">
+            Login
+          </Link>
+          <Link reloadDocument className="nav-link" to="/register">
+            Register
+          </Link>
         </>
       )}
       {isLoggedIn && (
         <>
-          <li>
-            <Link reloadDocument className="nav-link" to="/dashboard">
-              Dashboard
-            </Link>
-          </li>
-          <li>
-            <Link reloadDocument className="nav-link" to="/logout">
-              Logout
-            </Link>
-          </li>
+          <Link reloadDocument className="nav-link" to="/dashboard">
+            Dashboard
+          </Link>
+          <Link reloadDocument className="nav-link" to="/logout">
+            Logout
+          </Link>
         </>
       )}
     </li>

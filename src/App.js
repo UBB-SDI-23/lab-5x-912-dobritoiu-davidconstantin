@@ -120,7 +120,7 @@ function App() {
           <Route exact path="/register" element={<RegisterPage />}></Route>
           <Route exact path="/login" element={<Login />}></Route>
           <Route exact path="/logout" element={<Logout />}></Route>
-          <Route exact path="/confirm/:jwtToken" element={<ConfirmPage />}></Route>
+          <Route exact path="/confirm" element={<ConfirmPage />}></Route>
           <Route exact path="/profile/:id" element={<UserProfile />}></Route>
         </Routes>
       </Router>
