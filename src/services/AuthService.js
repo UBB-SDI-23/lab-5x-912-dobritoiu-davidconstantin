@@ -14,6 +14,7 @@ class AuthService {
   login(loginRequest) {
     return axios.post("/api/signin", loginRequest)
       .then(response => {
+        console.log(response.data);
         if (response.data.accessToken) {
           const user = {
             username: loginRequest.username,
