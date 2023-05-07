@@ -34,15 +34,12 @@ import UserProfile from "./components/UserProfile";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const userString = localStorage.getItem("user");
-  const user = JSON.parse(userString);
-
-  const jwtToken = user.jwtToken;
-  console.log(jwtToken);
-
   useEffect(() => {
-    const token = localStorage.getItem("user").jwtToken;
-    if (token) {
+    const userString = localStorage.getItem("user");
+    const user = JSON.parse(userString);
+
+    const jwtToken = user.jwtToken;
+    if (jwtToken) {
       setIsAuthenticated(true);
     }
   }, []);
