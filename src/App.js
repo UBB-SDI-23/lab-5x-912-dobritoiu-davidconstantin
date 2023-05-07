@@ -63,6 +63,8 @@ function App() {
     }
   }, []);
 
+  console.log(roles);
+
   return (
     <div className="App">
       <Router forceRefresh={true}>
@@ -91,16 +93,15 @@ function App() {
               </li>
             </ul>
             <Header isAuthenticated={isAuthenticated} />
-            <Routes
-              isAuthenticated={isAuthenticated}
-              setIsAuthenticated={setIsAuthenticated}
-            />
           </div>
         </nav>
       </Router>
 
       <Router>
-        <Routes>
+        <Routes
+          isAuthenticated={isAuthenticated}
+          setIsAuthenticated={setIsAuthenticated}
+        >
           <Route exact path="/authors" element={<AuthorList />} />
           <Route exact path="/authors/create" element={<CreateAuthor />} />
           <Route exact path="/authors/:id" element={<AuthorPage />} />
