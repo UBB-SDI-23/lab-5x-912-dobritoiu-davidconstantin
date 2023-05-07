@@ -36,6 +36,7 @@ import AdminPage from "./components/AdminPage";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [roles, setRoles] = useState(null);
+  const [id, setId] = useState(null);
 
   useEffect(() => {
     const userString = localStorage.getItem("user");
@@ -47,6 +48,7 @@ function App() {
         axios
           .get(`/api/user/${user.username}`)
           .then((response) => {
+            setId(response.data.id);
             const roles = response.data.roles;
             if (roles.length > 0) {
               setRoles(roles[0].name);
@@ -196,7 +198,7 @@ function App() {
           <Route
             exact
             path="/profile/:id"
-            element={<UserProfile roles={roles} />}
+            element={<UserProfile roles={roles} id={id} />}
           ></Route>
           <Route exact path="/dashboard" element={<AdminPage />}></Route>
         </Routes>

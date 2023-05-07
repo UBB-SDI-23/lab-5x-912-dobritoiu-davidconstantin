@@ -5,7 +5,7 @@ function UserProfile(props) {
   const [userProfile, setUserProfile] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({});
-  const { id } = props;
+  const id = props.id;
 
   const role = props.roles;
 
