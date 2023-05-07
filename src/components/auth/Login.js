@@ -3,7 +3,9 @@ import AuthService from "../../services/AuthService";
 import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
-  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, login } = useContext(AuthContext);
+
+  console.log(isAuthenticated);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +23,7 @@ const Login = () => {
       () => {
         setLoading(false);
         setMessage("Login successful. Redirecting...");
-        setIsAuthenticated(true); // update the AuthContext
+        login(username, password);
         setTimeout(() => {
           window.location.href = "/";
         }, 3000);
