@@ -34,7 +34,7 @@ import UserProfile from "./components/UserProfile";
 function App() {
   return (
     <div className="App">
-      <Router>
+      <Router forceRefresh={true}>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <Link className="navbar-brand" to="/">
             Your App Title
