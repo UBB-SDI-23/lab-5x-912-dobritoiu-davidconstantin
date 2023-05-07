@@ -1,7 +1,6 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
-
-const roles = ["ROLE_ADMIN", "ROLE_USER", "ROLE_MODERATOR", "ROLE_ANONYMOUS"];
 
 const AdminPage = () => {
   const [confirmDeleteAuthors, setConfirmDeleteAuthors] = useState(false);
@@ -14,17 +13,6 @@ const AdminPage = () => {
   const [confirmInsertLibraries, setConfirmInsertLibraries] = useState(false);
   const [confirmInsertLibraryBooks, setConfirmInsertLibraryBooks] =
     useState(false);
-
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-
-  const [username, setUsername] = useState("");
-  const [selectedRole, setSelectedRole] = useState("ROLE_USER");
-  const [searchResult, setSearchResult] = useState(null);
-
-  const handleRoleChange = (event) => {
-    setSelectedRole(event.target.value);
-  };
 
   const handleDeleteAuthors = async () => {
     if (confirmDeleteAuthors) {
@@ -128,27 +116,6 @@ const AdminPage = () => {
     }
   };
 
-  const handleSearch = async () => {
-    try {
-      const response = await axios.get(`/user-search?username=${searchQuery}`);
-      setSearchResults(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleRoleUpdate = (id) => {
-    const updatedRoles = { [selectedRole]: true };
-    axios
-      .put(`/user-roles/${id}`, updatedRoles)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
   return (
     <div>
       <h1>Admin Page</h1>
@@ -199,7 +166,7 @@ const AdminPage = () => {
         {confirmInsertBooks ? (
           <div>
             <p>Are you sure you want to insert all authors?</p>
-            <button onClick={handleInsertAuthors}>Yes</button>
+            <button onClick={handleInsertBooks}>Yes</button>
             <button onClick={() => setConfirmInsertBooks(false)}>No</button>
           </div>
         ) : (
@@ -269,36 +236,10 @@ const AdminPage = () => {
         )}
       </div>
 
-      <div>
-        <label>
-          Username:
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </label>
-        <button onClick={handleSearch}>Search</button>
-        {searchResult && (
-          <ul>
-            {searchResult.map((user) => (
-              <li key={user.id}>
-                {user.username} - {user.role}
-                <select value={selectedRole} onChange={handleRoleChange}>
-                  {roles.map((role) => (
-                    <option key={role} value={role}>
-                      {role}
-                    </option>
-                  ))}
-                </select>
-                <button onClick={() => handleRoleUpdate(user.id)}>
-                  Update Role
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      <h2>Search Users</h2>
+      <Link to="/dashboard/users">
+        <button>Search Users</button>
+      </Link>
     </div>
   );
 };

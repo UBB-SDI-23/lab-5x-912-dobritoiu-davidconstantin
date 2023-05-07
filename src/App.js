@@ -32,6 +32,7 @@ import Logout from "./components/auth/Logout";
 import ConfirmPage from "./components/auth/Confirm";
 import UserProfile from "./components/UserProfile";
 import AdminPage from "./components/AdminPage";
+import UserSearchPage from "./components/UserSearchPage";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -201,6 +202,7 @@ function App() {
             element={<UserProfile roles={roles} id={id} />}
           ></Route>
           <Route exact path="/dashboard" element={<AdminPage />}></Route>
+          <Route exact path="/dashboard/users" element={<UserSearchPage />}></Route>
         </Routes>
       </Router>
     </div>
