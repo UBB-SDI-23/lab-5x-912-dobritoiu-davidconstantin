@@ -40,7 +40,6 @@ const Login = () => {
     );
   };
 
-  // Redirect if user is already authenticated
   if (isAuthenticated) {
     window.location.href = "/";
     return null;
