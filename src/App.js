@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import axios from "axios";
@@ -31,9 +31,10 @@ import Login from "./components/auth/Login";
 import Logout from "./components/auth/Logout";
 import ConfirmPage from "./components/auth/Confirm";
 import UserProfile from "./components/UserProfile";
+import { AuthContext } from "./components/context/AuthContext";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useContext(AuthContext);
   const [roles, setRoles] = useState(null);
 
   useEffect(() => {
