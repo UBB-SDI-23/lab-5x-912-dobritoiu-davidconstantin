@@ -159,8 +159,8 @@ function AuthorList() {
               <td>{author.email}</td>
               <td>{author.bio}</td>
               <td>{author.country}</td>
-              <td>{author.username}</td>
               <td>{author.booksCount}</td>
+              <td>{author.username}</td>
               <td>
                 <button
                   className="btn btn-primary me-2"

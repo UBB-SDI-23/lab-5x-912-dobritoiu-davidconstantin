@@ -27,7 +27,7 @@ function BookList() {
       setCurrentUserRole("");
       return;
     }
-  
+
     axios
       .get("/api/user/Davis856", {
         headers: {
@@ -35,13 +35,14 @@ function BookList() {
         },
       })
       .then((response) => {
+        console.log(response);
         setCurrentUserRole(response.data.role);
       })
       .catch((error) => console.log(error));
   }, []);
-  
 
-  const canAddOrEditAll = currentUserRole === "ROLE_ADMIN" || currentUserRole === "ROLE_MODERATOR";
+  const canAddOrEditAll =
+    currentUserRole === "ROLE_ADMIN" || currentUserRole === "ROLE_MODERATOR";
   const canAddOrEditOwn = currentUserRole === "ROLE_USER" || canAddOrEditAll;
 
   useEffect(() => {
@@ -118,7 +119,10 @@ function BookList() {
             <th>Rating</th>
             <th>Author</th>
             <th>User</th>
-            <th>Actions</th>
+            {books.some(
+              (book) =>
+                (book.addedByCurrentUser && canAddOrEditOwn) || canAddOrEditAll
+            ) && <th>Actions</th>}
           </tr>
         </thead>
         <tbody>
@@ -131,7 +135,8 @@ function BookList() {
               <td>{book.authorId}</td>
               <td>{book.username}</td>
               <td>
-                {(canAddOrEditAll || (canAddOrEditOwn && book.addedByCurrentUser)) && (
+                {(canAddOrEditAll ||
+                  (canAddOrEditOwn && book.addedByCurrentUser)) && (
                   <button
                     className="btn btn-primary me-2"
                     onClick={() => handleEdit(book.id)}
@@ -139,7 +144,8 @@ function BookList() {
                     Edit
                   </button>
                 )}
-                {(canAddOrEditAll || (canAddOrEditOwn && book.addedByCurrentUser)) && (
+                {(canAddOrEditAll ||
+                  (canAddOrEditOwn && book.addedByCurrentUser)) && (
                   <DeleteBook book={book} handleDelete={handleDelete} />
                 )}
               </td>
