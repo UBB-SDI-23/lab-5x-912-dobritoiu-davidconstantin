@@ -46,7 +46,6 @@ function App() {
         axios
           .get(`/api/user/${user.username}`)
           .then((response) => {
-            console.log(response.data);
             const roles = response.data.roles;
             if (roles.length > 0) {
               setRoles(roles[0].name);
@@ -102,7 +101,7 @@ function App() {
           isAuthenticated={isAuthenticated}
           setIsAuthenticated={setIsAuthenticated}
         >
-          <Route exact path="/authors" element={<AuthorList />} />
+          <Route exact path="/authors" element={<AuthorList roles={roles}/>} />
           <Route exact path="/authors/create" element={<CreateAuthor />} />
           <Route exact path="/authors/:id" element={<AuthorPage />} />
           <Route exact path="/authors/:id/edit" element={<EditAuthor />} />

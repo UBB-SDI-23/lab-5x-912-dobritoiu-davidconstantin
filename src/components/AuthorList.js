@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DeleteAuthor from "./DeleteAuthor";
 
-function AuthorList() {
+function AuthorList(props) {
   const [authors, setAuthors] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [booksCountFilter, setBooksCountFilter] = useState(0);
   const navigate = useNavigate();
+  const role = props.roles;
 
   const fetchAuthors = useCallback(() => {
     axios
@@ -114,9 +115,9 @@ function AuthorList() {
     <div className="container">
       <h1 className="mt-5 mb-3">Author List</h1>
       <div className="mb-3 d-flex justify-content-between align-items-center">
-        <button className="btn btn-primary" onClick={handleCreate}>
+        {role !== "ROLE_ANONYMOUS" && <button className="btn btn-primary" onClick={handleCreate}>
           Create Author
-        </button>
+        </button>}
         <div className="d-flex align-items-center">
           <label htmlFor="booksCount" className="me-3">
             Filter by books count:
@@ -149,7 +150,10 @@ function AuthorList() {
             <th>Country</th>
             <th>Books Count</th>
             <th>Username</th>
-            <th>Actions</th>
+            {authors.some(
+              (author) =>
+                (author.addedByCurrentUser && role === "ROLE_USER") || role === "ROLE_ADMIN" || role === "ROLE_MODERATOR"
+            ) && <th>Actions</th>}
           </tr>
         </thead>
         <tbody>
@@ -162,13 +166,19 @@ function AuthorList() {
               <td>{author.booksCount}</td>
               <td>{author.username}</td>
               <td>
-                <button
-                  className="btn btn-primary me-2"
-                  onClick={() => handleEdit(author.id)}
-                >
-                  Edit
-                </button>
-                <DeleteAuthor author={author} handleDelete={handleDelete} />
+                {(role === "ROLE_ADMIN" ||
+                  (role === "ROLE_USER" && author.addedByCurrentUser) || role === "ROLE_MODERATOR") && (
+                  <button
+                    className="btn btn-primary me-2"
+                    onClick={() => handleEdit(author.id)}
+                  >
+                    Edit
+                  </button>
+                )}
+                {(role === "ROLE_ADMIN" ||
+                  (role === "ROLE_USER" && author.addedByCurrentUser) || role === "ROLE_MODERATOR") && (
+                  <DeleteAuthor author={author} handleDelete={handleDelete} />
+                )}
               </td>
             </tr>
           ))}
