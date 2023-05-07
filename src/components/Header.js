@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Header(props) {
-  const isLoggedIn = props.isLoggedIn;
+  console.log(props); // add this line to log the props
 
-  console.log(props);
+  const isLoggedIn = props.isLoggedIn;
 
   return (
     <ul class="navbar-nav mr-auto">
