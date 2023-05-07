@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 function Header(props) {
   const isLoggedIn = props.isLoggedIn;
 
+  console.log(props);
+
   return (
     <ul class="navbar-nav mr-auto">
       <li className="nav-item">
@@ -11,7 +13,7 @@ function Header(props) {
           Home
         </Link>
       </li>
-      <li classNae="nav-item">
+      <li className="nav-item">
         {!isLoggedIn && (
           <>
             <Link reloadDocument className="nav-link" to="/login">
