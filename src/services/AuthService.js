@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const TOKEN_KEY = 'auth_token';
+const TOKEN_KEY = 'user';
 
 class AuthService {
   register(signUpRequest) {
@@ -15,7 +15,11 @@ class AuthService {
     return axios.post("/api/signin", loginRequest)
       .then(response => {
         if (response.data.accessToken) {
-          localStorage.setItem(TOKEN_KEY, response.data.accessToken);
+          const user = {
+            username: loginRequest.username,
+            jwtToken: response.data.accessToken
+          }
+          localStorage.setItem(TOKEN_KEY, JSON.stringify(user));
         }
 
         return response.data;
@@ -27,11 +31,21 @@ class AuthService {
     return axios.post("/api/signout");
   }
 
-  getCurrentUser() {
-    const token = localStorage.getItem(TOKEN_KEY);
+  getJwtToken() {
+    const userString = localStorage.getItem(TOKEN_KEY);
+    const user = JSON.parse(userString);
 
-    if (token) {
-      const payload = JSON.parse(atob(token.split('.')[1]));
+    const jwtToken = user.jwtToken;
+
+    return jwtToken;
+  }
+
+  getCurrentUser() {
+    const userString = localStorage.getItem(TOKEN_KEY);
+    const user = JSON.parse(userString);
+
+    if (user) {
+      const payload = JSON.parse(atob(user.jwtToken.split('.')[1]));
       return payload.sub;
     }
 

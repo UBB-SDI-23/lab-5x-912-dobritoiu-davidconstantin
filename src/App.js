@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import axios from 'axios';
 import AuthorList from "./components/AuthorList";
 import CreateAuthor from "./components/CreateAuthor";
 import EditAuthor from "./components/EditAuthor";
@@ -33,15 +34,27 @@ import UserProfile from "./components/UserProfile";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [roles, setRoles] = useState(null);
+
 
   useEffect(() => {
     const userString = localStorage.getItem("user");
     const user = JSON.parse(userString);
-
+  
     const jwtToken = user.jwtToken;
     if (jwtToken) {
       setIsAuthenticated(true);
+      axios.get(`/api/user/${user.username}`)
+        .then(response => {
+          setRoles(response.data.roles.map(role => role.name));
+          console.log(roles);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
+
+
   }, []);
   return (
     <div className="App">

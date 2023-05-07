@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../../services/AuthService";
+import withAuthRedirect from "../hoc/withAuthRedirect";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -66,4 +67,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default withAuthRedirect(RegisterPage);
