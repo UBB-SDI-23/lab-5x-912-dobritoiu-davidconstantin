@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 function Header(props) {
   const isAuthenticated = props.isAuthenticated;
   const role = props.roles;
+  const id = props.id;
 
   return (
     <ul class="navbar-nav mr-auto">
@@ -42,7 +43,7 @@ function Header(props) {
       <li className="nav-item">
         {isAuthenticated && (
           <>
-            <Link reloadDocument className="nav-link" to="/profile/:id">
+            <Link reloadDocument className="nav-link" to={`/profile/${id}`}>
               Profile
             </Link>
           </>

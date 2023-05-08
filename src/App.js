@@ -51,8 +51,6 @@ function App() {
           .then((response) => {
             const id = response.data.id;
             setId(id);
-            console.log(id);
-            console.log(response.data.id);
             const roles = response.data.roles;
             if (roles.length > 0) {
               setRoles(roles[0].name);
@@ -203,7 +201,7 @@ function App() {
             element={<UserProfile roles={roles} id={id} />}
           ></Route>
           <Route exact path="/dashboard" element={<AdminPage />}></Route>
-          <Route exact path="/dashboard/users" element={<UserSearchPage id={id} />}></Route>
+          <Route exact path="/dashboard/users" element={<UserSearchPage />}></Route>
         </Routes>
       </Router>
     </div>
