@@ -7,10 +7,13 @@ function UserProfile(props) {
   const [formData, setFormData] = useState({});
   const id = props.id;
 
+  console.log(props);
+
   const role = props.roles;
 
   useEffect(() => {
     async function fetchUserProfile() {
+        console.log(id);
       const response = await axios.get(`/api/user-profile-id/${id}`);
       const data = response.data;
       setUserProfile(data);
@@ -47,7 +50,7 @@ function UserProfile(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.put(`/api/user-profile-id/${id}`, formData);
+      await axios.put(`/api/user-profile/${id}`, formData);
       setIsEditing(false);
       setUserProfile((prevState) => ({ ...prevState, ...formData }));
     } catch (error) {

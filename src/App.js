@@ -94,7 +94,7 @@ function App() {
                 </Link>
               </li>
             </ul>
-            <Header isAuthenticated={isAuthenticated} roles={roles} />
+            <Header isAuthenticated={isAuthenticated} roles={roles} id={id} />
           </div>
         </nav>
       </Router>
