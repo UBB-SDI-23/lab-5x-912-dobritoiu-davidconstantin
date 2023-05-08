@@ -27,10 +27,10 @@ const FilteredAuthorList = () => {
   };
 
   return (
-    <div>
+    <div className="container mt-3">
       <h2>Authors</h2>
-      <table>
-        <thead>
+      <table className="table">
+        <thead className="table-dark">
           <tr>
             <th>ID</th>
             <th>Name</th>
@@ -47,11 +47,19 @@ const FilteredAuthorList = () => {
           ))}
         </tbody>
       </table>
-      <div>
-        <button onClick={handlePrevious} disabled={page === 0}>
+      <div className="d-flex justify-content-between">
+        <button
+          className="btn btn-primary"
+          onClick={handlePrevious}
+          disabled={page === 0}
+        >
           Previous
         </button>
-        <button onClick={handleNext} disabled={authors.length < size}>
+        <button
+          className="btn btn-primary"
+          onClick={handleNext}
+          disabled={authors.length < size}
+        >
           Next
         </button>
       </div>

@@ -7,13 +7,12 @@ function UserProfile(props) {
   const [formData, setFormData] = useState({});
   const id = props.id;
 
-  console.log(props);
-  console.log(props.id);
-
   const role = props.roles;
 
   useEffect(() => {
     async function fetchUserProfile() {
+      console.log(id);
+      console.log(props);
       const response = await axios.get(`/api/user-profile-id/${id}`);
       const data = response.data;
       setUserProfile(data);
@@ -64,10 +63,10 @@ function UserProfile(props) {
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>User Profile</h2>
       {isEditing && role === "ROLE_ADMIN" ? (
-        <form onSubmit={handleSubmit}>
+        <form className="form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="bio">Bio:</label>
             <textarea

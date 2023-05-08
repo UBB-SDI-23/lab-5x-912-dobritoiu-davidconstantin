@@ -27,9 +27,9 @@ const TopLibraryList = () => {
   };
 
   return (
-    <div>
-      <h2>Libraries</h2>
-      <table>
+    <div className="container">
+      <h2 className="mb-4">Libraries</h2>
+      <table className="table table-striped">
         <thead>
           <tr>
             <th>ID</th>
@@ -47,11 +47,19 @@ const TopLibraryList = () => {
           ))}
         </tbody>
       </table>
-      <div>
-        <button onClick={handlePrevious} disabled={page === 0}>
+      <div className="d-flex justify-content-between align-items-center">
+        <button
+          className="btn btn-primary"
+          onClick={handlePrevious}
+          disabled={page === 0}
+        >
           Previous
         </button>
-        <button onClick={handleNext} disabled={libraries.length < size}>
+        <button
+          className="btn btn-primary"
+          onClick={handleNext}
+          disabled={libraries.length < size}
+        >
           Next
         </button>
       </div>
