@@ -17,7 +17,7 @@ function AdminPage() {
   const handleDeleteAuthors = async () => {
     if (confirmDeleteAuthors) {
       try {
-        const response = await axios.post("/run-delete-authors-script");
+        const response = await axios.post("/api/run-delete-authors-script");
         alert(response.data.message);
       } catch (error) {
         console.error(error);
@@ -29,7 +29,7 @@ function AdminPage() {
   const handleInsertAuthors = async () => {
     if (confirmDeleteAuthors) {
       try {
-        const response = await axios.post("/run-insert-authors-script");
+        const response = await axios.post("/api/run-insert-authors-script");
         alert(response.data.message);
       } catch (error) {
         console.error(error);
@@ -42,7 +42,7 @@ function AdminPage() {
   const handleDeleteBooks = async () => {
     if (confirmDeleteBooks) {
       try {
-        const response = await axios.post("/run-delete-books-script");
+        const response = await axios.post("/api/run-delete-books-script");
         alert(response.data.message);
       } catch (error) {
         console.error(error);
@@ -54,7 +54,7 @@ function AdminPage() {
   const handleInsertBooks = async () => {
     if (confirmDeleteBooks) {
       try {
-        const response = await axios.post("/run-insert-books-script");
+        const response = await axios.post("/api/run-insert-books-script");
         alert(response.data.message);
       } catch (error) {
         console.error(error);
@@ -67,7 +67,7 @@ function AdminPage() {
   const handleDeleteLibraries = async () => {
     if (confirmDeleteLibraries) {
       try {
-        const response = await axios.post("/run-delete-libraries-script");
+        const response = await axios.post("/api/run-delete-libraries-script");
         alert(response.data.message);
       } catch (error) {
         console.error(error);
@@ -80,7 +80,7 @@ function AdminPage() {
   const handleInsertLibraries = async () => {
     if (confirmDeleteLibraries) {
       try {
-        const response = await axios.post("/run-insert-libraries-script");
+        const response = await axios.post("/api/run-insert-libraries-script");
         alert(response.data.message);
       } catch (error) {
         console.error(error);
@@ -93,7 +93,7 @@ function AdminPage() {
   const handleDeleteLibraryBooks = async () => {
     if (confirmDeleteLibraryBooks) {
       try {
-        const response = await axios.post("/run-delete-librarybooks-script");
+        const response = await axios.post("/api/run-delete-librarybooks-script");
         alert(response.data.message);
       } catch (error) {
         console.error(error);
@@ -106,7 +106,7 @@ function AdminPage() {
   const handleInsertLibraryBooks = async () => {
     if (confirmDeleteLibraryBooks) {
       try {
-        const response = await axios.post("/run-insert-librarybooks-script");
+        const response = await axios.post("/api/run-insert-librarybooks-script");
         alert(response.data.message);
       } catch (error) {
         console.error(error);
