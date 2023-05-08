@@ -19,14 +19,7 @@ function EntitiesPerPage() {
           value={itemsPerPage}
           onChange={handleItemsPerPageChange}
         />
-        <button
-          className="btn btn-primary"
-          onClick={() => {
-            setItemsPerPage(itemsPerPage);
-          }}
-        >
-          Update
-        </button>
+        <button className="btn btn-primary">Update</button>
       </div>
     </div>
   );
