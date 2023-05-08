@@ -7,6 +7,9 @@ function UserProfile(props) {
   const [formData, setFormData] = useState({});
   const id = props.id;
 
+  console.log(props);
+  console.log(props.id);
+
   const role = props.roles;
 
   useEffect(() => {

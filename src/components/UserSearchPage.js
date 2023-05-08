@@ -10,19 +10,23 @@ const UserSearchPage = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`/api/user-search?username=${searchQuery}`);
-      console.log(response.data[0]);
-      setSearchResult(response.data[0]);
+      const response = await axios.get(
+        `/api/user-search?username=${searchQuery}`
+      );
+      setSearchResult(response.data[0].username);
     } catch (error) {
       console.error(error);
     }
   };
 
   const handleRoleUpdate = (id) => {
-    console.log(id);
-    const updatedRoles = { role: selectedRole };
+    const updatedRoles = { [selectedRole]: true };
     axios
-      .put(`/api/user-roles/${id}`, updatedRoles)
+      .put(`/api/user-roles/${id}`, updatedRoles, {
+        headers: {
+          Authorization: localStorage.getItem("user").jwtToken,
+        },
+      })
       .then((response) => {
         console.log(response.data);
       })
