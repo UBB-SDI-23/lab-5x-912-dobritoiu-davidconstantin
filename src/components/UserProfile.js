@@ -11,8 +11,6 @@ function UserProfile(props) {
 
   useEffect(() => {
     async function fetchUserProfile() {
-      console.log(id);
-      console.log(props);
       const response = await axios.get(`/api/user-profile-id/${id}`);
       const data = response.data;
       setUserProfile(data);
