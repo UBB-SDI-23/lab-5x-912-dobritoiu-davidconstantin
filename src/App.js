@@ -67,8 +67,6 @@ function App() {
     }
   }, [id]);
 
-  console.log(id);
-
   return (
     <div className="App">
       <Router forceRefresh={true}>
