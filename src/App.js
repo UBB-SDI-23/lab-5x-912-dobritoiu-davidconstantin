@@ -68,6 +68,8 @@ function App() {
     }
   }, [id]);
 
+  console.log(roles);
+
   return (
     <div className="App">
       <Router forceRefresh={true}>
