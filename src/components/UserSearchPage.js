@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const roles = ["ROLE_ADMIN", "ROLE_USER", "ROLE_MODERATOR", "ROLE_ANONYMOUS"];
+const rolesArray = ["ROLE_ADMIN", "ROLE_USER", "ROLE_MODERATOR", "ROLE_ANONYMOUS"];
 
-const UserSearchPage = () => {
+function UserSearchPage(props) {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResult, setSearchResult] = useState(null);
   const [selectedRole, setSelectedRole] = useState("");
+
+  const role = props.roles;
+
+  if (role !== "ROLE_ADMIN") {
+    window.location.href = "/";
+    return null;
+  }
 
   const handleSearch = async () => {
     try {
@@ -19,7 +26,7 @@ const UserSearchPage = () => {
     }
   };
 
-  const userString = localStorage.getItem('user');
+  const userString = localStorage.getItem("user");
   const user = JSON.parse(userString);
 
   const jwtToken = user.jwtToken;
@@ -45,6 +52,7 @@ const UserSearchPage = () => {
       console.error(error);
     }
   };
+  
   const handleRoleChange = (event) => {
     setSelectedRole(event.target.value);
   };
@@ -75,7 +83,8 @@ const UserSearchPage = () => {
         <div className="row">
           <div className="col-md-6">
             <p>
-              {searchResult.username} - {searchResult.roles[0].name}
+              {searchResult.username} -{" "}
+              {searchResult.rolesArray.map((role) => role.name).join(", ")}
             </p>
             <div className="form-group">
               <label htmlFor="role-select">Select a role:</label>
@@ -85,7 +94,7 @@ const UserSearchPage = () => {
                 value={selectedRole}
                 onChange={handleRoleChange}
               >
-                {roles.map((role) => (
+                {rolesArray.map((role) => (
                   <option key={role} value={role}>
                     {role}
                   </option>
@@ -100,6 +109,6 @@ const UserSearchPage = () => {
       )}
     </div>
   );
-};
+}
 
 export default UserSearchPage;

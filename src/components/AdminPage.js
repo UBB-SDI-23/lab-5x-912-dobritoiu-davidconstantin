@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const AdminPage = () => {
+function AdminPage(props) {
   const [confirmDeleteAuthors, setConfirmDeleteAuthors] = useState(false);
   const [confirmDeleteBooks, setConfirmDeleteBooks] = useState(false);
   const [confirmDeleteLibraries, setConfirmDeleteLibraries] = useState(false);
@@ -13,6 +13,13 @@ const AdminPage = () => {
   const [confirmInsertLibraries, setConfirmInsertLibraries] = useState(false);
   const [confirmInsertLibraryBooks, setConfirmInsertLibraryBooks] =
     useState(false);
+
+  const role = props.roles;
+
+  if (role !== "ROLE_ADMIN") {
+    window.location.href = "/";
+    return null;
+  }
 
   const handleDeleteAuthors = async () => {
     if (confirmDeleteAuthors) {
@@ -240,8 +247,13 @@ const AdminPage = () => {
       <Link to="/dashboard/users">
         <button>Search Users</button>
       </Link>
+
+      <h2>Set up Entries per Page</h2>
+      <Link to="/dashboard/entries">
+        <button>Entries Per Page</button>
+      </Link>
     </div>
   );
-};
+}
 
 export default AdminPage;

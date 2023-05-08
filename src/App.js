@@ -33,6 +33,7 @@ import ConfirmPage from "./components/auth/Confirm";
 import UserProfile from "./components/UserProfile";
 import AdminPage from "./components/AdminPage";
 import UserSearchPage from "./components/UserSearchPage";
+import EntitiesPerPage from "./components/EntitiesPerPage";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -200,12 +201,13 @@ function App() {
             path="/profile/:id"
             element={<UserProfile roles={roles} id={id} />}
           ></Route>
-          <Route exact path="/dashboard" element={<AdminPage />}></Route>
+          <Route exact path="/dashboard" element={<AdminPage roles={roles} />}></Route>
           <Route
             exact
             path="/dashboard/users"
-            element={<UserSearchPage />}
+            element={<UserSearchPage roles={roles} />}
           ></Route>
+          <Route exact path="/dashboard/entities" element={<EntitiesPerPage roles={roles} />}></Route>
         </Routes>
       </Router>
     </div>

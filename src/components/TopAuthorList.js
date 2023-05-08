@@ -27,9 +27,9 @@ const TopAuthorList = () => {
   };
 
   return (
-    <div>
-      <h2>Authors</h2>
-      <table>
+    <div className="container">
+      <h2 className="mt-5 mb-4">Authors</h2>
+      <table className="table">
         <thead>
           <tr>
             <th>ID</th>
@@ -47,11 +47,19 @@ const TopAuthorList = () => {
           ))}
         </tbody>
       </table>
-      <div>
-        <button onClick={handlePrevious} disabled={page === 0}>
+      <div className="d-flex justify-content-between">
+        <button
+          className="btn btn-primary"
+          onClick={handlePrevious}
+          disabled={page === 0}
+        >
           Previous
         </button>
-        <button onClick={handleNext} disabled={authors.length < size}>
+        <button
+          className="btn btn-primary"
+          onClick={handleNext}
+          disabled={authors.length < size}
+        >
           Next
         </button>
       </div>
