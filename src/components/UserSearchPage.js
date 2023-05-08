@@ -11,7 +11,7 @@ const UserSearchPage = () => {
   const handleSearch = async () => {
     try {
       const response = await axios.get(`/api/user-search?username=${searchQuery}`);
-      console.log(response.data);
+      console.log(response.data[0]);
       setSearchResult(response.data[0]);
     } catch (error) {
       console.error(error);
