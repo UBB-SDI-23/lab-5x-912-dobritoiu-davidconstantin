@@ -19,22 +19,27 @@ const UserSearchPage = () => {
     }
   };
 
-  const handleRoleUpdate = (id) => {
-    const updatedRoles = { [selectedRole]: true };
-    axios
-      .put(`/api/user-roles/${id}`, updatedRoles, {
-        headers: {
-          Authorization: localStorage.getItem("user").jwtToken,
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const handleRoleUpdate = async () => {
+    try {
+      const updatedRoles = {
+        isUser: selectedRole === "ROLE_USER",
+        isModerator: selectedRole === "ROLE_MODERATOR",
+        isAdmin: selectedRole === "ROLE_ADMIN",
+      };
+      const user = await axios.put(
+        `/api/user-roles/${searchResult.id}`,
+        updatedRoles,
+        {
+          headers: {
+            Authorization: localStorage.getItem("user").jwtToken,
+          },
+        }
+      );
+      setSearchResult(user.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
-
   const handleRoleChange = (event) => {
     setSelectedRole(event.target.value);
   };
@@ -82,10 +87,7 @@ const UserSearchPage = () => {
                 ))}
               </select>
             </div>
-            <button
-              className="btn btn-primary"
-              onClick={() => handleRoleUpdate(searchResult.id)}
-            >
+            <button className="btn btn-primary" onClick={handleRoleUpdate}>
               Update Role
             </button>
           </div>
