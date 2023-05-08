@@ -65,7 +65,7 @@ const UserSearchPage = () => {
         <div className="row">
           <div className="col-md-6">
             <p>
-              {searchResult.username} - {searchResult.roles.name}
+              {searchResult.username} - {searchResult.roles[0].name}
             </p>
             <div className="form-group">
               <label htmlFor="role-select">Select a role:</label>
