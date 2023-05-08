@@ -6,7 +6,7 @@ function Header(props) {
   const role = props.roles;
   const id = props.id;
 
-  console.log(role);
+  console.log(role[0].name);
 
   return (
     <ul class="navbar-nav mr-auto">
