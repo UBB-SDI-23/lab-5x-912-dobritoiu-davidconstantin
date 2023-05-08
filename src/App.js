@@ -207,7 +207,11 @@ function App() {
             path="/dashboard/users"
             element={<UserSearchPage roles={roles} />}
           ></Route>
-          <Route exact path="/dashboard/entities" element={<EntitiesPerPage roles={roles} />}></Route>
+          <Route
+            exact
+            path="/dashboard/entries"
+            element={<EntitiesPerPage />}
+          ></Route>
         </Routes>
       </Router>
     </div>
