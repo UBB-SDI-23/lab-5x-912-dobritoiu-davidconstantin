@@ -54,7 +54,7 @@ function App() {
             setId(id);
             const roles = response.data.roles;
             if (roles.length > 0) {
-              setRoles(roles[0].name);
+              setRoles(roles);
             } else {
               setRoles("ROLE_ANONYMOUS");
             }
