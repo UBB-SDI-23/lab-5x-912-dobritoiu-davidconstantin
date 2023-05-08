@@ -11,6 +11,7 @@ const UserSearchPage = () => {
   const handleSearch = async () => {
     try {
       const response = await axios.get(`/api/user-search?username=${searchQuery}`);
+      console.log(response.data);
       setSearchResult(response.data[0]);
     } catch (error) {
       console.error(error);
@@ -18,6 +19,7 @@ const UserSearchPage = () => {
   };
 
   const handleRoleUpdate = (id) => {
+    console.log(id);
     const updatedRoles = { role: selectedRole };
     axios
       .put(`/api/user-roles/${id}`, updatedRoles)
