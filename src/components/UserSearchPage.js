@@ -19,20 +19,24 @@ const UserSearchPage = () => {
     }
   };
 
+  const userString = localStorage.getItem('user');
+  const user = JSON.parse(userString);
+
+  const jwtToken = user.jwtToken;
+
   const handleRoleUpdate = async () => {
     try {
       const updatedRoles = {
-        isUser: selectedRole === "ROLE_USER",
+        isUser: true,
         isModerator: selectedRole === "ROLE_MODERATOR",
         isAdmin: selectedRole === "ROLE_ADMIN",
       };
-      console.log(updatedRoles);
       const user = await axios.put(
         `/api/user-roles/${searchResult.id}`,
         updatedRoles,
         {
           headers: {
-            Authorization: localStorage.getItem("user").jwtToken,
+            Authorization: jwtToken,
           },
         }
       );
