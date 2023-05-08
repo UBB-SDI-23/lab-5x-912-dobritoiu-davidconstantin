@@ -32,7 +32,7 @@ function Header(props) {
         )}
       </li>
       <li className="nav-item">
-        {isAuthenticated && role && role.length > 0 && role[0].name === "ROLE_ADMIN" && (
+        {isAuthenticated && role === "ROLE_ADMIN" && (
           <>
             <Link reloadDocument className="nav-link" to="/dashboard">
               Dashboard

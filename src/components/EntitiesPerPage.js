@@ -1,7 +1,8 @@
-import usePagination from "./Pagination";
+import { useContext } from "react";
+import { PaginationContext } from "./PaginationContext";
 
 function EntitiesPerPage() {
-  const { itemsPerPage, setItemsPerPage } = usePagination();
+  const { itemsPerPage, setItemsPerPage } = useContext(PaginationContext);
 
   const handleItemsPerPageChange = (event) => {
     setItemsPerPage(Number(event.target.value));
