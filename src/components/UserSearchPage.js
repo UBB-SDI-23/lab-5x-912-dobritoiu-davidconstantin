@@ -77,7 +77,7 @@ function UserSearchPage() {
           <div className="col-md-6">
             <p>
               {searchResult.username} -{" "}
-              {searchResult.rolesArray.map((role) => role.name).join(", ")}
+              {searchResult.roles.map((role) => role.name).join(", ")}
             </p>
             <div className="form-group">
               <label htmlFor="role-select">Select a role:</label>
