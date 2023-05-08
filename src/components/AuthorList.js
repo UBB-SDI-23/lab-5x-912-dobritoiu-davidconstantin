@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DeleteAuthor from "./DeleteAuthor";
-import { usePagination } from "./Pagination";
+import usePagination from "./Pagination";
 
 function AuthorList(props) {
   const [authors, setAuthors] = useState([]);
