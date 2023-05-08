@@ -13,7 +13,7 @@ function UserProfile(props) {
 
   useEffect(() => {
     async function fetchUserProfile() {
-        console.log(id);
+      console.log(id);
       const response = await axios.get(`/api/user-profile-id/${id}`);
       const data = response.data;
       setUserProfile(data);
@@ -150,28 +150,6 @@ function UserProfile(props) {
           </button>
         </div>
       )}
-      <div>
-        <h2>User Profile</h2>
-        <h4>Bio:</h4>
-        <p>{userProfile.bio}</p>
-        <h4>Location:</h4>
-        <p>{userProfile.location}</p>
-        <h4>Birthdate:</h4>
-        <p>{userProfile.birthdate}</p>
-        <h4>Gender:</h4>
-        <p>{userProfile.gender}</p>
-        <h4>Marital Status:</h4>
-        <p>{userProfile.maritalStatus}</p>
-        {userProfile.stats && (
-          <div>
-            <h3>User Stats</h3>
-            <p>Number of authors: {userProfile.stats.authors}</p>
-            <p>Number of books: {userProfile.stats.books}</p>
-            <p>Number of libraries: {userProfile.stats.libraries}</p>
-            <p>Number of library books: {userProfile.stats.libraryBooks}</p>
-          </div>
-        )}
-      </div>
     </div>
   );
 }

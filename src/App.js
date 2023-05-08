@@ -201,7 +201,11 @@ function App() {
             element={<UserProfile roles={roles} id={id} />}
           ></Route>
           <Route exact path="/dashboard" element={<AdminPage />}></Route>
-          <Route exact path="/dashboard/users" element={<UserSearchPage />}></Route>
+          <Route
+            exact
+            path="/dashboard/users"
+            element={<UserSearchPage />}
+          ></Route>
         </Routes>
       </Router>
     </div>
