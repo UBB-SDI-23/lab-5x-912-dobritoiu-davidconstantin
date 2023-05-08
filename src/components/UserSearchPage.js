@@ -26,6 +26,7 @@ const UserSearchPage = () => {
         isModerator: selectedRole === "ROLE_MODERATOR",
         isAdmin: selectedRole === "ROLE_ADMIN",
       };
+      console.log(updatedRoles);
       const user = await axios.put(
         `/api/user-roles/${searchResult.id}`,
         updatedRoles,
