@@ -6,7 +6,8 @@ function Header(props) {
   const role = props.roles;
   const id = props.id;
 
-  console.log(role[0].name);
+  if(role && role.length > 0)
+    console.log(role[0].name)
 
   return (
     <ul class="navbar-nav mr-auto">
@@ -34,7 +35,7 @@ function Header(props) {
         )}
       </li>
       <li className="nav-item">
-        {isAuthenticated && role === "ROLE_ADMIN" && (
+        {isAuthenticated && role[0].name === "ROLE_ADMIN" && (
           <>
             <Link reloadDocument className="nav-link" to="/dashboard">
               Dashboard
