@@ -68,8 +68,6 @@ function App() {
     }
   }, [id]);
 
-  console.log(roles);
-
   return (
     <div className="App">
       <Router forceRefresh={true}>
@@ -203,7 +201,7 @@ function App() {
             path="/profile/:id"
             element={<UserProfile roles={roles} id={id} />}
           ></Route>
-          <Route exact path="/dashboard" element={<AdminPage roles={roles} />}></Route>
+          <Route exact path="/dashboard" element={<AdminPage />}></Route>
           <Route
             exact
             path="/dashboard/users"

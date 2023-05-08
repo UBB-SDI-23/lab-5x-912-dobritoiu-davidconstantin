@@ -3,17 +3,10 @@ import axios from "axios";
 
 const rolesArray = ["ROLE_ADMIN", "ROLE_USER", "ROLE_MODERATOR", "ROLE_ANONYMOUS"];
 
-function UserSearchPage(props) {
+function UserSearchPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResult, setSearchResult] = useState(null);
   const [selectedRole, setSelectedRole] = useState("");
-
-  const role = props.roles;
-
-  if (role !== "ROLE_ADMIN") {
-    window.location.href = "/";
-    return null;
-  }
 
   const handleSearch = async () => {
     try {
