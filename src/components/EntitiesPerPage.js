@@ -1,24 +1,20 @@
-import React from "react";
+import React, { useState } from 'react';
 
-function EntitiesPerPage({ itemsPerPage, setItemsPerPage }) {
-  const handleItemsPerPageChange = (event) => {
-    setItemsPerPage(Number(event.target.value));
-  };
+function EntitiesPerPage({ setItemsPerPage }) {
+  const [modifiedItemsPerPage, setModifiedItemsPerPage] = useState(10);
 
   return (
-    <div className="form-group">
-      <label htmlFor="items-per-page">Items per page:</label>
-      <div className="input-group">
-        <input
-          id="items-per-page"
-          className="form-control"
-          type="number"
-          min="1"
-          value={itemsPerPage}
-          onChange={handleItemsPerPageChange}
-        />
-        <button className="btn btn-primary" onClick={handleItemsPerPageChange}>Update</button>
-      </div>
+    <div>
+      <label>Entities Per Page:</label>
+      <input
+        type="number"
+        value={modifiedItemsPerPage}
+        onChange={(e) => {
+          const value = parseInt(e.target.value);
+          setModifiedItemsPerPage(value);
+          setItemsPerPage(value);
+        }}
+      />
     </div>
   );
 }

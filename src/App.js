@@ -109,12 +109,7 @@ function App() {
             <Header isAuthenticated={isAuthenticated} roles={roles} id={id} />
           </div>
         </nav>
-        <Routes
-          isAuthenticated={isAuthenticated}
-          setIsAuthenticated={setIsAuthenticated}
-          itemsPerPage={itemsPerPage}
-          setItemsPerPage={setItemsPerPage}
-        >
+        <Routes>
           <Route exact path="/authors" element={<AuthorList roles={roles} itemsPerPage={itemsPerPage} />} />
           <Route exact path="/authors/create" element={<CreateAuthor />} />
           <Route exact path="/authors/:id" element={<AuthorPage />} />
@@ -123,14 +118,14 @@ function App() {
           <Route
             exact
             path="/authors/filterAuthorsByNumberOfBooks"
-            element={<FilteredAuthorList />}
+            element={<FilteredAuthorList itemsPerPage={itemsPerPage} />}
           />
           <Route
             exact
             path="/authors/getAuthorsTop"
-            element={<TopAuthorList />}
+            element={<TopAuthorList itemsPerPage={itemsPerPage} />}
           />
-          <Route exact path="/books" element={<BookList roles={roles} />} />
+          <Route exact path="/books" element={<BookList roles={roles} itemsPerPage={itemsPerPage} />} />
           <Route
             exact
             path="/books/create"
@@ -150,7 +145,7 @@ function App() {
           <Route
             exact
             path="/libraries"
-            element={<LibraryList roles={roles} />}
+            element={<LibraryList roles={roles} itemsPerPage={itemsPerPage} />}
           />
           <Route
             exact
@@ -176,7 +171,7 @@ function App() {
           <Route
             exact
             path="/librarybook"
-            element={<LibraryBookList roles={roles} />}
+            element={<LibraryBookList roles={roles} itemsPerPage={itemsPerPage} />}
           />
           <Route
             exact
@@ -220,7 +215,7 @@ function App() {
           <Route
             exact
             path="/dashboard/entries"
-            element={<EntitiesPerPage />}
+            element={<EntitiesPerPage setItemsPerPage={setItemsPerPage}/>}
           ></Route>
         </Routes>
       </Router>
