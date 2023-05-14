@@ -4,10 +4,20 @@ import axios from "axios";
 function UserProfile(props) {
   const [userProfile, setUserProfile] = useState({});
   const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    bio: "",
+    location: "",
+    birthdate: "",
+    gender: "male"
+  });
+
+  console.log(isEditing);
+  
   const id = props.id;
 
   const role = props.roles;
+
+  console.log(role);
 
   useEffect(() => {
     async function fetchUserProfile() {
