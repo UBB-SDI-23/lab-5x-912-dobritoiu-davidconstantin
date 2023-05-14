@@ -11,6 +11,13 @@ function UserProfile(props) {
     maritalStatus: "",
   });
 
+  const [userStats, setUserStats] = useState({
+    numberOfAuthors: 0,
+    numberOfBooks: 0,
+    numberOfLibraries: 0,
+    numberOfLibraryBooks: 0,
+  });
+
   const [errors, setErrors] = useState({
     bio: "",
     location: "",
@@ -24,6 +31,7 @@ function UserProfile(props) {
 
   useEffect(() => {
     fetchUser();
+    fetchUserStats();
   }, []);
 
   const role = props.roles;
@@ -37,6 +45,48 @@ function UserProfile(props) {
     axios
       .get(`/api/user-profile-id/${id}`)
       .then((response) => setUser(response.data))
+      .catch((error) => console.log(error));
+  };
+
+  const fetchUserStats = () => {
+    axios
+      .get(`/api/user-number-authors/${id}`)
+      .then((response) =>
+        setUserStats((prevStats) => ({
+          ...prevStats,
+          numberOfAuthors: response.data,
+        }))
+      )
+      .catch((error) => console.log(error));
+
+    axios
+      .get(`/api/user-number-books/${id}`)
+      .then((response) =>
+        setUserStats((prevStats) => ({
+          ...prevStats,
+          numberOfBooks: response.data,
+        }))
+      )
+      .catch((error) => console.log(error));
+
+    axios
+      .get(`/api/user-number-libraries/${id}`)
+      .then((response) =>
+        setUserStats((prevStats) => ({
+          ...prevStats,
+          numberOfLibraries: response.data,
+        }))
+      )
+      .catch((error) => console.log(error));
+
+    axios
+      .get(`/api/user-number-librarybooks/${id}`)
+      .then((response) =>
+        setUserStats((prevStats) => ({
+          ...prevStats,
+          numberOfLibraryBooks: response.data,
+        }))
+      )
       .catch((error) => console.log(error));
   };
 
@@ -175,6 +225,10 @@ function UserProfile(props) {
         <p>
           Marital Status: {user.maritalStatus || "Marital Status not set up"}
         </p>
+        <p>Number of Authors: {userStats.numberOfAuthors}</p>
+        <p>Number of Books: {userStats.numberOfBooks}</p>
+        <p>Number of Libraries: {userStats.numberOfLibraries}</p>
+        <p>Number of Library Books: {userStats.numberOfLibraryBooks}</p>
       </div>
     </div>
   );
