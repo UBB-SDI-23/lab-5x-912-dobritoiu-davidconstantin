@@ -80,7 +80,7 @@ function BookList(props) {
     <div className="container">
       <h1 className="mt-5 mb-3">Books List</h1>
       <div className="mb-3 d-flex justify-content-between align-items-center">
-        {role !== "ROLE_ANONYMOUS" && (
+        {!role.includes("ROLE_ANONYMOUS") && (
           <button className="btn btn-primary" onClick={handleCreate}>
             Create Book
           </button>
@@ -99,7 +99,7 @@ function BookList(props) {
               (book) =>
                 (book.addedByCurrentUser && role.includes("ROLE_USER")) ||
                 role.includes("ROLE_ADMIN") ||
-                role.includes("ROLE_MODERATOR")
+                role === "ROLE_MODERATOR"
             ) && <th>Actions</th>}
           </tr>
         </thead>
@@ -115,7 +115,7 @@ function BookList(props) {
               <td>
                 {(role.includes("ROLE_ADMIN") ||
                   (role.includes("ROLE_USER") && book.addedByCurrentUser) ||
-                  role.includes("ROLE_MODERATOR")) && (
+                  role === "ROLE_MODERATOR") && (
                   <button
                     className="btn btn-primary me-2"
                     onClick={() => handleEdit(book.id)}
@@ -125,7 +125,7 @@ function BookList(props) {
                 )}
                 {(role.includes("ROLE_ADMIN") ||
                   (role.includes("ROLE_USER") && book.addedByCurrentUser) ||
-                  role.includes("ROLE_MODERATOR")) && (
+                  role === "ROLE_MODERATOR") && (
                   <DeleteBook book={book} handleDelete={handleDelete} />
                 )}
               </td>

@@ -115,7 +115,7 @@ function AuthorList(props) {
     <div className="container">
       <h1 className="mt-5 mb-3">Author List</h1>
       <div className="mb-3 d-flex justify-content-between align-items-center">
-        {role !== "ROLE_ANONYMOUS" && <button className="btn btn-primary" onClick={handleCreate}>
+        {!role.includes("ROLE_ANONYMOUS") && <button className="btn btn-primary" onClick={handleCreate}>
           Create Author
         </button>}
         <div className="d-flex align-items-center">
@@ -152,7 +152,7 @@ function AuthorList(props) {
             <th>Username</th>
             {authors.some(
               (author) =>
-                (author.addedByCurrentUser && role.includes("ROLE_USER")) || role.includes("ROLE_ADMIN") || role.includes("ROLE_MODERATOR")
+                (author.addedByCurrentUser && role.includes("ROLE_USER")) || role.includes("ROLE_ADMIN") || role === "ROLE_MODERATOR"
             ) && <th>Actions</th>}
           </tr>
         </thead>
@@ -167,7 +167,7 @@ function AuthorList(props) {
               <td>{author.username}</td>
               <td>
                 {(role.includes("ROLE_ADMIN") ||
-                  (role.includes("ROLE_USER") && author.addedByCurrentUser) || role.includes("ROLE_MODERATOR")) && (
+                  (role.includes("ROLE_USER") && author.addedByCurrentUser) || role === "ROLE_MODERATOR") && (
                   <button
                     className="btn btn-primary me-2"
                     onClick={() => handleEdit(author.id)}
@@ -176,7 +176,7 @@ function AuthorList(props) {
                   </button>
                 )}
                 {(role.includes("ROLE_ADMIN") ||
-                  (role.includes("ROLE_USER") && author.addedByCurrentUser) || role.includes("ROLE_MODERATOR")) && (
+                  (role.includes("ROLE_USER") && author.addedByCurrentUser) || role === "ROLE_MODERATOR") && (
                   <DeleteAuthor author={author} handleDelete={handleDelete} />
                 )}
               </td>
