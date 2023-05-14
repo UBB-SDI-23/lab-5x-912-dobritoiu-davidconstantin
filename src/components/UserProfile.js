@@ -19,7 +19,7 @@ const UserProfile = ({ roles }) => {
   const fetchUser = () => {
     axios
       .get(`/api/user-profile-id/${id}`)
-      .then((response) => setUser(response.data))
+      .then((response) => console.log(response))
       .catch((error) => console.log(error));
   };
 
