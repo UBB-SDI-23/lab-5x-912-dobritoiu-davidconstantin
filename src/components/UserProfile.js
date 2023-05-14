@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-const UserProfile = ({ id }) => {
+function UserProfile({ roles }) {
+  const { id } = useParams();
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -62,12 +64,19 @@ const UserProfile = ({ id }) => {
           <p>Number of Books: {numberOfBooks}</p>
           <p>Number of Libraries: {numberOfLibraries}</p>
           <p>Number of Library Books: {numberOfLibraryBooks}</p>
+
+          <h3>User Roles</h3>
+          <ul>
+            {roles.map((role, index) => (
+              <li key={index}>{role}</li>
+            ))}
+          </ul>
         </div>
       ) : (
         <div>No user profile found.</div>
       )}
     </div>
   );
-};
+}
 
 export default UserProfile;
