@@ -97,9 +97,9 @@ function BookList(props) {
             <th>User</th>
             {books.some(
               (book) =>
-                (book.addedByCurrentUser && role === "ROLE_USER") ||
-                role === "ROLE_ADMIN" ||
-                role === "ROLE_MODERATOR"
+                (book.addedByCurrentUser && role.includes("ROLE_USER")) ||
+                role.includes("ROLE_ADMIN") ||
+                role.includes("ROLE_MODERATOR")
             ) && <th>Actions</th>}
           </tr>
         </thead>
@@ -113,9 +113,9 @@ function BookList(props) {
               <td>{book.authorId}</td>
               <td>{book.username}</td>
               <td>
-                {(role === "ROLE_ADMIN" ||
-                  (role === "ROLE_USER" && book.addedByCurrentUser) ||
-                  role === "ROLE_MODERATOR") && (
+                {(role.includes("ROLE_ADMIN") ||
+                  (role.includes("ROLE_USER") && book.addedByCurrentUser) ||
+                  role.includes("ROLE_MODERATOR")) && (
                   <button
                     className="btn btn-primary me-2"
                     onClick={() => handleEdit(book.id)}
@@ -123,9 +123,9 @@ function BookList(props) {
                     Edit
                   </button>
                 )}
-                {(role === "ROLE_ADMIN" ||
-                  (role === "ROLE_USER" && book.addedByCurrentUser) ||
-                  role === "ROLE_MODERATOR") && (
+                {(role.includes("ROLE_ADMIN") ||
+                  (role.includes("ROLE_USER") && book.addedByCurrentUser) ||
+                  role.includes("ROLE_MODERATOR")) && (
                   <DeleteBook book={book} handleDelete={handleDelete} />
                 )}
               </td>

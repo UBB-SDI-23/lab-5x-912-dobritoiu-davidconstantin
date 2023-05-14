@@ -115,8 +115,8 @@ function LibraryList(props) {
               <td>{library.owner}</td>
               <td>{library.booksCount}</td>
               <td>
-                {(role === "ROLE_ADMIN" ||
-                  (role === "ROLE_USER" && library.addedByCurrentUser) || role === "ROLE_MODERATOR") && (
+                {(role.includes("ROLE_ADMIN") ||
+                  (role.includes("ROLE_USER") && library.addedByCurrentUser) || role.includes("ROLE_MODERATOR")) && (
                   <button
                     className="btn btn-primary me-2"
                     onClick={() => handleEdit(library.id)}
@@ -124,8 +124,8 @@ function LibraryList(props) {
                     Edit
                   </button>
                 )}
-                {(role === "ROLE_ADMIN" ||
-                  (role === "ROLE_USER" && library.addedByCurrentUser) || role === "ROLE_MODERATOR") && (
+                {(role.includes("ROLE_ADMIN") ||
+                  (role.includes("ROLE_USER") && library.addedByCurrentUser) || role.includes("ROLE_MODERATOR")) && (
                   <DeleteLibrary library={library} handleDelete={handleDelete} />
                 )}
               </td>

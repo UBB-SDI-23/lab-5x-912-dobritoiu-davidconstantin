@@ -28,8 +28,8 @@ function UserSearchPage() {
     try {
       const updatedRoles = {
         isUser: true,
-        isModerator: selectedRole === "ROLE_MODERATOR",
-        isAdmin: selectedRole === "ROLE_ADMIN",
+        isModerator: selectedrole.includes("ROLE_MODERATOR"),
+        isAdmin: selectedrole.includes("ROLE_ADMIN"),
       };
       const user = await axios.put(
         `/api/user-roles/${searchResult.id}`,

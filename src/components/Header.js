@@ -32,15 +32,6 @@ function Header(props) {
         )}
       </li>
       <li className="nav-item">
-        {isAuthenticated && role === "ROLE_ADMIN" && (
-          <>
-            <Link reloadDocument className="nav-link" to="/dashboard">
-              Dashboard
-            </Link>
-          </>
-        )}
-      </li>
-      <li className="nav-item">
         {isAuthenticated && (
           <>
             <Link reloadDocument className="nav-link" to={`/profile/${id}`}>

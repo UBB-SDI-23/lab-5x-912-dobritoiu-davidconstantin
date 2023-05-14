@@ -107,9 +107,9 @@ function LibraryBookList(props) {
               <td>{librarybook.borrowDate}</td>
               <td>{librarybook.returnDate}</td>
               <td>
-                {(role === "ROLE_ADMIN" ||
-                  (role === "ROLE_USER" && librarybook.addedByCurrentUser) ||
-                  role === "ROLE_MODERATOR") && (
+                {(role.includes("ROLE_ADMIN") ||
+                  (role.includes("ROLE_USER") && librarybook.addedByCurrentUser) ||
+                  role.includes("ROLE_MODERATOR")) && (
                   <button
                     className="btn btn-primary me-2"
                     onClick={() => handleEdit(librarybook.id)}
@@ -117,9 +117,9 @@ function LibraryBookList(props) {
                     Edit
                   </button>
                 )}
-                {(role === "ROLE_ADMIN" ||
-                  (role === "ROLE_USER" && librarybook.addedByCurrentUser) ||
-                  role === "ROLE_MODERATOR") && (
+                {(role.includes("ROLE_ADMIN") ||
+                  (role.includes("ROLE_USER") && librarybook.addedByCurrentUser) ||
+                  role.includes("ROLE_MODERATOR")) && (
                   <DeleteLibraryBook librarybook={librarybook} handleDelete={handleDelete} />
                 )}
               </td>
