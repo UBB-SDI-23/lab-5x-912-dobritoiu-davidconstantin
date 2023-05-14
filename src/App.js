@@ -80,27 +80,27 @@ function App() {
 
   return (
     <div className="App">
-      <Router forceRefresh={true}>
+      <Router>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
-                <Link reloadDocument className="nav-link" to="/authors">
+                <Link className="nav-link" to="/authors">
                   Authors
                 </Link>
               </li>
               <li className="nav-item">
-                <Link reloadDocument className="nav-link" to="/books">
+                <Link className="nav-link" to="/books">
                   Books
                 </Link>
               </li>
               <li className="nav-item">
-                <Link reloadDocument className="nav-link" to="/libraries">
+                <Link className="nav-link" to="/libraries">
                   Libraries
                 </Link>
               </li>
               <li className="nav-item">
-                <Link reloadDocument className="nav-link" to="/librarybook">
+                <Link className="nav-link" to="/librarybook">
                   LibraryBooks
                 </Link>
               </li>
@@ -108,9 +108,6 @@ function App() {
             <Header isAuthenticated={isAuthenticated} roles={roles} id={id} />
           </div>
         </nav>
-      </Router>
-
-      <Router>
         <Routes
           isAuthenticated={isAuthenticated}
           setIsAuthenticated={setIsAuthenticated}
