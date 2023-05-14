@@ -1,52 +1,61 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
-const UserProfile = () => {
+function UserProfile() {
   const { id } = useParams();
-  const [userProfile, setUserProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const fetchUserProfile = async () => {
-      try {
-        const response = await axios.get(`/api/user-profile-id/${id}`);
-        setUserProfile(response.data);
-        setLoading(false);
-      } catch (error) {
-        setError(error.message);
-        setLoading(false);
-      }
-    };
-
-    fetchUserProfile();
+  const fetchUser = useCallback(() => {
+    axios
+      .get(`/api/user-profile-id/${id}`)
+      .then((response) => {
+        setUser(response.data);
+      })
+      .catch((error) => console.log(error));
   }, [id]);
 
-  if (loading) {
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
+
+  if (!user) {
     return <div>Loading...</div>;
   }
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   return (
-    <div>
-      {userProfile ? (
-        <div>
-          <h2>User Profile</h2>
-          <p>Bio: {userProfile.bio}</p>
-          <p>Location: {userProfile.location}</p>
-          <p>Birthdate: {userProfile.birthdate}</p>
-          <p>Gender: {userProfile.gender}</p>
-          <p>Marital Status: {userProfile.maritalStatus}</p>
+    <div className="container">
+      <div className="row">
+        <div className="col-6">
+          <p>
+            <strong>Bio:</strong> {user.bio}
+          </p>
         </div>
-      ) : (
-        <div>No user profile found.</div>
-      )}
+        <div className="col-6">
+          <p>
+            <strong>Location:</strong> {user.location}
+          </p>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-6">
+          <p>
+            <strong>Date of Birth:</strong> ${user.birthdate}
+          </p>
+        </div>
+        <div className="col-6">
+          <p>
+            <strong>Gender:</strong> {user.gender}/5
+          </p>
+        </div>
+      </div>
+      <div className="row">
+        <p>
+          <strong>Marital Status:</strong> ${user.maritalStatus}
+        </p>
+      </div>
     </div>
   );
-};
+}
 
 export default UserProfile;

@@ -12,8 +12,6 @@ function AuthorList(props) {
   const navigate = useNavigate();
   const role = props.roles;
 
-  console.log(role);
-
   const fetchAuthors = useCallback(() => {
     axios
       .get(`/api/authors?page=${currentPage}&size=${itemsPerPage}`)
@@ -117,7 +115,7 @@ function AuthorList(props) {
     <div className="container">
       <h1 className="mt-5 mb-3">Author List</h1>
       <div className="mb-3 d-flex justify-content-between align-items-center">
-        {!role.includes("ROLE_ANONYMOUS") && <button className="btn btn-primary" onClick={handleCreate}>
+        {role !== "ROLE_ANONYMOUS" && <button className="btn btn-primary" onClick={handleCreate}>
           Create Author
         </button>}
         <div className="d-flex align-items-center">
@@ -154,7 +152,7 @@ function AuthorList(props) {
             <th>Username</th>
             {authors.some(
               (author) =>
-                (author.addedByCurrentUser && role.includes("ROLE_USER")) || role.includes("ROLE_ADMIN") || role === "ROLE_MODERATOR"
+                (author.addedByCurrentUser && role === "ROLE_USER") || role === "ROLE_ADMIN" || role === "ROLE_MODERATOR"
             ) && <th>Actions</th>}
           </tr>
         </thead>
@@ -168,8 +166,8 @@ function AuthorList(props) {
               <td>{author.booksCount}</td>
               <td>{author.username}</td>
               <td>
-                {(role.includes("ROLE_ADMIN") ||
-                  (role.includes("ROLE_USER") && author.addedByCurrentUser) || role === "ROLE_MODERATOR") && (
+                {(role === "ROLE_ADMIN" ||
+                  (role === "ROLE_USER" && author.addedByCurrentUser) || role === "ROLE_MODERATOR") && (
                   <button
                     className="btn btn-primary me-2"
                     onClick={() => handleEdit(author.id)}
@@ -177,8 +175,8 @@ function AuthorList(props) {
                     Edit
                   </button>
                 )}
-                {(role.includes("ROLE_ADMIN") ||
-                  (role.includes("ROLE_USER") && author.addedByCurrentUser) || role === "ROLE_MODERATOR") && (
+                {(role === "ROLE_ADMIN" ||
+                  (role === "ROLE_USER" && author.addedByCurrentUser) || role === "ROLE_MODERATOR") && (
                   <DeleteAuthor author={author} handleDelete={handleDelete} />
                 )}
               </td>
