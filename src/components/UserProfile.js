@@ -4,7 +4,8 @@ import { useParams } from "react-router-dom";
 
 function UserProfile() {
   const { id } = useParams();
-  const [user, setUser] = useState(null);
+  console.log(id);
+  const [user, setUser] = useState({});
 
   const fetchUser = useCallback(() => {
     axios

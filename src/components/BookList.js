@@ -80,7 +80,7 @@ function BookList(props) {
     <div className="container">
       <h1 className="mt-5 mb-3">Books List</h1>
       <div className="mb-3 d-flex justify-content-between align-items-center">
-        {!role.includes("ROLE_ANONYMOUS") && (
+        {role !== "ROLE_ANONYMOUS" && (
           <button className="btn btn-primary" onClick={handleCreate}>
             Create Book
           </button>
@@ -97,8 +97,8 @@ function BookList(props) {
             <th>User</th>
             {books.some(
               (book) =>
-                (book.addedByCurrentUser && role.includes("ROLE_USER")) ||
-                role.includes("ROLE_ADMIN") ||
+                (book.addedByCurrentUser && role === "ROLE_USER") ||
+                role === "ROLE_ADMIN" ||
                 role === "ROLE_MODERATOR"
             ) && <th>Actions</th>}
           </tr>
@@ -113,8 +113,8 @@ function BookList(props) {
               <td>{book.authorId}</td>
               <td>{book.username}</td>
               <td>
-                {(role.includes("ROLE_ADMIN") ||
-                  (role.includes("ROLE_USER") && book.addedByCurrentUser) ||
+                {(role === "ROLE_ADMIN" ||
+                  (role === "ROLE_USER" && book.addedByCurrentUser) ||
                   role === "ROLE_MODERATOR") && (
                   <button
                     className="btn btn-primary me-2"
@@ -123,8 +123,8 @@ function BookList(props) {
                     Edit
                   </button>
                 )}
-                {(role.includes("ROLE_ADMIN") ||
-                  (role.includes("ROLE_USER") && book.addedByCurrentUser) ||
+                {(role === "ROLE_ADMIN" ||
+                  (role === "ROLE_USER" && book.addedByCurrentUser) ||
                   role === "ROLE_MODERATOR") && (
                   <DeleteBook book={book} handleDelete={handleDelete} />
                 )}

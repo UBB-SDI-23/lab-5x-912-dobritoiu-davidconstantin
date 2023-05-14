@@ -82,7 +82,7 @@ function LibraryList(props) {
   return (
     <div className="container">
       <h1 className="mt-5 mb-3">Library List</h1>
-      {!role.includes("ROLE_ANONYMOUS") && (
+      {role !== "ROLE_ANONYMOUS" && (
         <button className="btn btn-primary" onClick={handleCreate}>
           Create Library
         </button>
@@ -116,7 +116,7 @@ function LibraryList(props) {
               <td>{library.booksCount}</td>
               <td>
                 {(role.includes("ROLE_ADMIN") ||
-                  (role.includes("ROLE_USER") && library.addedByCurrentUser) || role === "ROLE_MODERATOR") && (
+                  (role === "ROLE_USER" && library.addedByCurrentUser) || role === "ROLE_MODERATOR") && (
                   <button
                     className="btn btn-primary me-2"
                     onClick={() => handleEdit(library.id)}
@@ -125,7 +125,7 @@ function LibraryList(props) {
                   </button>
                 )}
                 {(role.includes("ROLE_ADMIN") ||
-                  (role.includes("ROLE_USER") && library.addedByCurrentUser) || role === "ROLE_MODERATOR") && (
+                  (role === "ROLE_USER" && library.addedByCurrentUser) || role === "ROLE_MODERATOR") && (
                   <DeleteLibrary library={library} handleDelete={handleDelete} />
                 )}
               </td>
