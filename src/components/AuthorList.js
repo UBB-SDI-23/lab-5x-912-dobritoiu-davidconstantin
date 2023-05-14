@@ -16,8 +16,7 @@ function AuthorList(props) {
     axios
       .get(`/api/authors?page=${currentPage}&size=${itemsPerPage}`)
       .then((response) => {
-        const sortedAuthors = response.data.content.sort((a, b) => a.id - b.id);
-        setAuthors(sortedAuthors);
+        setAuthors(response.data.content);
         setCurrentPage(response.data.number);
       })
       .catch((error) => console.log(error));
