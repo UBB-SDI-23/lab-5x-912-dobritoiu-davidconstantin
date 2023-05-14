@@ -1,15 +1,19 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const UserProfile = ({ roles }) => {
   const { id } = useParams();
-  const [uer, setUser] = useState({
+  const [user, setUser] = useState({
     bio: "",
     location: "",
     birthdate: "",
     gender: "",
     maritalStatus: ""
+  });
+
+  useEffect(() => {
+    fetchUser();
   });
 
   const fetchUser = () => {
@@ -23,7 +27,11 @@ const UserProfile = ({ roles }) => {
     <div>
       <h1>User Profile</h1>
       <p>User ID: {id}</p>
-      {/* Render the user profile based on the ID and roles */}
+      <p>Bio: {user.bio}</p>
+      <p>Location: {user.location}</p>
+      <p>Date of Birth: {user.birthdate}</p>
+      <p>Gender: {user.gender}</p>
+      <p>Marital Status: {user.maritalStatus}</p>
     </div>
   );
 };
