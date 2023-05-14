@@ -2,12 +2,11 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DeleteAuthor from "./DeleteAuthor";
-import usePagination from "./Pagination";
 
 function AuthorList(props) {
   const [authors, setAuthors] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const { itemsPerPage, setItemsPerPage } = usePagination();
+  const itemsPerPage = props.itemsPerPage;
   const [booksCountFilter, setBooksCountFilter] = useState(0);
   const navigate = useNavigate();
   const role = props.roles;

@@ -6,7 +6,7 @@ import DeleteLibrary from "./DeleteLibrary";
 function LibraryList(props) {
   const [libraries, setLibraries] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const itemsPerPage = props.itemsPerPage;
   const navigate = useNavigate();
 
   const role = props.roles;

@@ -86,83 +86,85 @@ function UserProfile(props) {
 
   return (
     <div>
-      <div className="container">
-        <h1>Edit Profile</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="bio">Bio:</label>
-            <textarea
-              className="form-control"
-              id="bio"
-              name="bio"
-              value={user.bio}
-              onChange={handleInputChange}
-            />
-            {errors.bio && (
-              <div className="alert alert-danger">{errors.bio}</div>
-            )}
-          </div>
-          <div className="form-group">
-            <label htmlFor="location">Location:</label>
-            <input
-              type="text"
-              className="form-control"
-              id="location"
-              name="location"
-              value={user.location}
-              onChange={handleInputChange}
-            />
-            {errors.location && (
-              <div className="alert alert-danger">{errors.location}</div>
-            )}
-          </div>
-          <div className="form-group">
-            <label htmlFor="birthdate">Date of Birth:</label>
-            <input
-              type="text"
-              className="form-control"
-              id="birthdate"
-              name="birthdate"
-              value={user.birthdate}
-              onChange={handleInputChange}
-            />
-            {errors.birthdate && (
-              <div className="alert alert-danger">{errors.birthdate}</div>
-            )}
-          </div>
-          <div className="form-group">
-            <label htmlFor="gender">Gender:</label>
-            <input
-              type="text"
-              className="form-control"
-              id="gender"
-              name="gender"
-              value={user.gender}
-              onChange={handleInputChange}
-            />
-            {errors.gender && (
-              <div className="alert alert-danger">{errors.gender}</div>
-            )}
-          </div>
-          <div className="form-group">
-            <label htmlFor="maritalStatus">Marital Status:</label>
-            <input
-              type="text"
-              className="form-control"
-              id="maritalStatus"
-              name="maritalStatus"
-              value={user.maritalStatus}
-              onChange={handleInputChange}
-            />
-            {errors.maritalStatus && (
-              <div className="alert alert-danger">{errors.maritalStatus}</div>
-            )}
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Save
-          </button>
-        </form>
-      </div>
+      {role === "ROLE_ADMIN" && (
+        <div className="container">
+          <h1>Edit Profile</h1>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="bio">Bio:</label>
+              <textarea
+                className="form-control"
+                id="bio"
+                name="bio"
+                value={user.bio}
+                onChange={handleInputChange}
+              />
+              {errors.bio && (
+                <div className="alert alert-danger">{errors.bio}</div>
+              )}
+            </div>
+            <div className="form-group">
+              <label htmlFor="location">Location:</label>
+              <input
+                type="text"
+                className="form-control"
+                id="location"
+                name="location"
+                value={user.location}
+                onChange={handleInputChange}
+              />
+              {errors.location && (
+                <div className="alert alert-danger">{errors.location}</div>
+              )}
+            </div>
+            <div className="form-group">
+              <label htmlFor="birthdate">Date of Birth:</label>
+              <input
+                type="text"
+                className="form-control"
+                id="birthdate"
+                name="birthdate"
+                value={user.birthdate}
+                onChange={handleInputChange}
+              />
+              {errors.birthdate && (
+                <div className="alert alert-danger">{errors.birthdate}</div>
+              )}
+            </div>
+            <div className="form-group">
+              <label htmlFor="gender">Gender:</label>
+              <input
+                type="text"
+                className="form-control"
+                id="gender"
+                name="gender"
+                value={user.gender}
+                onChange={handleInputChange}
+              />
+              {errors.gender && (
+                <div className="alert alert-danger">{errors.gender}</div>
+              )}
+            </div>
+            <div className="form-group">
+              <label htmlFor="maritalStatus">Marital Status:</label>
+              <input
+                type="text"
+                className="form-control"
+                id="maritalStatus"
+                name="maritalStatus"
+                value={user.maritalStatus}
+                onChange={handleInputChange}
+              />
+              {errors.maritalStatus && (
+                <div className="alert alert-danger">{errors.maritalStatus}</div>
+              )}
+            </div>
+            <button type="submit" className="btn btn-primary">
+              Save
+            </button>
+          </form>
+        </div>
+      )}
       <div className="container">
         <h1>User Profile</h1>
         <p>User ID: {id}</p>

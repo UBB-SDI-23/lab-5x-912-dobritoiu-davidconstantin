@@ -1,8 +1,6 @@
-import usePagination from "./Pagination";
+import React from "react";
 
-function EntitiesPerPage() {
-  const { itemsPerPage, setItemsPerPage } = usePagination();
-
+function EntitiesPerPage({ itemsPerPage, setItemsPerPage }) {
   const handleItemsPerPageChange = (event) => {
     setItemsPerPage(Number(event.target.value));
   };
@@ -19,7 +17,7 @@ function EntitiesPerPage() {
           value={itemsPerPage}
           onChange={handleItemsPerPageChange}
         />
-        <button className="btn btn-primary">Update</button>
+        <button className="btn btn-primary" onClick={handleItemsPerPageChange}>Update</button>
       </div>
     </div>
   );

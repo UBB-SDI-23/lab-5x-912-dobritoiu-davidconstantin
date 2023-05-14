@@ -39,6 +39,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [roles, setRoles] = useState(null);
   const [id, setId] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   useEffect(() => {
     const userString = localStorage.getItem("user");
@@ -111,6 +112,8 @@ function App() {
         <Routes
           isAuthenticated={isAuthenticated}
           setIsAuthenticated={setIsAuthenticated}
+          itemsPerPage={itemsPerPage}
+          setItemsPerPage={setItemsPerPage}
         >
           <Route exact path="/authors" element={<AuthorList roles={roles} />} />
           <Route exact path="/authors/create" element={<CreateAuthor />} />
