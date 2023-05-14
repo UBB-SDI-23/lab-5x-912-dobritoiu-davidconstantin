@@ -46,7 +46,6 @@ function App() {
       const user = JSON.parse(userString);
       const jwtToken = user.jwtToken;
       if (jwtToken) {
-        setIsAuthenticated(true);
         axios
           .get(`/api/user/${user.username}`)
           .then((response) => {
@@ -55,19 +54,22 @@ function App() {
             const roles = response.data.roles;
             if (roles.length > 0) {
               console.log(roles);
-              setRoles(roles.name);
+              setRoles(roles.map((role) => role.name));
             } else {
-              setRoles("ROLE_ANONYMOUS");
+              setRoles(["ROLE_ANONYMOUS"]);
             }
+            setIsAuthenticated(true);
           })
           .catch((error) => {
             console.log(error);
+            setRoles(["ROLE_ANONYMOUS"]);
+            setIsAuthenticated(true);
           });
       }
     } else {
-      setRoles("ROLE_ANONYMOUS");
+      setRoles(["ROLE_ANONYMOUS"]);
     }
-  }, [id]);
+  }, []);
 
   return (
     <div className="App">
