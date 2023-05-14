@@ -115,7 +115,7 @@ function App() {
           itemsPerPage={itemsPerPage}
           setItemsPerPage={setItemsPerPage}
         >
-          <Route exact path="/authors" element={<AuthorList roles={roles} />} />
+          <Route exact path="/authors" element={<AuthorList roles={roles} itemsPerPage={itemsPerPage} />} />
           <Route exact path="/authors/create" element={<CreateAuthor />} />
           <Route exact path="/authors/:id" element={<AuthorPage />} />
           <Route exact path="/authors/:id/edit" element={<EditAuthor />} />

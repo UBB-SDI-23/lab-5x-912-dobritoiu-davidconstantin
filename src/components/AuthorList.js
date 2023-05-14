@@ -11,6 +11,8 @@ function AuthorList(props) {
   const navigate = useNavigate();
   const role = props.roles;
 
+  console.log(itemsPerPage);
+
   const fetchAuthors = useCallback(() => {
     axios
       .get(`/api/authors?page=${currentPage}&size=${itemsPerPage}`)
