@@ -6,6 +6,8 @@ function Header(props) {
   const role = props.roles;
   const id = props.id;
 
+  console.log(id);
+
   return (
     <ul class="navbar-nav mr-auto">
       <li className="nav-item">
