@@ -1,62 +1,31 @@
-import React, { useState, useEffect, useCallback } from "react";
-import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
-function UserProfile() {
+const UserProfile = ({ roles }) => {
   const { id } = useParams();
-  console.log(id);
-  const [user, setUser] = useState({});
+  const [uer, setUser] = useState({
+    bio: "",
+    location: "",
+    birthdate: "",
+    gender: "",
+    maritalStatus: ""
+  });
 
-  const fetchUser = useCallback(() => {
+  const fetchUser = () => {
     axios
-      .get(`/api/user-profile-id/${id}`)
-      .then((response) => {
-        setUser(response.data);
-      })
+      .get(`/api/books/${id}`)
+      .then((response) => setUser(response.data))
       .catch((error) => console.log(error));
-  }, [id]);
-
-  useEffect(() => {
-    fetchUser();
-  }, [fetchUser]);
-
-  if (!user) {
-    return <div>Loading...</div>;
-  }
+  };
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-6">
-          <p>
-            <strong>Bio:</strong> {user.bio}
-          </p>
-        </div>
-        <div className="col-6">
-          <p>
-            <strong>Location:</strong> {user.location}
-          </p>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-6">
-          <p>
-            <strong>Date of Birth:</strong> ${user.birthdate}
-          </p>
-        </div>
-        <div className="col-6">
-          <p>
-            <strong>Gender:</strong> {user.gender}/5
-          </p>
-        </div>
-      </div>
-      <div className="row">
-        <p>
-          <strong>Marital Status:</strong> ${user.maritalStatus}
-        </p>
-      </div>
+    <div>
+      <h1>User Profile</h1>
+      <p>User ID: {id}</p>
+      {/* Render the user profile based on the ID and roles */}
     </div>
   );
-}
+};
 
 export default UserProfile;
