@@ -14,11 +14,11 @@ const UserProfile = ({ roles }) => {
 
   useEffect(() => {
     fetchUser();
-  }, []);
+  }, [id]);
 
   const fetchUser = () => {
     axios
-      .get(`/api/books/${id}`)
+      .get(`/api/user-profile-id/${id}`)
       .then((response) => setUser(response.data))
       .catch((error) => console.log(error));
   };
