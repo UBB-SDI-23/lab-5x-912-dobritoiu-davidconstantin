@@ -27,11 +27,11 @@ const UserProfile = ({ roles }) => {
     <div>
       <h1>User Profile</h1>
       <p>User ID: {id}</p>
-      <p>Bio: {user.bio || 'No bio available'}</p>
-      <p>Location: {user.location || 'Unknown location'}</p>
-      <p>Date of Birth: {user.birthdate || 'Unknown birthdate'}</p>
-      <p>Gender: {user.gender || 'Unknown gender'}</p>
-      <p>Marital Status: {user.maritalStatus || 'Unknown marital status'}</p>
+      <p>Bio: {user.bio}</p>
+      <p>Location: {user.location}</p>
+      <p>Date of Birth: {user.birthdate}</p>
+      <p>Gender: {user.gender}</p>
+      <p>Marital Status: {user.maritalStatus}</p>
     </div>
   );
 };
