@@ -199,7 +199,7 @@ function App() {
           <Route
             exact
             path="/profile/:id"
-            element={<UserProfile roles={roles} id={id} />}
+            element={<UserProfile roles={roles} />}
           ></Route>
           <Route exact path="/dashboard" element={<AdminPage />}></Route>
           <Route
