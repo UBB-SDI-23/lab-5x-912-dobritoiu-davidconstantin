@@ -13,7 +13,6 @@ function UserProfile() {
       .then((response) => {
         setUser(response.data);
       })
-      .catch((error) => console.log(error));
   }, [id]);
 
   useEffect(() => {
