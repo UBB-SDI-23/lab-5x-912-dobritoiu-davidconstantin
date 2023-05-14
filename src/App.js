@@ -34,42 +34,10 @@ import UserProfile from "./components/UserProfile";
 import AdminPage from "./components/AdminPage";
 import UserSearchPage from "./components/UserSearchPage";
 import EntitiesPerPage from "./components/EntitiesPerPage";
+import useRoles from "./components/useRoles";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [roles, setRoles] = useState(null);
-  const [id, setId] = useState(0);
-
-  useEffect(() => {
-    const userString = localStorage.getItem("user");
-    if (userString) {
-      const user = JSON.parse(userString);
-      const jwtToken = user.jwtToken;
-      if (jwtToken) {
-        axios
-          .get(`/api/user/${user.username}`)
-          .then((response) => {
-            const id = response.data.id;
-            setId(id);
-            const roles = response.data.roles;
-            if (roles.length > 0) {
-              console.log(roles);
-              setRoles(roles.map((role) => role.name));
-            } else {
-              setRoles(["ROLE_ANONYMOUS"]);
-            }
-            setIsAuthenticated(true);
-          })
-          .catch((error) => {
-            console.log(error);
-            setRoles(["ROLE_ANONYMOUS"]);
-            setIsAuthenticated(true);
-          });
-      }
-    } else {
-      setRoles(["ROLE_ANONYMOUS"]);
-    }
-  }, []);
+  const { isAuthenticated, roles, id } = useRoles();
 
   return (
     <div className="App">
@@ -106,7 +74,6 @@ function App() {
       <Router>
         <Routes
           isAuthenticated={isAuthenticated}
-          setIsAuthenticated={setIsAuthenticated}
         >
           <Route exact path="/authors" element={<AuthorList roles={roles} />} />
           <Route exact path="/authors/create" element={<CreateAuthor />} />
