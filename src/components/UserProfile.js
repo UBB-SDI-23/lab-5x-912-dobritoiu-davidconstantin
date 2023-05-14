@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 
 function UserProfile({ roles }) {
   const { id } = useParams();
+
+  console.log(id);
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -15,19 +17,19 @@ function UserProfile({ roles }) {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const profileResponse = await axios.get(`/user-profile-id/${id}`);
+        const profileResponse = await axios.get(`/api/user-profile-id/${id}`);
         setUserProfile(profileResponse.data);
 
-        const numberOfAuthorsResponse = await axios.get(`/user-number-authors/${id}`);
+        const numberOfAuthorsResponse = await axios.get(`/api/user-number-authors/${id}`);
         setNumberOfAuthors(numberOfAuthorsResponse.data);
 
-        const numberOfBooksResponse = await axios.get(`/user-number-books/${id}`);
+        const numberOfBooksResponse = await axios.get(`/api/user-number-books/${id}`);
         setNumberOfBooks(numberOfBooksResponse.data);
 
-        const numberOfLibrariesResponse = await axios.get(`/user-number-libraries/${id}`);
+        const numberOfLibrariesResponse = await axios.get(`/api/user-number-libraries/${id}`);
         setNumberOfLibraries(numberOfLibrariesResponse.data);
 
-        const numberOfLibraryBooksResponse = await axios.get(`/user-number-librarybooks/${id}`);
+        const numberOfLibraryBooksResponse = await axios.get(`/api/user-number-librarybooks/${id}`);
         setNumberOfLibraryBooks(numberOfLibraryBooksResponse.data);
 
         setLoading(false);
