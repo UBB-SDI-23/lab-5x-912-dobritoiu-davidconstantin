@@ -34,9 +34,14 @@ function UserProfile(props) {
   useEffect(() => {
     fetchUser();
     fetchUserStats();
-  }, [id]);
+  }, []);
 
   const role = props.roles;
+
+  if (role === "ROLE_ANONYMOUS") {
+    window.location.href = "/";
+    return null;
+  }
 
   const fetchUser = () => {
     axios
