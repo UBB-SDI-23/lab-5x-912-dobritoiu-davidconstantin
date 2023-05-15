@@ -14,10 +14,23 @@ function AdminPage() {
   const [confirmInsertLibraryBooks, setConfirmInsertLibraryBooks] =
     useState(false);
 
+  const userString = localStorage.getItem("user");
+  const user = JSON.parse(userString);
+
+  const jwtToken = user.jwtToken;
+
   const handleDeleteAuthors = async () => {
     if (confirmDeleteAuthors) {
       try {
-        const response = await axios.post("/api/run-delete-authors-script");
+        const response = await axios.post(
+          "/api/run-delete-authors-script",
+          null,
+          {
+            headers: {
+              Authorization: jwtToken,
+            },
+          }
+        );
         alert(response.data.message);
       } catch (error) {
         console.error(error);
@@ -26,10 +39,19 @@ function AdminPage() {
       setConfirmDeleteAuthors(true);
     }
   };
+
   const handleInsertAuthors = async () => {
     if (confirmDeleteAuthors) {
       try {
-        const response = await axios.post("/api/run-insert-authors-script");
+        const response = await axios.post(
+          "/api/run-insert-authors-script",
+          null,
+          {
+            headers: {
+              Authorization: jwtToken,
+            },
+          }
+        );
         alert(response.data.message);
       } catch (error) {
         console.error(error);
@@ -42,7 +64,15 @@ function AdminPage() {
   const handleDeleteBooks = async () => {
     if (confirmDeleteBooks) {
       try {
-        const response = await axios.post("/api/run-delete-books-script");
+        const response = await axios.post(
+          "/api/run-delete-books-script",
+          null,
+          {
+            headers: {
+              Authorization: jwtToken,
+            },
+          }
+        );
         alert(response.data.message);
       } catch (error) {
         console.error(error);
@@ -51,10 +81,19 @@ function AdminPage() {
       setConfirmDeleteBooks(true);
     }
   };
+
   const handleInsertBooks = async () => {
     if (confirmDeleteBooks) {
       try {
-        const response = await axios.post("/api/run-insert-books-script");
+        const response = await axios.post(
+          "/api/run-insert-books-script",
+          null,
+          {
+            headers: {
+              Authorization: jwtToken,
+            },
+          }
+        );
         alert(response.data.message);
       } catch (error) {
         console.error(error);
@@ -67,7 +106,15 @@ function AdminPage() {
   const handleDeleteLibraries = async () => {
     if (confirmDeleteLibraries) {
       try {
-        const response = await axios.post("/api/run-delete-libraries-script");
+        const response = await axios.post(
+          "/api/run-delete-libraries-script",
+          null,
+          {
+            headers: {
+              Authorization: jwtToken,
+            },
+          }
+        );
         alert(response.data.message);
       } catch (error) {
         console.error(error);
@@ -80,7 +127,15 @@ function AdminPage() {
   const handleInsertLibraries = async () => {
     if (confirmDeleteLibraries) {
       try {
-        const response = await axios.post("/api/run-insert-libraries-script");
+        const response = await axios.post(
+          "/api/run-insert-libraries-script",
+          null,
+          {
+            headers: {
+              Authorization: jwtToken,
+            },
+          }
+        );
         alert(response.data.message);
       } catch (error) {
         console.error(error);
@@ -93,7 +148,15 @@ function AdminPage() {
   const handleDeleteLibraryBooks = async () => {
     if (confirmDeleteLibraryBooks) {
       try {
-        const response = await axios.post("/api/run-delete-librarybooks-script");
+        const response = await axios.post(
+          "/api/run-delete-librarybooks-script",
+          null,
+          {
+            headers: {
+              Authorization: jwtToken,
+            },
+          }
+        );
         alert(response.data.message);
       } catch (error) {
         console.error(error);
@@ -106,7 +169,15 @@ function AdminPage() {
   const handleInsertLibraryBooks = async () => {
     if (confirmDeleteLibraryBooks) {
       try {
-        const response = await axios.post("/api/run-insert-librarybooks-script");
+        const response = await axios.post(
+          "/api/run-insert-librarybooks-script",
+          null,
+          {
+            headers: {
+              Authorization: jwtToken,
+            },
+          }
+        );
         alert(response.data.message);
       } catch (error) {
         console.error(error);
