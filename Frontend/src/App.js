@@ -57,10 +57,10 @@ function App() {
             if (roles.length > 0) {
               const roleNames = roles.map((role) => role.name);
               const orderedRoles = [
-                "ROLE_ANONYMOUS",
-                "ROLE_USER",
-                "ROLE_MODERATOR",
                 "ROLE_ADMIN",
+                "ROLE_MODERATOR",
+                "ROLE_USER",
+                "ROLE_ANONYMOUS",
               ];
               const highestRole = orderedRoles.find((role) =>
                 roleNames.includes(role)
