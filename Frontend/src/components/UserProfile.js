@@ -30,11 +30,62 @@ function UserProfile(props) {
 
   const navigate = useNavigate();
   const { id } = useParams();
-
   useEffect(() => {
+    const fetchUser = () => {
+      axios
+        .get(`/api/user-profile-id/${id}`)
+        .then((response) => {
+          setUser(response.data);
+          setUpdatedUser(response.data);
+        })
+        .catch((error) => console.log(error));
+    };
+
+    const fetchUserStats = () => {
+      axios
+        .get(`/api/user-number-authors/${id}`)
+        .then((response) =>
+          setUserStats((prevStats) => ({
+            ...prevStats,
+            numberOfAuthors: response.data,
+          }))
+        )
+        .catch((error) => console.log(error));
+
+      axios
+        .get(`/api/user-number-books/${id}`)
+        .then((response) =>
+          setUserStats((prevStats) => ({
+            ...prevStats,
+            numberOfBooks: response.data,
+          }))
+        )
+        .catch((error) => console.log(error));
+
+      axios
+        .get(`/api/user-number-libraries/${id}`)
+        .then((response) =>
+          setUserStats((prevStats) => ({
+            ...prevStats,
+            numberOfLibraries: response.data,
+          }))
+        )
+        .catch((error) => console.log(error));
+
+      axios
+        .get(`/api/user-number-librarybooks/${id}`)
+        .then((response) =>
+          setUserStats((prevStats) => ({
+            ...prevStats,
+            numberOfLibraryBooks: response.data,
+          }))
+        )
+        .catch((error) => console.log(error));
+    };
+
     fetchUser();
     fetchUserStats();
-  }, []);
+  }, [id]);
 
   const role = props.roles;
 
@@ -42,58 +93,6 @@ function UserProfile(props) {
     window.location.href = "/";
     return null;
   }
-
-  const fetchUser = () => {
-    axios
-      .get(`/api/user-profile-id/${id}`)
-      .then((response) => {
-        setUser(response.data);
-        setUpdatedUser(response.data);
-      })
-      .catch((error) => console.log(error));
-  };
-
-  const fetchUserStats = () => {
-    axios
-      .get(`/api/user-number-authors/${id}`)
-      .then((response) =>
-        setUserStats((prevStats) => ({
-          ...prevStats,
-          numberOfAuthors: response.data,
-        }))
-      )
-      .catch((error) => console.log(error));
-
-    axios
-      .get(`/api/user-number-books/${id}`)
-      .then((response) =>
-        setUserStats((prevStats) => ({
-          ...prevStats,
-          numberOfBooks: response.data,
-        }))
-      )
-      .catch((error) => console.log(error));
-
-    axios
-      .get(`/api/user-number-libraries/${id}`)
-      .then((response) =>
-        setUserStats((prevStats) => ({
-          ...prevStats,
-          numberOfLibraries: response.data,
-        }))
-      )
-      .catch((error) => console.log(error));
-
-    axios
-      .get(`/api/user-number-librarybooks/${id}`)
-      .then((response) =>
-        setUserStats((prevStats) => ({
-          ...prevStats,
-          numberOfLibraryBooks: response.data,
-        }))
-      )
-      .catch((error) => console.log(error));
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
