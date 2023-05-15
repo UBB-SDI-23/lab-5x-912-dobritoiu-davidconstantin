@@ -21,6 +21,13 @@ function Header(props) {
         )}
       </li>
       <li className="nav-item">
+        {!isAuthenticated && (
+          <Link className="nav-link" to="/register">
+            Register
+          </Link>
+        )}
+      </li>
+      <li className="nav-item">
         {isAuthenticated && roles && roles.includes("ROLE_ADMIN") && (
           <Link className="nav-link" to="/dashboard">
             Dashboard
