@@ -38,11 +38,6 @@ function UserProfile(props) {
 
   const role = props.roles;
 
-  if (role === "ROLE_ANONYMOUS") {
-    window.location.href = "/";
-    return null;
-  }
-
   const fetchUser = () => {
     axios
       .get(`/api/user-profile-id/${id}`)
