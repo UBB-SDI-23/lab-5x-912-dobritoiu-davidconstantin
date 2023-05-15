@@ -49,8 +49,7 @@ public class SQLController {
         }
         try {
             String currentDir = System.getProperty("user.dir");
-            System.out.println("Current Directory: " + currentDir);
-            String sql = Files.readString(Paths.get(currentDir + "/../../delete_authors.sql"));
+            String sql = Files.readString(Paths.get(currentDir + "/../delete_authors.sql"));
             jdbcTemplate.update(sql);
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -76,7 +75,7 @@ public class SQLController {
         }
         try {
             String currentDir = System.getProperty("user.dir");
-            String sql = Files.readString(Paths.get(currentDir + "../delete_books.sql"));
+            String sql = Files.readString(Paths.get(currentDir + "/../delete_books.sql"));
             jdbcTemplate.update(sql);
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -102,7 +101,7 @@ public class SQLController {
         }
         try {
             String currentDir = System.getProperty("user.dir");
-            String sql = Files.readString(Paths.get(currentDir + "../delete_libraries.sql"));
+            String sql = Files.readString(Paths.get(currentDir + "/../delete_libraries.sql"));
             jdbcTemplate.update(sql);
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -128,7 +127,7 @@ public class SQLController {
         }
         try {
             String currentDir = System.getProperty("user.dir");
-            String sql = Files.readString(Paths.get(currentDir + "../delete_librarybooks.sql"));
+            String sql = Files.readString(Paths.get(currentDir + "/../delete_librarybooks.sql"));
             jdbcTemplate.update(sql);
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -154,7 +153,7 @@ public class SQLController {
         }
         try {
             String currentDir = System.getProperty("user.dir");
-            String fullPath = currentDir + "../insert_authors.sql";
+            String fullPath = currentDir + "/../insert_authors.sql";
             BufferedReader reader = new BufferedReader(new FileReader(fullPath));
             String line;
             while ((line = reader.readLine()) != null) {
@@ -186,7 +185,7 @@ public class SQLController {
         }
         try {
             String currentDir = System.getProperty("user.dir");
-            String fullPath = currentDir + "../insert_books.sql";
+            String fullPath = currentDir + "/../insert_books.sql";
             BufferedReader reader = new BufferedReader(new FileReader(fullPath));
             String line;
             while ((line = reader.readLine()) != null) {
@@ -218,7 +217,7 @@ public class SQLController {
         }
         try {
             String currentDir = System.getProperty("user.dir");
-            String fullPath = currentDir + "../insert_libraries.sql";
+            String fullPath = currentDir + "/../insert_libraries.sql";
             BufferedReader reader = new BufferedReader(new FileReader(fullPath));
             String line;
             while ((line = reader.readLine()) != null) {
@@ -250,7 +249,7 @@ public class SQLController {
         }
         try {
             String currentDir = System.getProperty("user.dir");
-            String fullPath = currentDir + "../insert_librarybooks.sql";
+            String fullPath = currentDir + "/../insert_librarybooks.sql";
             BufferedReader reader = new BufferedReader(new FileReader(fullPath));
             String line;
             while ((line = reader.readLine()) != null) {
