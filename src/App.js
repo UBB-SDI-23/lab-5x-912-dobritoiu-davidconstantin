@@ -106,11 +106,15 @@ function App() {
                 </Link>
               </li>
             </ul>
-            <Header isAuthenticated={isAuthenticated} roles={roles} id={id} />
           </div>
+          <Header isAuthenticated={isAuthenticated} roles={roles} id={id} />
         </nav>
         <Routes>
-          <Route exact path="/authors" element={<AuthorList roles={roles} itemsPerPage={itemsPerPage} />} />
+          <Route
+            exact
+            path="/authors"
+            element={<AuthorList roles={roles} itemsPerPage={itemsPerPage} />}
+          />
           <Route exact path="/authors/create" element={<CreateAuthor />} />
           <Route exact path="/authors/:id" element={<AuthorPage />} />
           <Route exact path="/authors/:id/edit" element={<EditAuthor />} />
@@ -125,7 +129,11 @@ function App() {
             path="/authors/getAuthorsTop"
             element={<TopAuthorList itemsPerPage={itemsPerPage} />}
           />
-          <Route exact path="/books" element={<BookList roles={roles} itemsPerPage={itemsPerPage} />} />
+          <Route
+            exact
+            path="/books"
+            element={<BookList roles={roles} itemsPerPage={itemsPerPage} />}
+          />
           <Route
             exact
             path="/books/create"
@@ -171,7 +179,9 @@ function App() {
           <Route
             exact
             path="/librarybook"
-            element={<LibraryBookList roles={roles} itemsPerPage={itemsPerPage} />}
+            element={
+              <LibraryBookList roles={roles} itemsPerPage={itemsPerPage} />
+            }
           />
           <Route
             exact
@@ -215,7 +225,7 @@ function App() {
           <Route
             exact
             path="/dashboard/entries"
-            element={<EntitiesPerPage setItemsPerPage={setItemsPerPage}/>}
+            element={<EntitiesPerPage setItemsPerPage={setItemsPerPage} />}
           ></Route>
         </Routes>
       </Router>
