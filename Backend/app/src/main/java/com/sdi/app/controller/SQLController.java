@@ -151,28 +151,36 @@ public class SQLController {
         if (!isAdmin) {
             throw new UserNotAuthorizedException(String.format(user.getUsername()));
         }
+
         try {
             String currentDir = System.getProperty("user.dir");
             String fullPath = currentDir + "/../insert_authors.sql";
-            BufferedReader reader = new BufferedReader(new FileReader(fullPath));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                line = line.trim();
-                jdbcTemplate.update(line);
+
+            String fileContent = new String(Files.readAllBytes(Paths.get(fullPath)));
+
+            String[] statements = fileContent.split(";");
+
+            for (String statement : statements) {
+                statement = statement.trim();
+                if (!statement.isEmpty()) {
+                    jdbcTemplate.execute(statement);
+                }
             }
-            reader.close();
+
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(new SQLRunResponseDTO("Successfully inserted all authors"));
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(new SQLRunResponseDTO("Error: something went wrong (make sure you inserted the books first)"));
+                    .body(new SQLRunResponseDTO("Error: something went wrong"));
         }
     }
 
+
+
     @PostMapping("/run-insert-books-script")
-    ResponseEntity<?> insertAllBooks(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<?> insertAllBooks(@RequestHeader("Authorization") String token) {
         String username = this.jwtUtils.getUserNameFromJwtToken(token);
         User user = this.userService.getUserByUsername(username);
 
@@ -183,16 +191,25 @@ public class SQLController {
         if (!isAdmin) {
             throw new UserNotAuthorizedException(String.format(user.getUsername()));
         }
+
         try {
             String currentDir = System.getProperty("user.dir");
             String fullPath = currentDir + "/../insert_books.sql";
-            BufferedReader reader = new BufferedReader(new FileReader(fullPath));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                line = line.trim();
-                jdbcTemplate.update(line);
+
+            String fileContent = new String(Files.readAllBytes(Paths.get(fullPath)));
+
+            // Split the SQL script by the delimiter "--"
+            String[] statements = fileContent.split("--");
+
+            // Execute each statement
+            for (String statement : statements) {
+                statement = statement.trim();
+                if (!statement.isEmpty()) {
+                    // Execute the statement using Spring JDBC
+                    jdbcTemplate.execute(statement);
+                }
             }
-            reader.close();
+
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(new SQLRunResponseDTO("Successfully inserted all books"));
@@ -215,16 +232,22 @@ public class SQLController {
         if (!isAdmin) {
             throw new UserNotAuthorizedException(String.format(user.getUsername()));
         }
+
         try {
             String currentDir = System.getProperty("user.dir");
             String fullPath = currentDir + "/../insert_libraries.sql";
-            BufferedReader reader = new BufferedReader(new FileReader(fullPath));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                line = line.trim();
-                jdbcTemplate.update(line);
+
+            String fileContent = new String(Files.readAllBytes(Paths.get(fullPath)));
+
+            String[] statements = fileContent.split(";");
+
+            for (String statement : statements) {
+                statement = statement.trim();
+                if (!statement.isEmpty()) {
+                    jdbcTemplate.execute(statement);
+                }
             }
-            reader.close();
+
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(new SQLRunResponseDTO("Successfully inserted all libraries"));
@@ -247,23 +270,29 @@ public class SQLController {
         if (!isAdmin) {
             throw new UserNotAuthorizedException(String.format(user.getUsername()));
         }
+
         try {
             String currentDir = System.getProperty("user.dir");
             String fullPath = currentDir + "/../insert_librarybooks.sql";
-            BufferedReader reader = new BufferedReader(new FileReader(fullPath));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                line = line.trim();
-                jdbcTemplate.update(line);
+
+            String fileContent = new String(Files.readAllBytes(Paths.get(fullPath)));
+
+            String[] statements = fileContent.split(";");
+
+            for (String statement : statements) {
+                statement = statement.trim();
+                if (!statement.isEmpty()) {
+                    jdbcTemplate.execute(statement);
+                }
             }
-            reader.close();
+
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(new SQLRunResponseDTO("Successfully inserted all librarybooks"));
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(new SQLRunResponseDTO("Error: something went wrong (make sure you inserted libraries and books first)"));
+                    .body(new SQLRunResponseDTO("Error: something went wrong"));
         }
     }
 }
