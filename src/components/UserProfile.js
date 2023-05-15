@@ -11,6 +11,8 @@ function UserProfile(props) {
     maritalStatus: "",
   });
 
+  const [updatedUser, setUpdatedUser] = useState({ ...user });
+
   const [userStats, setUserStats] = useState({
     numberOfAuthors: 0,
     numberOfBooks: 0,
@@ -44,7 +46,10 @@ function UserProfile(props) {
   const fetchUser = () => {
     axios
       .get(`/api/user-profile-id/${id}`)
-      .then((response) => setUser(response.data))
+      .then((response) => {
+        setUser(response.data);
+        setUpdatedUser(response.data);
+      })
       .catch((error) => console.log(error));
   };
 
@@ -92,12 +97,12 @@ function UserProfile(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const validationErrors = validateForm(user);
+    const validationErrors = validateForm(updatedUser);
     if (Object.keys(validationErrors).length === 0) {
       axios
-        .put(`/api/user-profile/${id}`, user)
+        .put(`/api/user-profile/${id}`, updatedUser)
         .then((response) => {
-          console.log(response);
+          setUser(response.data);
           navigate("/user-profile");
         })
         .catch((error) => console.log(error));
@@ -108,7 +113,7 @@ function UserProfile(props) {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setUser((prevUser) => ({
+    setUpdatedUser((prevUser) => ({
       ...prevUser,
       [name]: value,
     }));
@@ -146,7 +151,7 @@ function UserProfile(props) {
                 className="form-control"
                 id="bio"
                 name="bio"
-                value={user.bio}
+                value={updatedUser.bio}
                 onChange={handleInputChange}
               />
               {errors.bio && (
@@ -160,7 +165,7 @@ function UserProfile(props) {
                 className="form-control"
                 id="location"
                 name="location"
-                value={user.location}
+                value={updatedUser.location}
                 onChange={handleInputChange}
               />
               {errors.location && (
@@ -170,11 +175,11 @@ function UserProfile(props) {
             <div className="form-group">
               <label htmlFor="birthdate">Date of Birth:</label>
               <input
-                type="text"
+                type="date"
                 className="form-control"
                 id="birthdate"
                 name="birthdate"
-                value={user.birthdate}
+                value={updatedUser.birthdate}
                 onChange={handleInputChange}
               />
               {errors.birthdate && (
@@ -188,7 +193,7 @@ function UserProfile(props) {
                 className="form-control"
                 id="gender"
                 name="gender"
-                value={user.gender}
+                value={updatedUser.gender}
                 onChange={handleInputChange}
               />
               {errors.gender && (
@@ -202,7 +207,7 @@ function UserProfile(props) {
                 className="form-control"
                 id="maritalStatus"
                 name="maritalStatus"
-                value={user.maritalStatus}
+                value={updatedUser.maritalStatus}
                 onChange={handleInputChange}
               />
               {errors.maritalStatus && (
