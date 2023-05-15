@@ -4,6 +4,7 @@ import axios from "axios";
 
 function UserProfile(props) {
   const [user, setUser] = useState({
+    id: "",
     bio: "",
     location: "",
     birthdate: "",
@@ -21,6 +22,7 @@ function UserProfile(props) {
   });
 
   const [errors, setErrors] = useState({
+    id: "",
     bio: "",
     location: "",
     birthdate: "",
@@ -28,59 +30,49 @@ function UserProfile(props) {
     maritalStatus: "",
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
   const { id } = useParams();
+
   useEffect(() => {
     const fetchUser = () => {
+      setIsLoading(true);
       axios
         .get(`/api/user-profile-id/${id}`)
         .then((response) => {
           setUser(response.data);
           setUpdatedUser(response.data);
+          setIsLoading(false);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
+        });
     };
 
     const fetchUserStats = () => {
-      axios
-        .get(`/api/user-number-authors/${id}`)
-        .then((response) =>
+      setIsLoading(true);
+      Promise.all([
+        axios.get(`/api/user-number-authors/${id}`),
+        axios.get(`/api/user-number-books/${id}`),
+        axios.get(`/api/user-number-libraries/${id}`),
+        axios.get(`/api/user-number-librarybooks/${id}`),
+      ])
+        .then(([response1, response2, response3, response4]) => {
           setUserStats((prevStats) => ({
             ...prevStats,
-            numberOfAuthors: response.data,
-          }))
-        )
-        .catch((error) => console.log(error));
-
-      axios
-        .get(`/api/user-number-books/${id}`)
-        .then((response) =>
-          setUserStats((prevStats) => ({
-            ...prevStats,
-            numberOfBooks: response.data,
-          }))
-        )
-        .catch((error) => console.log(error));
-
-      axios
-        .get(`/api/user-number-libraries/${id}`)
-        .then((response) =>
-          setUserStats((prevStats) => ({
-            ...prevStats,
-            numberOfLibraries: response.data,
-          }))
-        )
-        .catch((error) => console.log(error));
-
-      axios
-        .get(`/api/user-number-librarybooks/${id}`)
-        .then((response) =>
-          setUserStats((prevStats) => ({
-            ...prevStats,
-            numberOfLibraryBooks: response.data,
-          }))
-        )
-        .catch((error) => console.log(error));
+            numberOfAuthors: response1.data,
+            numberOfBooks: response2.data,
+            numberOfLibraries: response3.data,
+            numberOfLibraryBooks: response4.data,
+          }));
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
+        });
     };
 
     fetchUser();
@@ -98,45 +90,44 @@ function UserProfile(props) {
     event.preventDefault();
     const validationErrors = validateForm(updatedUser);
     if (Object.keys(validationErrors).length === 0) {
+      setIsLoading(true);
       axios
         .put(`/api/user-profile/${id}`, updatedUser)
         .then((response) => {
           setUser(response.data);
+          setIsLoading(false);
           navigate("/");
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
+        });
     } else {
       setErrors(validationErrors);
     }
   };
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
+  const handleInputChange = ({ target: { name, value } }) => {
     setUpdatedUser((prevUser) => ({
       ...prevUser,
-      [name]: value,
+      [name]: value.trim(),
     }));
   };
 
   const validateForm = (user) => {
-    const errors = {};
-    if (!user.bio.trim()) {
-      errors.bio = "Bio is required";
-    }
-    if (!user.location.trim()) {
-      errors.location = "Location is required";
-    }
-    if (!user.birthdate.trim()) {
-      errors.birthdate = "Date of Birth is required";
-    }
-    if (!user.gender.trim()) {
-      errors.gender = "Gender is required";
-    }
-    if (!user.maritalStatus.trim()) {
-      errors.maritalStatus = "Marital Status is required";
-    }
-    return errors;
+    return Object.entries(user).reduce((errors, [field, value]) => {
+      if (!value.trim()) {
+        errors[field] = `${
+          field.charAt(0).toUpperCase() + field.slice(1)
+        } is required`;
+      }
+      return errors;
+    }, {});
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
