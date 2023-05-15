@@ -36,37 +36,13 @@ function UserProfile(props) {
   const { id } = useParams();
 
   useEffect(() => {
-    const fetchUser = () => {
-      setIsLoading(true);
-      axios
-        .get(`/api/user-profile-id/${id}`)
-        .then((response) => {
-          setUser(response.data);
-          setUpdatedUser(response.data);
-          setIsLoading(false);
-        })
-        .catch((error) => {
-          console.log(error);
-          setIsLoading(false);
-        });
-    };
-
-    // const fetchUserStats = () => {
+    // const fetchUser = () => {
     //   setIsLoading(true);
-    //   Promise.all([
-    //     axios.get(`/api/user-number-authors/${id}`),
-    //     axios.get(`/api/user-number-books/${id}`),
-    //     axios.get(`/api/user-number-libraries/${id}`),
-    //     axios.get(`/api/user-number-librarybooks/${id}`),
-    //   ])
-    //     .then(([response1, response2, response3, response4]) => {
-    //       setUserStats((prevStats) => ({
-    //         ...prevStats,
-    //         numberOfAuthors: response1.data,
-    //         numberOfBooks: response2.data,
-    //         numberOfLibraries: response3.data,
-    //         numberOfLibraryBooks: response4.data,
-    //       }));
+    //   axios
+    //     .get(`/api/user-profile-id/${id}`)
+    //     .then((response) => {
+    //       setUser(response.data);
+    //       setUpdatedUser(response.data);
     //       setIsLoading(false);
     //     })
     //     .catch((error) => {
@@ -75,8 +51,32 @@ function UserProfile(props) {
     //     });
     // };
 
-    fetchUser();
-    //fetchUserStats();
+    const fetchUserStats = () => {
+      setIsLoading(true);
+      Promise.all([
+        axios.get(`/api/user-number-authors/${id}`),
+        axios.get(`/api/user-number-books/${id}`),
+        axios.get(`/api/user-number-libraries/${id}`),
+        axios.get(`/api/user-number-librarybooks/${id}`),
+      ])
+        .then(([response1, response2, response3, response4]) => {
+          setUserStats((prevStats) => ({
+            ...prevStats,
+            numberOfAuthors: response1.data,
+            numberOfBooks: response2.data,
+            numberOfLibraries: response3.data,
+            numberOfLibraryBooks: response4.data,
+          }));
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
+        });
+    };
+
+    //fetchUser();
+    fetchUserStats();
   }, [id]);
 
   const role = props.roles;
@@ -131,7 +131,7 @@ function UserProfile(props) {
 
   return (
     <div>
-      {/* {role === "ROLE_ADMIN" && (
+      {role === "ROLE_ADMIN" && (
         <div className="container">
           <h1>Edit Profile</h1>
           <form onSubmit={handleSubmit}>
@@ -224,7 +224,7 @@ function UserProfile(props) {
         <p>Number of Books: {userStats.numberOfBooks}</p>
         <p>Number of Libraries: {userStats.numberOfLibraries}</p>
         <p>Number of Library Books: {userStats.numberOfLibraryBooks}</p>
-      </div> */}
+      </div>
     </div>
   );
 }
