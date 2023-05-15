@@ -51,32 +51,32 @@ function UserProfile(props) {
     //     });
     // };
 
-    const fetchUserStats = () => {
-      setIsLoading(true);
-      Promise.all([
-        axios.get(`/api/user-number-authors/${id}`),
-        axios.get(`/api/user-number-books/${id}`),
-        axios.get(`/api/user-number-libraries/${id}`),
-        axios.get(`/api/user-number-librarybooks/${id}`),
-      ])
-        .then(([response1, response2, response3, response4]) => {
-          setUserStats((prevStats) => ({
-            ...prevStats,
-            numberOfAuthors: response1.data,
-            numberOfBooks: response2.data,
-            numberOfLibraries: response3.data,
-            numberOfLibraryBooks: response4.data,
-          }));
-          setIsLoading(false);
-        })
-        .catch((error) => {
-          console.log(error);
-          setIsLoading(false);
-        });
-    };
+    // const fetchUserStats = () => {
+    //   setIsLoading(true);
+    //   Promise.all([
+    //     axios.get(`/api/user-number-authors/${id}`),
+    //     axios.get(`/api/user-number-books/${id}`),
+    //     axios.get(`/api/user-number-libraries/${id}`),
+    //     axios.get(`/api/user-number-librarybooks/${id}`),
+    //   ])
+    //     .then(([response1, response2, response3, response4]) => {
+    //       setUserStats((prevStats) => ({
+    //         ...prevStats,
+    //         numberOfAuthors: response1.data,
+    //         numberOfBooks: response2.data,
+    //         numberOfLibraries: response3.data,
+    //         numberOfLibraryBooks: response4.data,
+    //       }));
+    //       setIsLoading(false);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //       setIsLoading(false);
+    //     });
+    // };
 
     //fetchUser();
-    fetchUserStats();
+    //fetchUserStats();
   }, [id]);
 
   const role = props.roles;
