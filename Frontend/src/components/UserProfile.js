@@ -36,55 +36,55 @@ function UserProfile(props) {
   const { id } = useParams();
 
   useEffect(() => {
-    // const fetchUser = () => {
-    //   setIsLoading(true);
-    //   axios
-    //     .get(`/api/user-profile-id/${id}`)
-    //     .then((response) => {
-    //       setUser(response.data);
-    //       setUpdatedUser(response.data);
-    //       setIsLoading(false);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //       setIsLoading(false);
-    //     });
-    // };
+    const fetchUser = () => {
+      setIsLoading(true);
+      axios
+        .get(`/api/user-profile-id/${id}`)
+        .then((response) => {
+          setUser(response.data);
+          setUpdatedUser(response.data);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
+        });
+    };
 
-    // const fetchUserStats = () => {
-    //   setIsLoading(true);
-    //   Promise.all([
-    //     axios.get(`/api/user-number-authors/${id}`),
-    //     axios.get(`/api/user-number-books/${id}`),
-    //     axios.get(`/api/user-number-libraries/${id}`),
-    //     axios.get(`/api/user-number-librarybooks/${id}`),
-    //   ])
-    //     .then(([response1, response2, response3, response4]) => {
-    //       setUserStats((prevStats) => ({
-    //         ...prevStats,
-    //         numberOfAuthors: response1.data,
-    //         numberOfBooks: response2.data,
-    //         numberOfLibraries: response3.data,
-    //         numberOfLibraryBooks: response4.data,
-    //       }));
-    //       setIsLoading(false);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //       setIsLoading(false);
-    //     });
-    // };
+    const fetchUserStats = () => {
+      setIsLoading(true);
+      Promise.all([
+        axios.get(`/api/user-number-authors/${id}`),
+        axios.get(`/api/user-number-books/${id}`),
+        axios.get(`/api/user-number-libraries/${id}`),
+        axios.get(`/api/user-number-librarybooks/${id}`),
+      ])
+        .then(([response1, response2, response3, response4]) => {
+          setUserStats((prevStats) => ({
+            ...prevStats,
+            numberOfAuthors: response1.data,
+            numberOfBooks: response2.data,
+            numberOfLibraries: response3.data,
+            numberOfLibraryBooks: response4.data,
+          }));
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
+        });
+    };
 
-    //fetchUser();
-    //fetchUserStats();
+    fetchUser();
+    fetchUserStats();
   }, [id]);
 
-  const role = props.roles;
+  //const role = props.roles;
 
-  if (role === "ROLE_ANONYMOUS") {
-    window.location.href = "/";
-    return null;
-  }
+  // if (role === "ROLE_ANONYMOUS") {
+  //   window.location.href = "/";
+  //   return null;
+  // }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -131,85 +131,83 @@ function UserProfile(props) {
 
   return (
     <div>
-      {role === "ROLE_ADMIN" && (
-        <div className="container">
-          <h1>Edit Profile</h1>
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="bio">Bio:</label>
-              <textarea
-                className="form-control"
-                id="bio"
-                name="bio"
-                value={updatedUser.bio}
-                onChange={handleInputChange}
-              />
-              {errors.bio && (
-                <div className="alert alert-danger">{errors.bio}</div>
-              )}
-            </div>
-            <div className="form-group">
-              <label htmlFor="location">Location:</label>
-              <input
-                type="text"
-                className="form-control"
-                id="location"
-                name="location"
-                value={updatedUser.location}
-                onChange={handleInputChange}
-              />
-              {errors.location && (
-                <div className="alert alert-danger">{errors.location}</div>
-              )}
-            </div>
-            <div className="form-group">
-              <label htmlFor="birthdate">Date of Birth:</label>
-              <input
-                type="date"
-                className="form-control"
-                id="birthdate"
-                name="birthdate"
-                value={updatedUser.birthdate}
-                onChange={handleInputChange}
-              />
-              {errors.birthdate && (
-                <div className="alert alert-danger">{errors.birthdate}</div>
-              )}
-            </div>
-            <div className="form-group">
-              <label htmlFor="gender">Gender:</label>
-              <input
-                type="text"
-                className="form-control"
-                id="gender"
-                name="gender"
-                value={updatedUser.gender}
-                onChange={handleInputChange}
-              />
-              {errors.gender && (
-                <div className="alert alert-danger">{errors.gender}</div>
-              )}
-            </div>
-            <div className="form-group">
-              <label htmlFor="maritalStatus">Marital Status:</label>
-              <input
-                type="text"
-                className="form-control"
-                id="maritalStatus"
-                name="maritalStatus"
-                value={updatedUser.maritalStatus}
-                onChange={handleInputChange}
-              />
-              {errors.maritalStatus && (
-                <div className="alert alert-danger">{errors.maritalStatus}</div>
-              )}
-            </div>
-            <button type="submit" className="btn btn-primary">
-              Save
-            </button>
-          </form>
-        </div>
-      )}
+      <div className="container">
+        <h1>Edit Profile</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="bio">Bio:</label>
+            <textarea
+              className="form-control"
+              id="bio"
+              name="bio"
+              value={updatedUser.bio}
+              onChange={handleInputChange}
+            />
+            {errors.bio && (
+              <div className="alert alert-danger">{errors.bio}</div>
+            )}
+          </div>
+          <div className="form-group">
+            <label htmlFor="location">Location:</label>
+            <input
+              type="text"
+              className="form-control"
+              id="location"
+              name="location"
+              value={updatedUser.location}
+              onChange={handleInputChange}
+            />
+            {errors.location && (
+              <div className="alert alert-danger">{errors.location}</div>
+            )}
+          </div>
+          <div className="form-group">
+            <label htmlFor="birthdate">Date of Birth:</label>
+            <input
+              type="date"
+              className="form-control"
+              id="birthdate"
+              name="birthdate"
+              value={updatedUser.birthdate}
+              onChange={handleInputChange}
+            />
+            {errors.birthdate && (
+              <div className="alert alert-danger">{errors.birthdate}</div>
+            )}
+          </div>
+          <div className="form-group">
+            <label htmlFor="gender">Gender:</label>
+            <input
+              type="text"
+              className="form-control"
+              id="gender"
+              name="gender"
+              value={updatedUser.gender}
+              onChange={handleInputChange}
+            />
+            {errors.gender && (
+              <div className="alert alert-danger">{errors.gender}</div>
+            )}
+          </div>
+          <div className="form-group">
+            <label htmlFor="maritalStatus">Marital Status:</label>
+            <input
+              type="text"
+              className="form-control"
+              id="maritalStatus"
+              name="maritalStatus"
+              value={updatedUser.maritalStatus}
+              onChange={handleInputChange}
+            />
+            {errors.maritalStatus && (
+              <div className="alert alert-danger">{errors.maritalStatus}</div>
+            )}
+          </div>
+          <button type="submit" className="btn btn-primary">
+            Save
+          </button>
+        </form>
+      </div>
       <div className="container">
         <h1>User Profile</h1>
         <p>User ID: {id}</p>
