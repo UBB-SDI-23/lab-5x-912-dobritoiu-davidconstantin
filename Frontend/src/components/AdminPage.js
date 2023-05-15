@@ -188,18 +188,28 @@ function AdminPage() {
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>Admin Page</h1>
       <div>
         <h2>Delete All Authors</h2>
         {confirmDeleteAuthors ? (
           <div>
             <p>Are you sure you want to delete all authors?</p>
-            <button onClick={handleDeleteAuthors}>Yes</button>
-            <button onClick={() => setConfirmDeleteAuthors(false)}>No</button>
+            <button className="btn btn-danger" onClick={handleDeleteAuthors}>
+              Yes
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => setConfirmDeleteAuthors(false)}
+            >
+              No
+            </button>
           </div>
         ) : (
-          <button onClick={() => setConfirmDeleteAuthors(true)}>
+          <button
+            className="btn btn-primary"
+            onClick={() => setConfirmDeleteAuthors(true)}
+          >
             Delete All Authors
           </button>
         )}
@@ -209,11 +219,21 @@ function AdminPage() {
         {confirmInsertAuthors ? (
           <div>
             <p>Are you sure you want to insert all authors?</p>
-            <button onClick={handleInsertAuthors}>Yes</button>
-            <button onClick={() => setConfirmInsertAuthors(false)}>No</button>
+            <button className="btn btn-danger" onClick={handleInsertAuthors}>
+              Yes
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => setConfirmInsertAuthors(false)}
+            >
+              No
+            </button>
           </div>
         ) : (
-          <button onClick={() => setConfirmInsertAuthors(true)}>
+          <button
+            className="btn btn-primary"
+            onClick={() => setConfirmInsertAuthors(true)}
+          >
             Insert All Authors
           </button>
         )}
@@ -223,11 +243,21 @@ function AdminPage() {
         {confirmDeleteBooks ? (
           <div>
             <p>Are you sure you want to delete all books?</p>
-            <button onClick={handleDeleteBooks}>Yes</button>
-            <button onClick={() => setConfirmDeleteBooks(false)}>No</button>
+            <button className="btn btn-danger" onClick={handleDeleteBooks}>
+              Yes
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => setConfirmDeleteBooks(false)}
+            >
+              No
+            </button>
           </div>
         ) : (
-          <button onClick={() => setConfirmDeleteBooks(true)}>
+          <button
+            className="btn btn-primary"
+            onClick={() => setConfirmDeleteBooks(true)}
+          >
             Delete All Books
           </button>
         )}
@@ -237,11 +267,21 @@ function AdminPage() {
         {confirmInsertBooks ? (
           <div>
             <p>Are you sure you want to insert all authors?</p>
-            <button onClick={handleInsertBooks}>Yes</button>
-            <button onClick={() => setConfirmInsertBooks(false)}>No</button>
+            <button className="btn btn-danger" onClick={handleInsertBooks}>
+              Yes
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => setConfirmInsertBooks(false)}
+            >
+              No
+            </button>
           </div>
         ) : (
-          <button onClick={() => setConfirmInsertBooks(true)}>
+          <button
+            className="btn btn-primary"
+            onClick={() => setConfirmInsertBooks(true)}
+          >
             Insert All Books
           </button>
         )}
@@ -251,11 +291,21 @@ function AdminPage() {
         {confirmDeleteLibraries ? (
           <div>
             <p>Are you sure you want to delete all libraries?</p>
-            <button onClick={handleDeleteLibraries}>Yes</button>
-            <button onClick={() => setConfirmDeleteLibraries(false)}>No</button>
+            <button className="btn btn-danger" onClick={handleDeleteLibraries}>
+              Yes
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => setConfirmDeleteLibraries(false)}
+            >
+              No
+            </button>
           </div>
         ) : (
-          <button onClick={() => setConfirmDeleteLibraries(true)}>
+          <button
+            className="btn btn-primary"
+            onClick={() => setConfirmDeleteLibraries(true)}
+          >
             Delete All Libraries
           </button>
         )}
@@ -265,11 +315,21 @@ function AdminPage() {
         {confirmInsertLibraries ? (
           <div>
             <p>Are you sure you want to insert all libraries?</p>
-            <button onClick={handleInsertLibraries}>Yes</button>
-            <button onClick={() => setConfirmInsertLibraries(false)}>No</button>
+            <button className="btn btn-danger" onClick={handleInsertLibraries}>
+              Yes
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => setConfirmInsertLibraries(false)}
+            >
+              No
+            </button>
           </div>
         ) : (
-          <button onClick={() => setConfirmInsertLibraries(true)}>
+          <button
+            className="btn btn-primary"
+            onClick={() => setConfirmInsertLibraries(true)}
+          >
             Insert All Libraries
           </button>
         )}
@@ -278,43 +338,64 @@ function AdminPage() {
         <h2>Delete All Library Books</h2>
         {confirmDeleteLibraryBooks ? (
           <div>
-            <p>Are you sure you want to delete all librarybooks?</p>
-            <button onClick={handleDeleteLibraryBooks}>Yes</button>
-            <button onClick={() => setConfirmDeleteLibraryBooks(false)}>
+            <p>Are you sure you want to delete all library books?</p>
+            <button
+              className="btn btn-danger"
+              onClick={handleDeleteLibraryBooks}
+            >
+              Yes
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => setConfirmDeleteLibraryBooks(false)}
+            >
               No
             </button>
           </div>
         ) : (
-          <button onClick={() => setConfirmDeleteLibraryBooks(true)}>
-            Delete All LibraryBooks
+          <button
+            className="btn btn-primary"
+            onClick={() => setConfirmDeleteLibraryBooks(true)}
+          >
+            Delete All Library Books
           </button>
         )}
       </div>
       <div>
-        <h2>Insert All LibraryBooks</h2>
+        <h2>Insert All Library Books</h2>
         {confirmInsertLibraryBooks ? (
           <div>
-            <p>Are you sure you want to insert all librarybooks?</p>
-            <button onClick={handleInsertLibraryBooks}>Yes</button>
-            <button onClick={() => setConfirmInsertLibraryBooks(false)}>
+            <p>Are you sure you want to insert all library books?</p>
+            <button
+              className="btn btn-danger"
+              onClick={handleInsertLibraryBooks}
+            >
+              Yes
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => setConfirmInsertLibraryBooks(false)}
+            >
               No
             </button>
           </div>
         ) : (
-          <button onClick={() => setConfirmInsertLibraryBooks(true)}>
-            Insert All LibraryBooks
+          <button
+            className="btn btn-primary"
+            onClick={() => setConfirmInsertLibraryBooks(true)}
+          >
+            Insert All Library Books
           </button>
         )}
       </div>
-
       <h2>Search Users</h2>
       <Link to="/dashboard/users">
-        <button>Search Users</button>
+        <button className="btn btn-primary">Search Users</button>
       </Link>
 
       <h2>Set up Entries per Page</h2>
       <Link to="/dashboard/entries">
-        <button>Entries Per Page</button>
+        <button className="btn btn-primary">Entries Per Page</button>
       </Link>
     </div>
   );
