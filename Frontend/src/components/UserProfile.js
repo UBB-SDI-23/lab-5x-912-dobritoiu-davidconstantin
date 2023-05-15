@@ -131,7 +131,7 @@ function UserProfile(props) {
 
   return (
     <div>
-      {role === "ROLE_ADMIN" && (
+      {/* {role === "ROLE_ADMIN" && (
         <div className="container">
           <h1>Edit Profile</h1>
           <form onSubmit={handleSubmit}>
@@ -220,11 +220,11 @@ function UserProfile(props) {
         <p>
           Marital Status: {user.maritalStatus || "Marital Status not set up"}
         </p>
-        {/* <p>Number of Authors: {userStats.numberOfAuthors}</p>
+        <p>Number of Authors: {userStats.numberOfAuthors}</p>
         <p>Number of Books: {userStats.numberOfBooks}</p>
         <p>Number of Libraries: {userStats.numberOfLibraries}</p>
-        <p>Number of Library Books: {userStats.numberOfLibraryBooks}</p> */}
-      </div>
+        <p>Number of Library Books: {userStats.numberOfLibraryBooks}</p>
+      </div> */}
     </div>
   );
 }
