@@ -24,18 +24,28 @@ function BookList(props) {
     fetchBooks();
   }, [fetchBooks]);
 
+  const userString = localStorage.getItem("user");
+  const user = JSON.parse(userString);
+
+  const jwtToken = user.jwtToken;
+
   const handleEdit = (bookId) => {
     navigate(`/books/${bookId}/edit`);
   };
 
   const handleDelete = (bookId) => {
     axios
-      .delete(`/api/books/${bookId}`)
+      .delete(`/api/books/${bookId}`, {
+        headers: {
+          Authorization: jwtToken,
+        },
+      })
       .then((response) => {
         fetchBooks();
       })
       .catch((error) => console.log(error));
   };
+  
 
   const handleCreate = () => {
     navigate(`/books/create`);

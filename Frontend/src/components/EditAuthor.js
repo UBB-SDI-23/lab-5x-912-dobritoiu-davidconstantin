@@ -26,6 +26,11 @@ function EditAuthor(props) {
 
   const role = props.roles;
 
+  const userString = localStorage.getItem("user");
+  const user = JSON.parse(userString);
+
+  const jwtToken = user.jwtToken;
+
   if (role === "ROLE_ANONYMOUS") {
     window.location.href = "/";
     return null;
@@ -43,7 +48,11 @@ function EditAuthor(props) {
     const validationErrors = validateForm(author);
     if (Object.keys(validationErrors).length === 0) {
       axios
-        .put(`/api/authors/${id}`, author)
+        .put(`/api/authors/${id}`, author, {
+          headers: {
+            Authorization: jwtToken,
+          },
+        })
         .then((response) => {
           console.log(response);
           navigate("/authors");

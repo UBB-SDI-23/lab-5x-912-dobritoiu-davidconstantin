@@ -9,7 +9,7 @@ function EditBook(props) {
     rating: "",
     price: "",
     author: {
-      id: ""
+      id: "",
     },
   });
 
@@ -19,10 +19,9 @@ function EditBook(props) {
     rating: "",
     price: "",
     author: {
-      id: ""
+      id: "",
     },
   });
-
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -38,6 +37,11 @@ function EditBook(props) {
     return null;
   }
 
+  const userString = localStorage.getItem("user");
+  const user = JSON.parse(userString);
+
+  const jwtToken = user.jwtToken;
+
   const fetchBook = () => {
     axios
       .get(`/api/books/${id}`)
@@ -50,7 +54,11 @@ function EditBook(props) {
     const validationErrors = validateBook(book);
     if (Object.keys(validationErrors).length === 0) {
       axios
-        .put(`/api/books/${id}`, book)
+        .put(`/api/books/${id}`, book, {
+          headers: {
+            Authorization: jwtToken,
+          },
+        })
         .then((response) => {
           console.log(response);
           navigate("/books");

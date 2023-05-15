@@ -28,13 +28,22 @@ function LibraryBookList(props) {
     fetchLibraryBooks();
   }, [fetchLibraryBooks]);
 
+  const userString = localStorage.getItem("user");
+  const user = JSON.parse(userString);
+
+  const jwtToken = user.jwtToken;
+
   const handleEdit = (librarybookId) => {
     navigate(`/librarybook/${librarybookId}/edit`);
   };
 
   const handleDelete = (librarybookId) => {
     axios
-      .delete(`/api/librarybook/${librarybookId}`)
+      .delete(`/api/librarybook/${librarybookId}`, {
+        headers: {
+          Authorization: jwtToken,
+        },
+      })
       .then((response) => {
         console.log(response);
         fetchLibraryBooks();
@@ -120,7 +129,10 @@ function LibraryBookList(props) {
                 {(role.includes("ROLE_ADMIN") ||
                   (role === "ROLE_USER" && librarybook.addedByCurrentUser) ||
                   role === "ROLE_MODERATOR") && (
-                  <DeleteLibraryBook librarybook={librarybook} handleDelete={handleDelete} />
+                  <DeleteLibraryBook
+                    librarybook={librarybook}
+                    handleDelete={handleDelete}
+                  />
                 )}
               </td>
             </tr>

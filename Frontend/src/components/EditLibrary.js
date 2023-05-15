@@ -19,6 +19,11 @@ function EditLibrary(props) {
     fetchLibrary();
   });
 
+  const userString = localStorage.getItem("user");
+  const user = JSON.parse(userString);
+
+  const jwtToken = user.jwtToken;
+
   const fetchLibrary = () => {
     axios
       .get(`/api/libraries/${id}`)
@@ -32,7 +37,11 @@ function EditLibrary(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .put(`/api/libraries/${id}`, library)
+      .put(`/api/libraries/${id}`, library, {
+        headers: {
+          Authorization: jwtToken,
+        },
+      })
       .then((response) => {
         console.log(response);
         navigate("/libraries");

@@ -15,7 +15,9 @@ function LibraryList(props) {
     axios
       .get(`/api/libraries?page=${currentPage}&size=${itemsPerPage}`)
       .then((response) => {
-        const sortedLibraries = response.data.content.sort((a, b) => a.id - b.id);
+        const sortedLibraries = response.data.content.sort(
+          (a, b) => a.id - b.id
+        );
         setLibraries(sortedLibraries);
         setCurrentPage(response.data.number);
       })
@@ -26,13 +28,22 @@ function LibraryList(props) {
     fetchLibraries();
   }, [fetchLibraries]);
 
+  const userString = localStorage.getItem("user");
+  const user = JSON.parse(userString);
+
+  const jwtToken = user.jwtToken;
+
   const handleEdit = (libraryId) => {
     navigate(`/libraries/${libraryId}/edit`);
   };
 
   const handleDelete = (libraryId) => {
     axios
-      .delete(`/api/libraries/${libraryId}`)
+      .delete(`/api/libraries/${libraryId}`, {
+        headers: {
+          Authorization: jwtToken,
+        },
+      })
       .then((response) => {
         console.log(response);
         fetchLibraries();
@@ -116,7 +127,8 @@ function LibraryList(props) {
               <td>{library.booksCount}</td>
               <td>
                 {(role.includes("ROLE_ADMIN") ||
-                  (role === "ROLE_USER" && library.addedByCurrentUser) || role === "ROLE_MODERATOR") && (
+                  (role === "ROLE_USER" && library.addedByCurrentUser) ||
+                  role === "ROLE_MODERATOR") && (
                   <button
                     className="btn btn-primary me-2"
                     onClick={() => handleEdit(library.id)}
@@ -125,8 +137,12 @@ function LibraryList(props) {
                   </button>
                 )}
                 {(role.includes("ROLE_ADMIN") ||
-                  (role === "ROLE_USER" && library.addedByCurrentUser) || role === "ROLE_MODERATOR") && (
-                  <DeleteLibrary library={library} handleDelete={handleDelete} />
+                  (role === "ROLE_USER" && library.addedByCurrentUser) ||
+                  role === "ROLE_MODERATOR") && (
+                  <DeleteLibrary
+                    library={library}
+                    handleDelete={handleDelete}
+                  />
                 )}
               </td>
             </tr>

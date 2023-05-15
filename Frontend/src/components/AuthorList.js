@@ -11,7 +11,10 @@ function AuthorList(props) {
   const navigate = useNavigate();
   const role = props.roles;
 
-  console.log(itemsPerPage);
+  const userString = localStorage.getItem("user");
+  const user = JSON.parse(userString);
+
+  const jwtToken = user.jwtToken;
 
   const fetchAuthors = useCallback(() => {
     axios
@@ -33,13 +36,18 @@ function AuthorList(props) {
 
   const handleDelete = (authorId) => {
     axios
-      .delete(`/api/authors/${authorId}`)
+      .delete(`/api/authors/${authorId}`, {
+        headers: {
+          Authorization: jwtToken,
+        },
+      })
       .then((response) => {
         console.log(response);
         fetchAuthors();
       })
       .catch((error) => console.log(error));
   };
+  
 
   const handleCreate = () => {
     navigate(`/authors/create`);
