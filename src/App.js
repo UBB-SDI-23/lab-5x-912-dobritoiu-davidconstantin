@@ -83,30 +83,28 @@ function App() {
     <div className="App">
       <Router>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/authors">
-                  Authors
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/books">
-                  Books
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/libraries">
-                  Libraries
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/librarybook">
-                  LibraryBooks
-                </Link>
-              </li>
-            </ul>
-          </div>
+          <ul className="navbar-nav mr-auto">
+            <li className="nav-item">
+              <Link className="nav-link" to="/authors">
+                Authors
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/books">
+                Books
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/libraries">
+                Libraries
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/librarybook">
+                LibraryBooks
+              </Link>
+            </li>
+          </ul>
           <Header isAuthenticated={isAuthenticated} roles={roles} id={id} />
         </nav>
         <Routes>

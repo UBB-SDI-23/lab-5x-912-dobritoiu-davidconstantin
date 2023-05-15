@@ -103,7 +103,7 @@ function UserProfile(props) {
         .put(`/api/user-profile/${id}`, updatedUser)
         .then((response) => {
           setUser(response.data);
-          navigate("/user-profile");
+          navigate(`/`);
         })
         .catch((error) => console.log(error));
     } else {
